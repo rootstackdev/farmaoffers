@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+  <!-- <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets"> -->
+  <template id="farmaoffers_design.layout" inherit_id="web.layout">
+    <xpath expr="//link[@rel='shortcut icon']" position="replace">
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="/farmaoffers_design/static/src/img/favicon.png" />
+    </xpath>
+  </template>
+
+  <template id="farmaoffers_customize_options" inherit_id="web._assets_primary_variables">
+    <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
+    </xpath>
+  </template>
+
+  <!-- <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
+    <xpath expr="//script[last()]" position="after">
+      <script src="/farmaoffers_design/static/src/js/script.js"></script>
+    </xpath>
+  </template> -->
+
+  <template id="farmaoffers_header" inherit_id="website.layout" name="FarmaOffers - Header" active="True">
+    <xpath expr="//header" position="replace">
+      <!-- <div class="header-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-5 language-currency-top">
+                <div class="language-wrapper">
+                  <div class="dropdown" t-if="(request and request.is_frontend_multilang and len(languages) &gt; 1) or (website and (editable or translatable))">
+                    <div class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-globe" aria-hidden="false"></i> <span class="label_text">Language</span>
+                      <span class="caret"></span>
+                    </div>
+                    <ul class="dropdown-menu">
+                      <t t-foreach="languages" t-as="lg">
+                        <li class="list-inline-item">
+                          <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang_code=lg[0])"
+                            class="dropdown-item js_change_lang"
+                            t-att-data-url_code="lg[1]">
+                              <t t-esc="lg[2].split('/').pop()"/>
+                          </a>
+                        </li>
+                      </t>
+                      <li groups="website.group_website_publisher" class="list-inline-item">
+                          <t t-set="url_return" t-value="quote_plus(url_for('', '[lang]') + '?' + keep_query())"/>
+                          <a class="d-sm-block dropdown-item" t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id if website else ''}&amp;url_return=#{url_return}">
+                              <i class="fa fa-plus-circle"/>
+                              Add a language...
+                          </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="currency-wrapper">
+                  <t t-call="website_sale.pricelist_list" />
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-md-7 col-7 header-links-top">
+                <div class="toplinks">
+                  <ul class="header links">
+                    <li class="authorization-link" data-label="or" t-if="user_id._is_public()"><a href="/web/login">Login</a></li>
+                    <li t-if="user_id._is_public()"><a href="/web/signup">Register</a></li>
+                    <li class="dropdown" t-ignore="true" t-if="not user_id._is_public()">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>
+                          <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name" class="d-none d-sm-inline" />
+                          <span class="caret"></span>
+                        </b>
+                      </a>
+                      <ul class="dropdown-menu js_usermenu" role="menu">
+                        <li class="dropdown-item" id="o_logout"><a t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="track-order">
+                    <a href="#">Track You Order</a>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="top-links-header">
+        <div class="container">
+          <div class="container--content">
+            <span>
+              <a class="text-secondary" href="#" title="Contáctanos">
+                Contáctanos
+              </a>
+            </span>
+            <span class="text-primary">/</span>
+            <span class="text-primary">Síguenos en</span>
+            <span t-if="res_company.social_twitter">
+              <a t-att-href="res_company.social_twitter" title="Twitter">
+                <i class="fa fa-twitter-square" aria-hidden="false"></i>
+              </a>
+            </span>
+            <span t-if="res_company.social_instagram">
+              <a t-att-href="res_company.social_instagram" title="Instagram">
+                <i class="fa fa-instagram" aria-hidden="false"></i>
+              </a>
+            </span>
+            <span t-if="res_company.social_facebook">
+              <a t-att-href="res_company.social_facebook" title="Facebook">
+                <i class="fa fa-facebook-square" aria-hidden="false"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="header-middle">
+        <div class="container">
+          <div class="custom_row mt-3 mb-3">
+            <div class="col-lg-4 col-12 logo-header">
+              <div class="logo-wrapper">
+                <h1 class="logo-content">
+                  <strong class="logo">
+                    <a class="logo" href="/" title="Logo">
+                      <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                    </a>
+                  </strong>
+                </h1>
+              </div>
+            </div>
+            <div class="col-lg-4 col-12 search-header p-0">
+              <div class="searchbox-header">
+                <div class="search-wrapper">
+                  <form method="get" action="/shop" class="pagination form-inline o_website_sale_search justify-content-center">
+                    <div class="input-group justify-content-center"> 
+                      <div class="oe_search">
+                        <!-- <select class="form-control" name="category">
+                          <option value="" t-att-selected="not search">All Products</option>
+                          <t t-foreach="website.get_categories()" t-as="category_item">
+                            <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
+                                <t t-esc="category_item.name"/>
+                            </option>
+                          </t>
+                        </select> -->
+                        <input type="text" name="search" class="search-query form-control oe_search_box" placeholder="Encuentre su medicamento..." t-att-value="search"/>
+                      </div>
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default oe_search_button text-white">
+                          <i class="fa fa-search" aria-hidden="false"></i>
+                          <!-- <span class="label_text" t-if='not (search and search_count)'>Search</span>
+                          <span t-if='search and search_count' class='label_text'> (<t t-esc="search_count"/> found)</span> -->
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="pr-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
+              <div class="">
+                <a href="#" title="Tengo una preescripción">
+                  <div class="container--prescription bg-secondary">
+                    <div class="container--icon">
+                      <i class="fa fa-file-text-o" aria-hidden="false"></i>
+                    </div>
+                    <div class="text-prescription text-uppercase">
+                      Tengo una preescripción
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="minicart-header">
+                <div class="minicart-content">
+                  <div class="cart-wrapper">
+                    <div class="minicart-wrapper">
+                      <t t-set="website_sale_order" t-value="website.sale_get_order()" />
+                      <a class="action showcart d-flex" href="/shop/cart">
+                        <!-- <span class="text"><span class="df-text">My Cart</span></span> -->
+                        <div class="shopping-icon mr-3">
+                          <i class="fa fa-shopping-cart bg-primary" aria-hidden="false"></i>
+                        </div>
+                        <span class="counter qty empty">
+                          <span id="my_cart" class="counter-number my_cart_quantity d-block">
+                            <t t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
+                            ítem
+                          </span>
+                          <hr class="hr-price"/>
+                          <span class="price-minicart">
+                            <span class="price">
+                              <t t-if="website_sale_order.amount_total > 0">
+                                <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+                              </t>
+                              <t t-else="">
+                                <t t-esc="website.currency_id.symbol"/> 0.00
+                              </t>
+                            </span>
+                          </span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="container">
+        <nav class="navbar navbar-expand-md navbar-light position-relative">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarMainMenu">
+            <ul class="navbar-nav mr-auto">
+              <t t-foreach="website.get_homepage_categories()" t-as="category">
+                <li class="nav-item">
+                  <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
+                    <t t-esc="category.name"/>
+                  </a>
+                </li>
+              </t>
+              <li class="dropdown nav-item">
+                  <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
+                      Ofertas
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                      <li class="nav-item"><a class="nav-link" href="#" title="Ofertas">Ofertas</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-brand toplinks mr-0">
+            <ul class="header links d-flex align-items-center">
+              <li><i class="fa fa-user m-0" aria-hidden="false"></i></li>
+              <li class="authorization-link" data-label="or" t-if="user_id._is_public()"><a class="text-white" href="/web/login">Inicio de sesión</a></li>
+              <li class="only-bar">/</li>
+              <li t-if="user_id._is_public()"><a class="register-text" href="/web/signup">Registro</a></li>
+              <li class="dropdown dropdown-profile" t-ignore="true" t-if="not user_id._is_public()">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <b>
+                    <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name" class="d-none d-sm-inline text-white" />
+                    <span class="caret text-white"></span>
+                  </b>
+                </a>
+                <ul class="dropdown-menu js_usermenu" role="menu">
+                  <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="black-rectangle"></div>
+          <div class="black-rectangle-skew"></div>
+        </nav>
+      </header>
+    </xpath>
+  </template>
+  
+  <template id="farmaoffers_footer" inherit_id="website.layout" name="FarmaOffers - Footer" active="True">
+    <xpath expr="//div[@id='footer']" position="replace">
+      <div class="container-fluid position-relative border-top-footer">
+        <img class="position-absolute feature-1-position" src="/farmaoffers_design/static/src/img/feature_1.png" alt="feature_1"/>
+        <div id="footer" class="container hidden-print" t-if='not no_footer'>
+          <div class="row">
+            <div class="logo-footer my-4">
+              <h2><span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/></h2>
+            </div>
+          </div>
+          <div class="d-flex flex-column flex-md-row flex-wrap justify-content-around justify-content-lg-between">
+            <div>
+              <div class="block-footer">
+                <div class="title-block-footer">Sobre nosotros</div>
+                <div class="content-block-footer">
+                  <ul>
+                    <li><a href="#" title="Conoce el equipo">Conoce el equipo</a></li>
+                    <li><a href="#" title="Sobre la empresa">Sobre la empresa</a></li>
+                    <li><a href="#" title="Compañia etc">Compañia etc</a></li>
+                    <li><a href="#" title="This is a link">Esto es un link</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="block-footer">
+                <div class="title-block-footer">Servicios</div>
+                <div class="content-block-footer">
+                  <ul>
+                    <li><a href="#" title="Farmacia">Farmacia</a></li>
+                    <li><a href="#" title="Atención al usuario">Atención al usuario</a></li>
+                    <li><a href="#" title="Doctores a domicilio">Doctores a domicilio</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="block-footer">
+                <div class="title-block-footer">Productos</div>
+                <div class="content-block-footer">
+                  <ul>
+                    <li><a href="#" title="Ofertas">Ofertas</a></li>
+                    <li><a href="#" title="Nuevos lanzamientos">Nuevos lanzamientos</a></li>
+                    <li><a href="#" title="Destacados">Destacados</a></li>
+                    <li><a href="#" title="Covid-19">Covid-19</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="block-footer">
+                <div class="title-block-footer">Contacto</div>
+                <div class="content-block-footer">
+                  <ul>
+                    <li><a href="#" title="Sucursales">Sucursales</a></li>
+                    <li><a href="#" title="Escríbanos">Escríbanos</a></li>
+                  </ul>
+                </div>
+                <div class="title-block-footer">Llámanos</div>
+                <p class="call-number">0800-635-83748</p>
+              </div>
+            </div>
+            <div>
+              <div class="block-footer social-media-footer">
+                <div class="title-follow-us text-center text-secondary">Síguenos</div>
+                <div class="d-flex justify-content-center">
+                  <a t-if="res_company.social_facebook" class="mx-1" t-att-href="res_company.social_facebook" title="Facebook">
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="Facebook"/>
+                  </a>
+                  <a t-if="res_company.social_twitter" class="mx-1" t-att-href="res_company.social_twitter" title="Twitter">
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="Twitter"/>
+                  </a>
+                  <a t-if="res_company.social_linkedin" class="mx-1" t-att-href="res_company.social_linkedin" title="LinkedIn">
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="LinkedIn"/>
+                  </a>
+                  <!-- <img class="social-media-icons mx-1" src="/farmaoffers_design/static/src/img/twitter-helper.png"/>
+                  <img class="social-media-icons mx-1" src="/farmaoffers_design/static/src/img/linkedin-helper.png"/> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_copyright mt-2">
+        <div class="container">
+          <div class="pull-left">
+            <span>Copyright &amp;copy; 2021 <t t-esc="res_company.name"/>. Todos los derechos reservados.</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+</data>
+</odoo>

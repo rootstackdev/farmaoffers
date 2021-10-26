@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="farmaoffers_design.login" inherit_id="web.login" name="Custom Login" >
+        <xpath expr="//form[hasclass('oe_login_form')]" position="replace">
+            <div class="container-fo mx-auto my-0">
+                <div class="basic-bg basic-bg-login row">
+                    <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="text-white">
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            <span class="text-secondary">CADA DÍA</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                        <form class="login-form-custom" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="login-img">
+                                <h2>
+                                    <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                                </h2>
+                            </div>
+                            <div class="login-heading">
+                                <h2 class="text-dark-fo m-0">Login</h2>
+                                <h3 class="m-0">Ingrese su nombre y contraseña</h3>
+                            </div>
+                            <!-- <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                                <label for="db" class="col-form-label">Database</label>
+                                <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+                                    <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                                    <span class="input-group-append">
+                                        <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"></i></a>
+                                    </span>
+                                </div>
+                            </div> -->
+
+                            <div class="form-group field-login">
+                                <!-- <label for="login">Email</label> -->
+                                <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                            </div>
+
+                            <div class="form-group field-password">
+                                <!-- <label for="password">Password</label> -->
+                                <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                            </div>
+
+                            <div class="helper-links">
+                                <a href="/web/reset_password" title="¿Olñvidó su contraseña?">¿Olvidó su contraseña?</a>
+                                <a href="/web/signup" title="Crear cuenta">Crear cuenta</a>
+                            </div>
+
+                            <p class="alert alert-danger" t-if="error" role="alert">
+                                <t t-esc="error"/>
+                            </p>
+                            <p class="alert alert-success" t-if="message" role="status">
+                                <t t-esc="message"/>
+                            </p>
+
+                            <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                                <button type="submit" class="btn btn-secondary text-uppercase login-button-custom">Ingresar</button>
+                                <t t-if="debug">
+                                    <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
+                                </t>
+                                <div class="o_login_auth"/>
+                            </div>
+
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                        </form>
+                    </div>
+                </div>     
+            </div>
+        </xpath>
+    </template>
+
+    <template id="farmaoffers_design.fields" inherit_id="auth_signup.fields" name="Custom Fields Sign Up" >
+        <xpath expr="//div[hasclass('field-login')]" position="replace">
+            <div class="form-group field-login">
+                <label class="text-dark-fo mb-0" for="login">Correo electrónico</label>
+                <input type="text" name="login" t-att-value="login" id="login" class="form-control form-control-sm" autofocus="autofocus"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('field-name')]" position="replace">
+            <div class="form-group field-name">
+                <label class="text-dark-fo mb-0" for="name">Nombre completo</label>
+                <input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-sm"
+                    required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+            </div>
+
+            <div class="form-group field-address">
+                <label class="mb-0 d-flex align-items-center" for="address">
+                    <span class="text-dark-fo">Dirección</span>
+                    <span class="span-input-tip">( ciudad > corregimiento > barriada > casa o apto )</span>
+                </label>
+                <input type="text" name="address" t-att-value="address" id="address" class="form-control form-control-sm"
+                    required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+            </div>
+
+            <div class="form-group field-phone">
+                <label class="text-dark-fo mb-0" for="phone">Teléfono móvil</label>
+                <input type="tel" name="phone" t-att-value="phone" id="phone" class="form-control form-control-sm"
+                    required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None" 
+                     placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('field-password')]" position="replace">
+            <div class="form-group field-password pt-2">
+                <label class="text-dark-fo mb-0" for="password">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control form-control-sm"
+                    required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('field-confirm_password')]" position="replace">
+            <div class="form-group field-confirm_password">
+                <label class="text-dark-fo mb-0" for="confirm_password">Confirmar contraseña</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-sm" required="required"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="farmaoffers_design.signup" inherit_id="auth_signup.signup" name="Custom Sign Up" >
+        <xpath expr="//form[hasclass('oe_signup_form')]" position="replace">
+            <div class="container-fo mx-auto my-0">
+                <div class="basic-bg basic-bg-signup row">
+                    <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="text-white">
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            <span class="text-secondary">CADA DÍA</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                        <form class="login-form-custom" role="form" method="post" t-if="not message">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="login-img">
+                                <h2>
+                                    <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                                </h2>
+                            </div>
+                            <div class="login-heading text-center">
+                                <h2 class="text-dark-fo">Nuevo usuario</h2>
+                                <h3>Cree su cuenta llenando el formulario</h3>
+                            </div>
+                            <t t-call="auth_signup.fields">
+                                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                            </t>
+
+                            <p class="alert alert-danger" t-if="error" role="alert">
+                                <t t-esc="error"/>
+                            </p>
+                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+                            <input type="hidden" name="token" t-att-value="token"/>
+                            <div class="text-center oe_login_buttons pt-3">
+                                <button type="submit" class="btn btn-secondary">Registrarse</button>
+                                <div class="helper-links justify-content-center mt-3">
+                                    <a t-attf-href="/web/login?{{ keep_query() }}">¿Ya tienes una cuenta?</a>
+                                </div>
+                                <div class="o_login_auth"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="farmaoffers_design.reset_password" inherit_id="auth_signup.reset_password" name="Custom Reset Password" >
+        <xpath expr="." position="replace">
+            <t t-call="web.login_layout">
+                <div class="container-fo mx-auto my-0">
+                    <div class="basic-bg basic-bg-reset row">
+                        <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="text-white">
+                                LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                                <span class="text-secondary">CADA DÍA</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                            <div t-if="message" class="oe_login_form_custom clearfix flex-column login-form-custom helper-links">
+                                <div class="login-img">
+                                    <h2>
+                                        <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                                    </h2>
+                                </div>
+                                <div class="login-heading text-center">
+                                    <h2 class="text-dark-fo reset-h2 mb-3">¡Correo de recuperación de contraseña enviado!</h2>
+                                    <h3 class="m-0">Si su correo existe llegara un correo sigue las instrucciones del mensaje para restablecer su contraseña</h3>
+                                </div>
+                                <!-- <p class="alert alert-success" t-if="message" role="status">
+                                    <t t-esc="message"/>
+                                </p> -->
+                                <a class="text-center" href="/web/login" role="button">Regresar</a>
+                            </div>
+
+                            <form class="login-form-custom" role="form" method="post" t-if="not message">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="login-img">
+                                    <h2>
+                                        <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+                                    </h2>
+                                </div>
+
+                                <t t-if="token and not invalid_token">
+                                    <t t-call="auth_signup.fields">
+                                        <t t-set="only_passwords" t-value="1"/>
+                                    </t>
+                                </t>
+
+                                <t t-if="not token">
+                                    <div class="form-group field-login">
+                                        <label for="login" class="col-form-label reset-password-label">Recuperar contraseña</label>
+                                        <input type="text" name="login" t-att-value="login" id="login" class="form-control mb-4"
+                                            autofocus="autofocus" required="required" autocapitalize="off" placeholder="Ingrese su correo"/>
+                                    </div>
+                                </t>
+
+                                <p class="alert alert-danger" t-if="error" role="alert">
+                                    <t t-esc="error"/>
+                                </p>
+                                <input type="hidden" name="redirect" t-att-value="redirect"/>
+                                <input type="hidden" name="token" t-att-value="token"/>
+                                <div class="clearfix oe_login_buttons text-center">
+                                    <button type="submit" class="btn btn-secondary">Recuperar</button>
+                                    <div class="helper-links d-flex justify-content-center align-items-center small mt-2">
+                                        <a t-if="not token" t-attf-href="/web/login?{{ keep_query() }}">Regresar</a>
+                                        <a t-if="invalid_token" href="/web/login">Regresar</a>
+                                    </div>
+                                    <div class="o_login_auth"/>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Shop views -->
+    <template id="shop_customize" inherit_id="website_sale.products" name="Shop page FarmaOffers">
+        <xpath expr="//div[@id='products_grid_before']" position="before">
+            <div class="shop-banner">
+                <h2 class="m-0">Listado de productos</h2>
+            </div>
+        </xpath>
+    </template>
+    <template id="shop_attributes_customize" inherit_id="website_sale.products_attributes" name="Shop attributes FarmaOffers">
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']" position="attributes">
+            <attribute name="class" add="d-block" separator=" " />
+            <attribute name="class" remove="d-lg-block" separator=" " />
+        </xpath>
+        <xpath expr="//div[@id='wsale_products_attributes_collapse']/form/ul" position="replace">
+            <ul class="nav nav-pills flex-column mb-4">
+                <t t-set="attributes" t-value="website.get_product_attributes()"/>
+                <t t-foreach="attributes" t-as="a">
+                    <t t-if="a.name == 'Brand'">
+                        <li t-if="a.value_ids and len(a.value_ids) &gt; 1" class="nav-item fo-side-price">
+                            <div class="brand-list">
+                                <!-- <h3 class="text-uppercase" t-field="a.name" /> -->
+                                <h3 class="text-uppercase">Marcas</h3>
+                            </div>
+                            <t t-if="a.display_type == 'select'">
+                                <select class="form-control" name="attrib">
+                                    <option value="" />
+                                    <t t-foreach="a.value_ids" t-as="v">
+                                        <option t-att-value="'%s-%s' % (a.id,v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set" />
+                                    </t>
+                                </select>
+                            </t>
+                            <t t-if="a.display_type == 'radio'">
+                                <div class="wrapper_search_brand">
+                                    <input class="wrapper_search_brand--input" type="text" name="search_brand" autocomplete="on" t-att-value="request.httprequest.args.get('search_brand')" placeholder="Buscar marca"/>
+                                    <span>
+                                        <i class="fa fa-search" aria-hidden="false"></i>
+                                    </span>
+                                </div>
+                                <ul class="nav nav-pills flex-column m-0">
+                                    <t t-foreach="a.value_ids[:4]" t-as="v">
+                                        <li t-attf-class="nav-item">
+                                            <div class="custom-control custom-checkbox mb-2 ml-1">
+                                                <input type="checkbox" name="attrib" t-att-id="'attrib-%s' % (v.id)" class="custom-control-input" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                                <label class="custom-control-label" t-att-for="'attrib-%s' % (v.id)"><span t-field="v.name" /></label>
+                                            </div>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </t>
+                            <t t-if="a.display_type == 'color'">
+                                <t t-foreach="a.value_ids" t-as="v">
+                                    <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                                        <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name" />
+                                    </label>
+                                </t>
+                            </t>
+                        </li>
+                    </t>
+                </t>
+            </ul>
+        </xpath>
+    </template>
+    <template id="shop_customize_categories" inherit_id="website_sale.products_categories" name="Categories FarmaOffers">
+        <xpath expr="//div[@id='wsale_products_categories_collapse']" position="attributes">
+            <attribute name="class" add="fo-side-list d-block mb-4" separator=" " />
+            <attribute name="class" remove="d-lg-block" separator=" " />
+        </xpath>
+        <xpath expr="//div[@id='wsale_products_categories_collapse']//ul" position="before">
+            <div class="d-flex"><h3 class="text-uppercase">Categorías</h3></div>
+        </xpath>
+        <xpath expr="//div[@id='wsale_products_categories_collapse']//ul//li//a[1]" position="replace">
+            <a t-att-href="keep('/shop', category=0)" t-attf-class="nav-link #{'' if category else 'active'} o_not_editable">Todos los productos</a>
+        </xpath>
+    </template>
+    <template id="products_item_customize" inherit_id="website_sale.products_item" name="Product Item FarmaOffers">
+        <xpath expr="//form[hasclass('oe_product_cart')]" position="attributes">
+            <attribute name="class" add="border-0" separator=" " />
+        </xpath>
+        <xpath expr="//div[hasclass('oe_product_image')]" position="attributes">
+            <attribute name="class" add="rounded p-1 border-product-item" separator=" " />
+        </xpath>
+    </template>
+
+    
+
+    <template id="product_page_fo" inherit_id="website_sale.product" name="Product FO">
+        <xpath expr="//div[@itemscope='itemscope']" position="attributes">
+            <attribute name="class" add="container product-grid" separator=" " />
+        </xpath>
+        <xpath expr="//div[@itemscope='itemscope']" position="inside">
+            <div class="product-grid-sidebar px-2">
+                <t t-call="farmaoffers_design.product-sidebar"></t>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='product_details']/h1[@itemprop='name']" position="attributes">
+            <attribute name="class" add="product-grid-main font-weight-bold text-primary" separator=" " />
+        </xpath>
+        <xpath expr="//section[@id='product_detail']" position="attributes">
+            <attribute name="t-attf-class" add="product-grid-main mt-0" separator=" " />
+        </xpath>
+        <xpath expr="//div[@id='product_details']/p[hasclass('text-muted')]" position="replace">
+        </xpath>
+        <xpath expr="//div[@id='product_details']/div/p[hasclass('text-muted')]" position="replace">
+        </xpath>
+        <xpath expr="//form/div/a[@id='add_to_cart']" position="replace">
+            <div class="add_plus_quantity d-flex align-items-center font-montserrat">
+                <span class="text-uppercase font-weight-bold mr-2 text-primary">cant:</span>
+                <div class="css_quantity input-group m-0 mr-2" contenteditable="false">
+                    <input type="text" class="form-control quantity" data-min="1" name="add_qty" t-att-value="add_qty or 1"/>
+                    <div class="button-wrapper">
+                        <div class="input-group-append">
+                            <a t-attf-href="#" class="btn btn-secondary float_left js_add_cart_json" aria-label="Add one" title="Add one">
+                                <i class="fa fa-plus fa-angle-up"></i>
+                            </a>
+                        </div>
+                        <div class="input-group-prepend">
+                            <a t-attf-href="#" class="btn btn-secondary js_add_cart_json" aria-label="Remove one" title="Remove one">
+                                <i class="fa fa-minus fa-angle-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a role="button" id="add_to_cart" class="mt16 js_check_product a-submit" href="#">
+                    <i class="fa fa-shopping-cart"/>
+                    <span class="text-uppercase">Agregar al carrito</span>
+                </a>
+            </div>
+        </xpath>
+        <!-- <xpath expr="//section[@id='product_detail']/div[hasclass('row')][1]/div[hasclass('col-md-6')][1]" position="attributes">
+            <attribute name="class">col-md-12 col-lg-7</attribute>
+        </xpath>
+        <xpath expr="//div[@id='product_details']" position="attributes">
+            <attribute name="class">col-md-12 col-lg-5</attribute>
+        </xpath> -->
+    </template>
+
+    <template id="product_page_item_fo" inherit_id="website_sale.product_price" name="Product Item FO">
+        <xpath expr="//div[@itemprop='offers']/h4" position="replace">
+            <h4 class="oe_price_h4 css_editable_mode_hidden">
+                <b class="oe_price text-primary" style="white-space: nowrap;" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <span t-attf-class="text-danger oe_default_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;"
+                  t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <span itemprop="price" style="display:none;" t-esc="combination_info['price']"/>
+                <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
+            </h4>
+        </xpath>
+        <xpath expr="//div[@itemprop='offers']" position="after">
+            <div class="share-with d-flex justify-content-left align-items-center font-montserrat">
+                <label class="text-uppercase m-0 mr-4 text-primary">Compartir</label>
+                <div>
+                    <a t-if="res_company.social_facebook" class="mx-1 font-size-cards" t-att-href="res_company.social_facebook" title="Facebook">
+                        <i class="fa fa-facebook-square" aria-hidden="false"></i>
+                    </a>
+                    <a t-if="res_company.social_twitter" class="mx-1 font-size-cards" t-att-href="res_company.social_twitter" title="Twitter">
+                        <i class="fa fa-twitter-square" aria-hidden="false"></i>
+                    </a>
+                    <a t-if="res_company.social_linkedin" class="mx-1 font-size-cards" t-att-href="res_company.social_linkedin" title="LinkedIn">
+                        <i class="fa fa-linkedin" aria-hidden="false"></i>
+                    </a>
+                    <a t-if="res_company.social_instagram" class="mx-1 font-size-cards" t-att-href="res_company.social_instagram" title="Instagram">
+                        <i class="fa fa-instagram" aria-hidden="false"></i>
+                    </a>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="product_page_quantity_fo" inherit_id="website_sale.product_quantity" name="Product quantity FO">
+        <xpath expr="//div[hasclass('css_quantity')]" position="replace">
+        </xpath>
+    </template>
+
+    <template id="product_page_comparison_fo" inherit_id="website_sale_comparison.product_add_to_compare" name="Product comparison FO">
+        <xpath expr="//button" position="replace">
+        </xpath>
+    </template>
+
+    <template id="shop_product_carousel_fo" inherit_id="website_sale.shop_product_carousel" name="Shop Product Carousel FO">
+        <xpath expr="//div[@id='o-carousel-product']" position="replace">
+            <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
+            <div class="carousel-outer position-relative">
+                <div class="carousel-inner h-100">
+                    <t t-foreach="product_images" t-as="product_image">
+                        <div t-attf-class="carousel-item h-100#{' active' if product_image_first else ''}">
+                            <div t-if="product_image._name == 'product.image' and product_image.embed_code" class="d-flex align-items-center justify-content-center h-100 embed-responsive embed-responsive-16by9">
+                                <t t-raw="product_image.embed_code"/>
+                            </div>
+                            <div  t-else="" t-field="product_image.image_1920" class="d-flex align-items-center justify-content-center h-100" t-options='{"widget": "image", "preview_image": "image_1024", "class": "product_detail_img mh-100", "alt-field": "name", "zoom": product_image.can_image_1024_be_zoomed and "image_1920", "itemprop": "image"}'/>
+                        </div>
+                    </t>
+                </div>
+                <t t-if="len(product_images) > 1">
+                    <a class="carousel-control-prev" href="#o-carousel-product" role="button" data-slide="prev">
+                        <!-- <span class="fa fa-chevron-left p-2" role="img" aria-label="Previous" title="Previous"/> -->
+                        <i class="h2 fa fa-angle-double-left" aria-hidden="false"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#o-carousel-product" role="button" data-slide="next">
+                        <!-- <span class="fa fa-chevron-right p-2" role="img" aria-label="Next" title="Next"/> -->
+                        <i class="h2 text-secondary fa fa-angle-double-right" aria-hidden="false"></i>
+                    </a>
+                </t>
+            </div>
+            <div t-ignore="True" class="d-none d-md-block text-center">
+                <ol t-if="len(product_images) > 1" class="carousel-indicators d-inline-block position-static mx-auto my-0 p-1 text-left">
+                    <t t-foreach="product_images" t-as="product_image"><li t-attf-class="d-inline-block m-1 align-top {{'active' if product_image_first else ''}}" data-target="#o-carousel-product" t-att-data-slide-to="str(product_image_index)">
+                        <div t-field="product_image.image_128" t-options='{"widget": "image", "qweb_img_responsive": False, "class": "o_image_64_contain", "alt-field": "name"}'/>
+                        <i t-if="product_image._name == 'product.image' and product_image.embed_code" class="fa fa-2x fa-play-circle-o o_product_video_thumb"/>
+                    </li></t>
+                </ol>
+            </div>
+        </div>
+        </xpath>
+    </template>
+
+
+    
+</data>
+</odoo>
