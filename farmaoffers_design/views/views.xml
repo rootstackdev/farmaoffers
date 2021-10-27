@@ -383,6 +383,10 @@
                             </div>
                         </div>
                         <!-- Odoo ribbon -->
+                        <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
+                        <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
+                        <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
+                        <span t-attf-class="d-none o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-raw="td_product['ribbon']['html'] or ''"/>
                         <div class="o_ribbon_wrapper_fo">
                             <t t-foreach="product.ribbon_ids" t-as="ribbon">
                                 <span t-attf-class="o_ribbon o_ribbon_fo #{ribbon.html_class}" t-attf-style="#{ribbon.text_color and ('color: %s; ' % ribbon.text_color)}#{ribbon.bg_color and 'background-color:' + ribbon.bg_color}" t-esc="ribbon.html"/>
