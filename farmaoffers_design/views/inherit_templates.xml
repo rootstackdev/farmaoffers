@@ -340,7 +340,7 @@
         </xpath>
         <xpath expr="//div[@id='product_details']/p[hasclass('text-muted')]" position="replace">
         </xpath>
-        <xpath expr="//div[@id='product_details']/div/p[hasclass('text-muted')]" position="replace">
+        <xpath expr="//div[@id='product_attributes_simple']/p[hasclass('text-muted')]" position="replace">
         </xpath>
         <xpath expr="//form/div/a[@id='add_to_cart']" position="replace">
             <div class="add_plus_quantity d-flex align-items-center font-montserrat">
