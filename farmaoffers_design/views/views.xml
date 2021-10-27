@@ -412,7 +412,7 @@
                 <xpath expr="//section[hasclass('product_desc')]" position="attributes">
                     <attribute name="class" add="product-grid-main" separator=" " />
                 </xpath>
-                <xpath expr="//p[@class='text-muted']" position="replace">
+                <xpath expr="//p[hasclass('text-muted')]" position="replace">
                 </xpath>
                 <!-- <xpath expr="//xpath[2]" position="replace">
                     <attribute name="class">col-md-12 col-lg-7</attribute>
