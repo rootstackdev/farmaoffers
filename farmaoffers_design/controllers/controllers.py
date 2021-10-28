@@ -112,3 +112,15 @@ class website_sale_extend(WebsiteSale):
             domains = expression.AND([domains, [('list_price', '>=', price_filter.price_over if price_filter else 20)]])
         _logger.info("DOMAINS %s" % (domains))
         return domains
+
+
+class SignUpFO(AuthSignupHome):
+
+    @http.route(['/products/same-compounds'], type='json', website=True, auth='public', Sitemap=False)
+    def get_all_products_with_same_compound(self, compound=None, limit=None):
+        products = http.request.env['product.template'].search([('active_compound', '=', compound)], limit=limit)
+        jsonProducts = []
+        for product in products:
+            jsonProducts.append({"id": product.id, "name": product.name, "website_url":product.website_url})
+
+        return jsonProducts

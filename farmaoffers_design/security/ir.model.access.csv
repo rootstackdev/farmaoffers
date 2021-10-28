@@ -1,2 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_farmaoffers_design_price_filter,farmaoffers_design.price_filter,model_price_filter,base.group_user,1,1,1,1
+access_farmaoffers_design_product_aditional_info,farmaoffers_design.product_aditional_info,model_product_aditional_info,,1,1,1,1
+access_farmaoffers_design_product_general_info,farmaoffers_design.product_general_info,model_product_general_info,,1,1,1,1
+access_farmaoffers_design_product_offers,farmaoffers_design.product_offers,model_product_offers,,1,1,1,1

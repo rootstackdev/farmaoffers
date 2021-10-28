@@ -22,38 +22,31 @@
 -->
 
     <template id="section_desc_disc">
-      <section class="info-section-dd font-montserrat font-size-cards mb-4">
+      <section t-if="product.description or res_company.disclaimer" class="info-section-dd font-montserrat font-size-cards mb-4">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
-          <li class="nav-item">
+          <li t-if="product.description" class="nav-item">
             <a class="nav-link active text-uppercase font-weight-bold" data-toggle="tab" href="#description">Descripción</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-uppercase font-weight-bold" data-toggle="tab" href="#disclaimer">Disclaimer</a>
+          <li t-if="res_company.disclaimer" class="nav-item">
+            <a t-attf-class="nav-link text-uppercase font-weight-bold #{ 'active' if not product.description else ''}" data-toggle="tab" href="#disclaimer">Disclaimer</a>
           </li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content mt-2 px-3 border rounded">
-          <div id="description" class="container tab-pane active"><br/>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-            </p>
+          <div t-if="product.description" id="description" class="container tab-pane active"><br/>
+            <p t-esc="product.description"/>
           </div>
-          <div id="disclaimer" class="container tab-pane fade"><br/>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-            </p>
+          <div t-if="res_company.disclaimer" id="disclaimer" class="container tab-pane fade"><br/>
+            <p t-esc="res_company.disclaimer"/>
           </div>
         </div>
       </section>
     </template>
     <template id="section_aditional_info">
-      <section class="mb-4 pt-5">
+      <t t-set="aditionals" t-value="product.aditional_info_ids"/>
+      <section class="mb-4 pt-5" t-if="len(aditionals) &gt; 0">
         <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
           <span class="text-secondary">Datos</span>
           <span class="text-primary">Adicionales</span>
@@ -61,22 +54,22 @@
         <hr class="mx-0 mt-1 mb-4"/>
         <div class="content-section aditional-info">
           <ul>
-            <li class="font-montserrat font-size-cards">
-              <img class="" src="/farmaoffers_design/static/src/img/icon-box.png" alt="Icon box"/>
-              <p>todos nuestros productos estan guardados con cuidado</p>
-            </li>
-            <hr class="hr-aditional-info"/>
-            <li class="font-montserrat font-size-cards">
-              <img class="" src="/farmaoffers_design/static/src/img/icon-bottle.png" alt="Icon bottle"/>
-              <p>otros productos relacionados o campo de texto para otra información adicional</p>
-            </li>
+            <t t-foreach="aditionals" t-as="item" >
+              <li class="font-montserrat font-size-cards">
+                <!-- <img class="" src="/farmaoffers_design/static/src/img/icon-box.png" alt="Icon box"/> -->
+                <img t-attf-src="/website/image/product.aditional.info/{{item.id}}/image" t-att-alt="item.description"/>
+                <p><t t-esc="item.description" /></p>
+              </li>
+              <hr class="hr-aditional-info"/>
+            </t>
           </ul>
         </div>
       </section>
     </template>
 
     <template id="section_same_compound">
-      <section class="mb-4 pt-5">
+      <t t-set="product_items" t-value="website.get_products_with_same_compound(product.active_compound)"/>
+      <section t-if="len(product_items) &gt; 0" class="mb-4 pt-5">
         <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
           <span class="text-secondary">Productos</span>
           <span class="text-primary">Con el mismo compuesto</span>
@@ -86,19 +79,16 @@
           <ul class="inner-img">
             <img src="/farmaoffers_design/static/src/img/icon-medicine.png" alt="Icon medicine"/>
           </ul>
-          <ul class="inner-list">
-            <li class="font-montserrat font-size-cards">
-              <a href="#" title="paracetamol / acetaminofen 80mg">paracetamol / acetaminofen 80mg</a>
-            </li>
-            <li class="font-montserrat font-size-cards">
-              <a href="#" title="Acetaminofen 80mg ">Acetaminofen 80mg </a>
-            </li>
-            <li class="font-montserrat font-size-cards">
-              <a href="#" title="Otro compuesto similar 20mg">Otro compuesto similar 20mg</a>
+          <ul id="ul-same-compound" class="inner-list">
+            <li t-foreach="product_items" t-as="item" class="font-montserrat font-size-cards">
+              <t t-set="product_href" t-value="keep(item.website_url)" />
+              <a itemprop="name" t-att-href="product_href" t-att-content="item.name" t-field="item.name" />
             </li>
           </ul>
         </div>
-        <a class="show-more font-montserrat font-size-cards" href="#" title="Desplegar más">Desplegar más</a>
+        <div class="d-none" id="current_product_compound"><t t-esc="product.active_compound" /></div>
+        <a id="show-more-with-same-compound" class="show-more font-montserrat font-size-cards" href="#" title="Desplegar más">Desplegar más</a>
+        <!-- <a id="show-less-with-same-compound" class="d-none show-more font-montserrat font-size-cards" href="#" title="Desplegar menos">Desplegar menos</a> -->
       </section>
     </template>
 
@@ -154,7 +144,8 @@
     </template>
 
     <template id="section_general_info">
-      <section class="mb-4 pt-5">
+      <t t-set="general_data" t-value="website.get_general_info_by_type()"/>
+      <section t-if="len(general_data) &gt; 0" class="mb-4 pt-5">
           <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
             <span class="text-secondary">Información</span>
             <span class="text-primary">General</span>
@@ -162,21 +153,9 @@
           <hr class="mx-0 mt-1 mb-4"/>
           <div class="content-section">
             <ul>
-              <li class="my-3 font-montserrat font-size-cards">
-                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">Uso</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-              </li>
-              <li class="my-3 font-montserrat font-size-cards">
-                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">Contraindicaciones</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-              </li>
-              <li class="my-3 font-montserrat font-size-cards">
-                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">Efectos secundarios</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-              </li>
-              <li class="my-3 font-montserrat font-size-cards">
-                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">Precauciones y advertencias</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+              <li t-attf-id="general-info-#{item.id}" t-foreach="general_data" t-as="item" class="my-3 font-montserrat font-size-cards">
+                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold"><t t-esc="item.title" /></h4>
+                <p><t t-esc="item.description" /></p>
               </li>
             </ul>
           </div>
@@ -184,92 +163,27 @@
     </template>
 
     <template id="section_faqs">
-      <section class="mb-4 pt-5">
+    <t t-set="faqs_data" t-value="website.get_general_info_by_type('faq')"/>
+      <section t-if="len(faqs_data) &gt; 0" class="mb-4 pt-5">
           <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
             <span class="text-secondary">Preguntas</span>
             <span class="text-primary">Frecuentes</span>
           </h3>
           <hr class="mx-0 mt-1 mb-4"/>
           <div class="content-section">
-            <div class="accordion font-montserrat" id="accordionExample">
-              <div class="card">
-                <div class="card-header" id="headingOne">
+            <div class="accordion font-montserrat" id="faqsAccordion">
+              <div  t-foreach="faqs_data" t-as="item" class="card">
+                <div class="card-header" t-attf-id="heading-#{item.id}">
                   <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Comprar medicinas online es seguro?
+                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5" type="button" data-toggle="collapse" t-attf-data-target="#collapse-#{item.id}" aria-expanded="true" t-attf-aria-controls="collapse-#{item.id}">
+                      <t t-esc="item.title" />
                     </button>
                   </h2>
                 </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div t-attf-id="collapse-#{item.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="heading-#{item.id}" data-parent="#faqsAccordion">
                   <div class="card-body font-8-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5 collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      ¿Cómo puedo recibir las medicinas si no estoy en la ciudad?
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body font-8-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5 collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Comprar medicinas online es seguro?
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body font-8-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5 collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Comprar medicinas online es seguro?
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body font-8-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5 collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Comprar medicinas online es seguro?
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body font-8-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
+                    <t t-esc="item.description" />
                   </div>
                 </div>
               </div>
@@ -319,103 +233,37 @@
     </template>
 
     <template id="product-sidebar">
-      <div class="fo-side-list mb-4">
+      <t t-set="general_data" t-value="website.get_general_info_by_type()"/>
+      <div t-if="len(general_data) &gt; 0" class="fo-side-list mb-4">
         <div>
           <h3 class="text-uppercase text-primary">Enlaces rápidos</h3>
         </div>
         <ul class="nav nav-pills flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link p-0" href="#" title="Uso">Uso</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link p-0" href="#" title="Contraindicaciones">Contraindicaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link p-0" href="#" title="Efectos secundarios">Efectos secundarios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link p-0" href="#" title="Precauciones y advertencias">Precauciones y advertencias</a>
+          <li t-foreach="general_data" t-as="item" class="nav-item">
+            <a class="nav-link p-0 text-capitalize" t-attf-href="#general-info-#{item.id}" t-att-title="item.title"><t t-esc="item.title"/></a>
           </li>
         </ul>
       </div>
-      <div class="d-none d-md-block">
+      <t t-set="product_offers" t-value="website.get_product_offers()"/>
+      <div t-if="len(product_offers) &gt; 0" class="d-none d-md-block">
         <h3 class="text-uppercase text-primary font-montserrat font-weight-bold font-size-cards">Ofertas para tí</h3>
         <hr class="m-0 mb-3"/>
         <div class="offers-for-you">
           <div class="accordion" id="accordionOffers">
-            <div class="card">
-              <div class="card-header p-0 d-flex align-items-center" id="headingProduct1">
+            <div t-foreach="product_offers" t-as="product_offer" class="card">
+              <div class="card-header p-0 d-flex align-items-center" t-attf-id="headingOffer-#{product_offer.id}">
                 <h2 class="mb-0 w-100">
                   <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">1</div>
-                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" data-target="#collapseProduct1" aria-expanded="true" aria-controls="collapseProduct1">
-                    Product #1
+                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" t-attf-data-target="#collapseOffer-#{product_offer.id}" aria-expanded="true" t-attf-aria-controls="collapseOffer-#{product_offer.id}">
+                    <t t-esc="product_offer.title"/>
                   </button>
                 </h2>
               </div>
 
-              <div id="collapseProduct1" class="collapse show" aria-labelledby="headingProduct1" data-parent="#accordionOffers">
-                <div class="card-body">
-                  Content Product #1
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header p-0 d-flex align-items-center" id="headingProduct2">
-                <h2 class="mb-0 w-100">
-                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">2</div>
-                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" data-target="#collapseProduct2" aria-expanded="true" aria-controls="collapseProduct2">
-                    Product #2
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseProduct2" class="collapse" aria-labelledby="headingProduct2" data-parent="#accordionOffers">
-                <div class="card-body">
-                  Content Product #2
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header p-0 d-flex align-items-center" id="headingProduct3">
-                <h2 class="mb-0 w-100">
-                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">3</div>
-                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" data-target="#collapseProduct3" aria-expanded="true" aria-controls="collapseProduct3">
-                    Product #3
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseProduct3" class="collapse" aria-labelledby="headingProduct3" data-parent="#accordionOffers">
-                <div class="card-body">
-                  Content Product #3
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header p-0 d-flex align-items-center" id="headingProduct4">
-                <h2 class="mb-0 w-100">
-                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">4</div>
-                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" data-target="#collapseProduct4" aria-expanded="true" aria-controls="collapseProduct4">
-                    Product #4
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseProduct4" class="collapse" aria-labelledby="headingProduct4" data-parent="#accordionOffers">
-                <div class="card-body">
-                  Content Product #4
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header p-0 d-flex align-items-center" id="headingProduct5">
-                <h2 class="mb-0 w-100">
-                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">5</div>
-                  <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" data-target="#collapseProduct5" aria-expanded="true" aria-controls="collapseProduct5">
-                    Product #5
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseProduct5" class="collapse" aria-labelledby="headingProduct5" data-parent="#accordionOffers">
-                <div class="card-body">
-                  Content Product #5
+              <div t-attf-id="collapseOffer-#{product_offer.id}" class="collapse show" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
+                <div class="card-body card-body-offers">
+                  <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title"/>
+                  <p class="m-0" t-esc="product_offer.description" />
                 </div>
               </div>
             </div>

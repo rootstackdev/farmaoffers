@@ -61,6 +61,7 @@
         sequence="16"
         groups="base.group_user"/>
 
+        <!-- Price Filter -->
         <record id="price_filter_form_view" model="ir.ui.view">
             <field name="name">price.filter.form</field>
             <field name="model">price.filter</field>
@@ -105,6 +106,7 @@
             </field>
         </record>
 
+        <!-- Ribbons -->
         <record id="product_ribbon_form_view" model="ir.ui.view">
             <field name="name">product.ribbon.form</field>
             <field name="model">product.ribbon</field>
@@ -148,6 +150,125 @@
             </field>
         </record>
 
+        <!-- Offers -->
+        <record id="product_offers_form_view" model="ir.ui.view">
+            <field name="name">product.offers.form</field>
+            <field name="model">product.offers</field>
+            <field name="arch" type="xml">
+                <form string="Product offers">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="title"/>
+                                <field name="description"/>
+                                <field name="image" widget='image' class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_offers_tree_view" model="ir.ui.view">
+            <field name="name">product.offers.tree</field>
+            <field name="model">product.offers</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Product offers">
+                    <field name="title"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_product_offers_action" model="ir.actions.act_window">
+            <field name="name">Product offers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.offers</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a offers.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Aditional Information -->
+        <record id="product_aditional_info_form_view" model="ir.ui.view">
+            <field name="name">product.aditional.info.form</field>
+            <field name="model">product.aditional.info</field>
+            <field name="arch" type="xml">
+                <form string="Aditional info">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="description"/>
+                                <field name="product_tmpl_id"/>
+                                <field name="image" widget='image' class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_aditional_info_tree_view" model="ir.ui.view">
+            <field name="name">product.aditional.info.tree</field>
+            <field name="model">product.aditional.info</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Aditional information">
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- general Information -->
+        <record id="product_general_info_form_view" model="ir.ui.view">
+            <field name="name">product.general.info.form</field>
+            <field name="model">product.general.info</field>
+            <field name="arch" type="xml">
+                <form string="General info">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="title"/>
+                                <field name="description"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_general_info_tree_view" model="ir.ui.view">
+            <field name="name">product.general.info.tree</field>
+            <field name="model">product.general.info</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="General information">
+                    <field name="title"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- <record id="menu_product_ribbon_action" model="ir.actions.act_window">
+            <field name="name">Product ribbons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.ribbon</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a ribbon.
+                </p><p>
+                </p>
+            </field>
+        </record> -->
+
+        <!-- Menus -->
         <menuitem id="menu_price_filter"
             action="menu_price_filter_action"
             parent="menu_farma_offers" sequence="1"/>
@@ -155,6 +276,10 @@
         <menuitem id="menu_product_ribbon"
             action="menu_product_ribbon_action"
             parent="menu_farma_offers" sequence="2"/>
+        
+        <menuitem id="menu_product_offers"
+            action="menu_product_offers_action"
+            parent="menu_farma_offers" sequence="3"/>
 
         <!-- Default values -->
         <record id="default_price_filter" model="price.filter">
@@ -435,12 +560,12 @@
                 <xpath expr="//div[hasclass('star-rating')]" position="replace">
                     <div class="product-header-info">
                         <p>
-                            <strong class="text-primary">Laboratorio:</strong> Nombre del laboratorio
+                            <strong t-if="product.laboratory" class="text-primary">Laboratorio:</strong> <t t-esc="product.laboratory"/>
                             <br/>
-                            <strong class="text-primary">24 tabletas</strong>
+                            <strong class="text-primary"><t t-esc="product.presentation"/></strong>
                         </p>
                         <p>
-                            Tylenol Extra Fuerza de liberación rápida geles con acetaminofeno trabajan para aliviar dolores
+                            <t t-esc="product.short_description"/>
                         </p>
                     </div>
                 </xpath>
@@ -458,6 +583,48 @@
                 </xpath>
             </field>
         </record>
+        <record id="view_company_form_customize" model="ir.ui.view">
+            <field name="name">view_company_form_customize</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='favicon']" position="after">
+                    <field name="disclaimer" placeholder="Disclaimer"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_customize" model="ir.ui.view">
+            <field name="name">product_template_form_view_customize</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='group_standard_price']" position="after">
+                    <group name="group_farmaoffers">
+                        <field name="laboratory" string="Laboratory" placeholder="Nombre del laboratorio"/>
+                        <field name="presentation" string="Presentation" placeholder="Presentación del producto"/>
+                        <field name="short_description" string="Short description" placeholder="Descripción corta"/>
+                        <field name="active_compound" string="Active compound" placeholder="Compuesto activo"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page string="Aditionals" name="aditionals_fo">
+                        <group name="group_aditional_info" string="Aditional information">
+                            <div class="o_row" name="aditional_info_ids">
+                                <field name="aditional_info_ids"/>
+                            </div>
+                        </group>
+                        <group name="group_general_info" string="General Information">
+                            <div class="o_row" name="general_info">
+                                <field name="general_info_ids"/>
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        	
         
     </data>
 </odoo>

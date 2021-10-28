@@ -738,6 +738,7 @@ section {
         button {
             background-color: #1f384c;
             color: white;
+            font-size: 0.75rem;
         }
     }
 }
@@ -794,18 +795,26 @@ section {
         color: #0083c1;
     }
 }
+div.collapse .card-body-offers {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    justify-content: space-between;
+    img {
+        width: 40%;
+    }
+}
 // FOOTER
 .border-top-footer {
     border-top: 0.75rem solid black;
 }
 .feature-1-position {
     top: -25px;
-    right: 15%;
+    right: 0;
     width: 200px;
     z-index: 1;
     @media (min-width: 768px) {
         top: -32px;
-        right: 15%;
         width: 280px;
     }
 }

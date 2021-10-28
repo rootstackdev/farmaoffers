@@ -3,8 +3,8 @@
 <data>
     <template id="farmaoffers_design.login" inherit_id="web.login" name="Custom Login" >
         <xpath expr="//form[hasclass('oe_login_form')]" position="replace">
-            <div class="container-fo mx-auto my-0">
-                <div class="basic-bg basic-bg-login row">
+            <div class="container-fo mx-auto my-0 basic-bg basic-bg-login">
+                <div class="container mx-auto my-0 row">
                     <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                         <div class="text-white">
                             LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
@@ -256,7 +256,7 @@
                 <t t-set="attributes" t-value="website.get_product_attributes()"/>
                 <t t-foreach="attributes" t-as="a">
                     <t t-if="a.name == 'Brand'">
-                        <li t-if="a.value_ids and len(a.value_ids) &gt; 1" class="nav-item fo-side-price">
+                        <li t-if="a.value_ids and len(a.value_ids) &gt; 0" class="nav-item fo-side-price">
                             <div class="brand-list">
                                 <!-- <h3 class="text-uppercase" t-field="a.name" /> -->
                                 <h3 class="text-uppercase">Marcas</h3>

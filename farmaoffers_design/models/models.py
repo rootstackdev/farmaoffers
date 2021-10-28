@@ -28,6 +28,18 @@ class website(models.Model):
     def get_product_attributes(self):
         attributes = self.env['product.attribute'].sudo().search([])
         return attributes
+    
+    def get_general_info_by_type(self, filter='general'):
+        items = self.env['product.general.info'].sudo().search([('type', '=', filter)])
+        return items
+
+    def get_products_with_same_compound(self, filter):
+        products = self.env['product.template'].sudo().search([('active_compound', '=', filter)], limit=3)
+        return products
+
+    def get_product_offers(self):
+        products = self.env['product.offers'].sudo().search([])
+        return products
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
@@ -52,6 +64,47 @@ class ProductTemplate(models.Model):
     _name = 'product.template'
     _inherit = "product.template"
 
+    laboratory = fields.Char(string="Laboratorio", size=60)
+    presentation = fields.Char(string="Presentación", size=60)
+    active_compound = fields.Char(string="Compuesto activo", size=80)
+    short_description = fields.Char(string="Descripción corta", size=80)
     ribbon_ids = fields.Many2many(
         'product.ribbon', 'product_ribbon_rel', 'src_id', 'dest_id',
         string='Ribbons', help='Define your ribbons')
+    aditional_info_ids = fields.One2many("product.aditional.info", "product_tmpl_id", string="Aditional information")
+    general_info_ids = fields.One2many("product.general.info", "product_tmpl_id", string="General information")
+
+    def get_all_products_with_same_compound(self, compound):
+        products = self.search([('active_compound', '=', compound)])
+        return products
+
+class ResCompany(models.Model):
+    _name = 'res.company'
+    _inherit = "res.company"
+
+    disclaimer = fields.Text(string="Disclaimer")
+
+class ProductAditionalInfo(models.Model):
+    _name = 'product.aditional.info'
+    _description = "Aditional information for your product."
+
+    description = fields.Text(string="Description")
+    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
+    product_tmpl_id = fields.Many2one("product.template", string="Product")
+
+class ProductGeneralInfo(models.Model):
+    _name = 'product.general.info'
+    _description = "General information for your product."
+
+    title = fields.Char(string="title", size=60)
+    description = fields.Text(string="Description")
+    type = fields.Selection([('general', 'General information'), ('faq', 'Frequent questions')], required=True, default='general')
+    product_tmpl_id = fields.Many2one("product.template", string="Product")
+
+class ProductOffers(models.Model):
+    _name = 'product.offers'
+    _description = "Offers."
+
+    title = fields.Char(string="title", size=60)
+    description = fields.Text(string="Description")
+    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
