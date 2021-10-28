@@ -93,7 +93,8 @@
     </template>
 
     <template id="section_bought_together">
-      <section class="mb-4 pt-5">
+      <t t-set="optional_products" t-value="product.optional_product_ids"/>
+      <section t-if="len(optional_products) &gt; 0" class="mb-4 pt-5">
         <section class="list-slider bought-together">
             <!-- <div class="block-title"><span>Best Sellers</span></div> -->
             <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
