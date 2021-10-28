@@ -102,7 +102,6 @@
               <span class="text-primary">Comprados juntos</span>
             </h3>
             <hr class="mx-0 mt-1 mb-4"/>
-            <t t-set="optional_products" t-value="product.optional_product_ids"/>
             <div class="owl-carousel">
               <t t-foreach="range(0, len(optional_products), 1)" t-as="step">
                 <div class="item">
@@ -145,7 +144,7 @@
     </template>
 
     <template id="section_general_info">
-      <t t-set="general_data" t-value="website.get_general_info_by_type()"/>
+      <t t-set="general_data" t-value="website.get_general_info_by_type(product.id)"/>
       <section t-if="len(general_data) &gt; 0" class="mb-4 pt-5">
           <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
             <span class="text-secondary">Información</span>
@@ -164,7 +163,7 @@
     </template>
 
     <template id="section_faqs">
-    <t t-set="faqs_data" t-value="website.get_general_info_by_type('faq')"/>
+    <t t-set="faqs_data" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
       <section t-if="len(faqs_data) &gt; 0" class="mb-4 pt-5">
           <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
             <span class="text-secondary">Preguntas</span>
@@ -234,7 +233,7 @@
     </template>
 
     <template id="product-sidebar">
-      <t t-set="general_data" t-value="website.get_general_info_by_type()"/>
+      <t t-set="general_data" t-value="website.get_general_info_by_type(product.id)"/>
       <div t-if="len(general_data) &gt; 0" class="fo-side-list mb-4">
         <div>
           <h3 class="text-uppercase text-primary">Enlaces rápidos</h3>
