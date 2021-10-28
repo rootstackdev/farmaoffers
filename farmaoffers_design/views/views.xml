@@ -236,6 +236,7 @@
                                 <field name="title"/>
                                 <field name="description"/>
                                 <field name="type"/>
+                                <field name="product_tmpl_id"/>
                             </group>
                         </group>
                     </sheet>
