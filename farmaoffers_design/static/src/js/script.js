@@ -23,17 +23,20 @@ odoo.define('farmaoffers_design.script', function (require) {
   $("#show-more-with-same-compound").on("click", function(e) {
     e.preventDefault();
     var compound = $("#current_product_compound").text();
+    var product_id = $(".product_template_id").val();
     var limit = undefined;
-    var text = "Desplegar menos"
+    var text = "Desplegar menos";
+
     if($("#show-more-with-same-compound").text() !== "Desplegar más") {
-      limit = 3
-      text = "Desplegar más"
+      limit = 3;
+      text = "Desplegar más";
     }
 
     rpc.query({
 
       route: "/products/same-compounds",
       params: {
+        exception: product_id,
         compound: compound,
         limit: limit,
       },

@@ -33,9 +33,9 @@ class website(models.Model):
         items = self.env['product.general.info'].sudo().search([('product_tmpl_id', '=', product), ('type', '=', filter)])
         return items
 
-    def get_products_with_same_compound(self, filter=None):
+    def get_products_with_same_compound(self, exception, filter=None):
         if filter:
-            products = self.env['product.template'].sudo().search([('active_compound', '=', filter)], limit=3)
+            products = self.env['product.template'].sudo().search([('id', '!=', exception), ('active_compound', '=', filter)], limit=3)
             return products
         return []
 

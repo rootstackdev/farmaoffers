@@ -117,8 +117,8 @@ class website_sale_extend(WebsiteSale):
 class SignUpFO(AuthSignupHome):
 
     @http.route(['/products/same-compounds'], type='json', website=True, auth='public', Sitemap=False)
-    def get_all_products_with_same_compound(self, compound=None, limit=None):
-        products = http.request.env['product.template'].search([('active_compound', '=', compound)], limit=limit)
+    def get_all_products_with_same_compound(self, exception, compound=None, limit=None):
+        products = http.request.env['product.template'].search([('id', '!=', exception), ('active_compound', '=', compound)], limit=limit)
         jsonProducts = []
         for product in products:
             jsonProducts.append({"id": product.id, "name": product.name, "website_url":product.website_url})
