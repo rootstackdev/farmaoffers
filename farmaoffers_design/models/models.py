@@ -30,7 +30,7 @@ class website(models.Model):
         return attributes
     
     def get_general_info_by_type(self, product, filter='general'):
-        items = self.env['product.general.info'].sudo().search([('id', '=', product), ('type', '=', filter)])
+        items = self.env['product.general.info'].sudo().search([('product_tmpl_id', '=', product), ('type', '=', filter)])
         return items
 
     def get_products_with_same_compound(self, filter=None):
