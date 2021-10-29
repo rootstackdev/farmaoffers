@@ -38,7 +38,7 @@
           <div t-if="product.description" id="description" class="container tab-pane active"><br/>
             <p t-esc="product.description"/>
           </div>
-          <div t-if="res_company.disclaimer" id="disclaimer" class="container tab-pane fade"><br/>
+          <div t-if="res_company.disclaimer" id="disclaimer" t-attf-class="container tab-pane #{ 'active' if not product.description else 'fade'}"><br/>
             <p t-esc="res_company.disclaimer"/>
           </div>
         </div>
@@ -193,42 +193,38 @@
     </template>
 
     <template id="section_product_resume">
-      <section class="mb-4 pt-5">
-          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
-            <span class="text-secondary">Resumen</span>
-            <span class="text-primary">Del producto</span>
-          </h3>
-          <hr class="mx-0 mt-1 mb-4"/>
-          <div class="content-section">
-            <table class="table table-striped font-montserrat font-size-cards">
-              <tbody>
+      <t t-set="items_resume" t-value="website.get_general_info_by_type(product.id, 'resume')"/>
+      <section t-if="len(items_resume) &gt; 0 or combination_info['has_discounted_price']" class="mb-4 pt-5">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+          <span class="text-secondary">Resumen</span>
+          <span class="text-primary">Del producto</span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-4"/>
+        <div class="content-section">
+          <table class="table table-striped font-montserrat font-size-cards">
+            <tbody class="font-montserrat font-8-5 font-weight-bold">
+              <t t-if="combination_info['has_discounted_price']">
                 <tr>
                   <th scope="row">Oferta del producto</th>
-                  <td>$90</td>
+                  <td class="text-right"><t t-esc="website.currency_id.symbol"/> <t t-esc="combination_info['price']" /></td>
                 </tr>
                 <tr>
                   <th scope="row">Su ahorro</th>
-                  <td><span class="text-secondary">$10 - 10% OFF </span></td>
+                  <td class="text-right">
+                    <span class="text-secondary">
+                      <t t-esc="website.currency_id.symbol"/> <t t-esc="combination_info['list_price'] - combination_info['price']"/> - <t t-esc="100 - (combination_info['price'] * 100) /combination_info['list_price']"/>% OFF 
+                    </span>
+                  </td>
                 </tr>
-                <tr>
-                  <th scope="row">Mejor oferta</th>
-                  <td>Use codigo: 18 save y obtenga 10% de descuento</td>
-                </tr>
-                <tr>
-                  <th scope="row">Contiene</th>
-                  <td>Aspirina / acetaminofen / Salicylic Acid ( 75.0 Mg )</td>
-                </tr>
-                <tr>
-                  <th scope="row">Uso para el consumidor</th>
-                  <td>Previene ataques al corazon y migraña</td>
-                </tr>
-                <tr>
-                  <th scope="row">Efectos secundarios</th>
-                  <td>Puede causar mareos y malestar estomacal</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              </t>
+              
+              <tr t-foreach="items_resume" t-as="item">
+                <th scope="row"><t t-esc="item.title"/></th>
+                <td class="text-right"><t t-esc="item.description"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </template>
 
@@ -260,7 +256,7 @@
                 </h2>
               </div>
 
-              <div t-attf-id="collapseOffer-#{product_offer.id}" class="collapse show" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
+              <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
                 <div class="card-body card-body-offers">
                   <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title"/>
                   <p class="m-0" t-esc="product_offer.description" />

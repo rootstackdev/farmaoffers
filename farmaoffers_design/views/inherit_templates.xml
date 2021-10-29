@@ -242,7 +242,7 @@
     <template id="shop_customize" inherit_id="website_sale.products" name="Shop page FarmaOffers">
         <xpath expr="//div[@id='products_grid_before']" position="before">
             <div class="shop-banner">
-                <h2 class="m-0">Listado de productos</h2>
+                <h2 class="m-0 text-uppercase">Listado de productos</h2>
             </div>
         </xpath>
     </template>
@@ -377,8 +377,8 @@
     <template id="product_page_item_fo" inherit_id="website_sale.product_price" name="Product Item FO">
         <xpath expr="//div[@itemprop='offers']/h4" position="replace">
             <h4 class="oe_price_h4 css_editable_mode_hidden">
-                <b class="oe_price text-primary" style="white-space: nowrap;" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                <span t-attf-class="text-danger oe_default_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;"
+                <b class="font-montserrat h5 font-weight-bold oe_price text-primary" style="white-space: nowrap;" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <span t-attf-class="h6 font-montserrat oe_default_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;"
                   t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
                 <span itemprop="price" style="display:none;" t-esc="combination_info['price']"/>
                 <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>

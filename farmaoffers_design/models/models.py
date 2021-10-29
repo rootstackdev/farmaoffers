@@ -100,7 +100,7 @@ class ProductGeneralInfo(models.Model):
 
     title = fields.Char(string="title", size=60)
     description = fields.Text(string="Description")
-    type = fields.Selection([('general', 'General information'), ('faq', 'Frequent questions')], required=True, default='general')
+    type = fields.Selection([('general', 'General information'), ('faq', 'Frequent questions'), ('resume', 'Product resume')], required=True, default='general')
     product_tmpl_id = fields.Many2one("product.template", string="Product")
 
 class ProductOffers(models.Model):
