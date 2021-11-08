@@ -177,7 +177,9 @@ odoo.define('theme_grocery.script', function (require) {
                 if (!data.cart_quantity) {
                     return window.location = '/shop/cart';
                 }
+                
                 wSaleUtils.updateCartNavBar(data);
+                $(".extend-section").first().before(data['farmaoffers_design.extend_table_cart']).end().remove();
                 $input.val(data.quantity);
                 $('.js_quantity[data-line-id='+line_id+']').val(data.quantity).html(data.quantity);
 

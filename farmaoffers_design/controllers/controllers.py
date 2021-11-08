@@ -113,6 +113,17 @@ class website_sale_extend(WebsiteSale):
         _logger.info("DOMAINS %s" % (domains))
         return domains
 
+    @http.route(['/shop/cart/update_json'], type='json', auth="public", methods=['POST'], website=True, csrf=False)
+    def cart_update_json(self, product_id, line_id=None, add_qty=None, set_qty=None, display=True):
+        res = super(website_sale_extend, self).cart_update_json(
+            product_id=product_id, line_id=None, add_qty=add_qty, set_qty=set_qty, display=display)
+
+        order = request.website.sale_get_order()
+
+        res['farmaoffers_design.extend_table_cart'] = request.env['ir.ui.view']._render_template("farmaoffers_design.extend_table_cart", {
+            'website_sale_order': order,
+        })
+        return res
 
 class SignUpFO(AuthSignupHome):
 
