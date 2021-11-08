@@ -256,6 +256,50 @@
             </field>
         </record>
 
+        <!-- branch offices -->
+        <record id="branch_office_form_view" model="ir.ui.view">
+            <field name="name">branch.office.form</field>
+            <field name="model">branch.office</field>
+            <field name="arch" type="xml">
+                <form string="Branch Offices">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="address"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="branch_office_tree_view" model="ir.ui.view">
+            <field name="name">branch.office.tree</field>
+            <field name="model">branch.office</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Branch Offices">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_branch_office_action" model="ir.actions.act_window">
+            <field name="name">Branch Offices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">branch.office</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a Branch Offices.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
         <!-- <record id="menu_product_ribbon_action" model="ir.actions.act_window">
             <field name="name">Product ribbons</field>
             <field name="type">ir.actions.act_window</field>
@@ -281,6 +325,10 @@
         <menuitem id="menu_product_offers"
             action="menu_product_offers_action"
             parent="menu_farma_offers" sequence="3"/>
+
+        <menuitem id="menu_branch_office"
+            action="menu_branch_office_action"
+            parent="menu_farma_offers" sequence="4"/>
 
         <!-- Default values -->
         <record id="default_price_filter" model="price.filter">

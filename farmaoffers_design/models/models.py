@@ -42,6 +42,10 @@ class website(models.Model):
     def get_product_offers(self):
         products = self.env['product.offers'].sudo().search([])
         return products
+    
+    def get_branch_offices(self):
+        offices = self.env['branch.office'].sudo().search([])
+        return offices
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
@@ -110,3 +114,28 @@ class ProductOffers(models.Model):
     title = fields.Char(string="title", size=60)
     description = fields.Text(string="Description")
     image = fields.Binary('Image', help='Image size must be 256px x 256px.')
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    website_order_saving = fields.Float(
+        compute='_compute_website_order_saving',
+        string='Order Saving displayed on Website',
+        help='Order Saving to be displayed on the website. They should not be used for computation purpose.',
+    )
+
+    @api.depends('order_line')
+    def _compute_website_order_saving(self):
+        for order in self:
+            full_price = 0
+            for line in order.order_line:
+                full_price += line.price_unit * line.product_uom_qty
+            order.website_order_saving = full_price - order.amount_total
+
+class BranchOffice(models.Model):
+    _name = 'branch.office'
+    _description = "Branch Offices."
+
+    name = fields.Char(string="Name", size=60)
+    description = fields.Text(string="Description")
+    address = fields.Text(string="Address")

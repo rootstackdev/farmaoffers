@@ -268,5 +268,92 @@
       </div>
     </template>
 
+    <template id="breadcrumb_fo">
+      <div class="col-12">
+        <div class="shop-banner m-0">
+          <h2 class="m-0 text-uppercase" t-esc="bg_title"/>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <ol class="breadcrumb bg-white px-0 mb-1">
+                <li class="breadcrumb-item"><a class="text-blue" href="/">Home</a></li>
+                <t t-if="breadcrumb_definition">
+                  <li class="breadcrumb-item active">
+                    <span t-esc="breadcrumb_definition" />
+                  </li>
+                </t>
+                <!-- <li class="breadcrumb-item active"><span t-field="product.name" /></li> -->
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template id="extend_table_cart">
+        <div class="extend-section">
+            <hr class="my-5"/>
+            <div class="row">
+                <div class="col-12 col-xl-5">
+                    <div class="coupon_form">
+                        <t t-call="website_sale.coupon_form"/>
+                    </div>
+                </div>
+                <div class="col-12 offset-xl-4 col-xl-3">
+                    <t t-call="website_sale.short_cart_summary"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="total_f2">
+        <div id="cart_total" t-att-class="extra_class or ''" t-if="website_sale_order and website_sale_order.website_order_line">
+            <h5 class="h6 font-montserrat text-uppercase font-weight-bold text-black">Total del pedido</h5>
+            <hr class="my-3"/>
+            <table class="table">
+                  <tr id="empty">
+                      <t t-if='not no_rowspan'><td rowspan="10" class="border-0"/></t>
+                      <td class="col-md-2 col-3 border-0"></td>
+                      <td class="col-md-2 col-3 border-0" ></td>
+                  </tr>
+                  <tr id="order_total_untaxed">
+                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Sub-total</td>
+                      <td class="text-xl-right border-0" >
+                          <span t-field="website_sale_order.amount_untaxed" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                      </td>
+                  </tr>
+                  <tr t-if="website_sale_order.website_order_saving &gt; 0" id="order_total_saving">
+                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Ahorro</td>
+                      <td class="text-xl-right border-0 text-secondary">
+                          -<span t-field="website_sale_order.website_order_saving" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+                      </td>
+                  </tr>
+                  <tr id="order_total_taxes">
+                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Impuesto</td>
+                      <td class="text-xl-right border-0">
+                            <span t-field="website_sale_order.amount_tax" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+                      </td>
+                  </tr>
+                  <tr id="order_delivery" t-if="website_sale_order and website_sale_order.carrier_id">
+                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5"  title="Delivery will be updated after choosing a new delivery method">Costo Delivery</td>
+                      <td class="text-xl-right border-0 text-muted" >
+                          <span t-field="website_sale_order.amount_delivery" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options='{
+                              "widget": "monetary",
+                              "display_currency": website_sale_order.currency_id,
+                          }'/>
+                      </td>
+                  </tr>
+                  <tr id="order_total" class="border-top">
+                      <td class="text-left border-0 font-montserrat text-uppercase text-secondary font-weight-bold font-8-5">Total</td>
+                      <td class="text-xl-right border-0">
+                          <strong t-field="website_sale_order.amount_total" class="monetary_field text-black font-montserrat font-8-5 font-weight-bold"
+                              t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+                      </td>
+                  </tr>
+            </table>
+        </div>
+    </template>
+
     </data>
 </odoo>
