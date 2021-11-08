@@ -38,6 +38,7 @@ body {
 }
 main {
     z-index: 0;
+    padding-bottom: 2rem;
 }
 .text-dark-fo {
     color: $text-dark;
@@ -54,12 +55,43 @@ main {
 .font-8-5 {
     font-size: $font-8-5;
 }
+.text-blue {
+    color: #358fd8;
+}
+.bg-gray {
+    background-color: #f2f4f5 !important;
+}
+.bg-dark-gray {
+    background-color: #8a8e88 !important;
+    color: #feffff !important;
+}
+.bg-dark-gray:hover {
+    background-color: #a7aba5 !important;
+}
+.br-10 {
+    border-radius: 7px !important;
+}
+#cart_products th, #cart_products td {
+    border-top: none;
+}
+#cart_products thead th {
+    border-bottom: none;
+}
 .card-product-name {
     font-family: $font-family;
     font-size: $font-size-cards;
     a {
         color: #333333;
         font-weight: bold;
+    }
+}
+.alert-farmaoffers {
+    background-color: #eaf2fc;
+    border: 1px solid rgba(131, 176, 212, 0.43) !important;
+    border-radius: 7px !important;
+    color: #1f384c;
+    a {
+        color: #358fd8;
     }
 }
 // HEADER
@@ -806,6 +838,71 @@ div.collapse .card-body-offers {
 }
 .input-group .oe_search .oe_search_box {
     font-size: 0.75rem;
+}
+.td-qty .css_quantity {
+    div a {
+        border-radius: 25px;
+    }
+    input.quantity {
+        border: none;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .btn-cart-minus {
+        color: #333333;
+        background-color:#e2dfdf;
+        border-color: #e2dfdf;
+    }
+    .btn-cart-minus:hover{
+        color: #333333;
+        background-color: #cacbcd;
+        border-color: #cacbcd;
+    }
+    .btn-cart-more {
+        color: #feffff;
+        background-color:#4cbb17;
+        border-color: #4cbb17;
+    }
+    .btn-cart-more:hover{
+        color: #FFFFFF;
+        background-color: #3e9913;
+        border-color: #3a8e11;
+    }
+}
+#order_total_untaxed td, #order_total_taxes td, #order_total_saving td, #order_total td, #order_delivery td {
+    padding: 0.25rem 0;
+}
+.order_total_f2 {
+    border-top: 1px solid #d9d9d9 !important;
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+.cart-box {
+    border-radius: 7px !important;
+    box-shadow: 0px 9px 40px 0 rgba(141, 155, 166, 0.2);
+    border: solid 1px #c9d7e2 !important;
+}
+.cart-box-nsh {
+    border-radius: 7px !important;
+    border: solid 1px #c9d7e2 !important;
+}
+.select_pickup {
+    .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: white;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before {
+        box-shadow: none;
+    }
+}
+.btn-ship {
+    float: right;
+}
+.checkout_autoformat {
+    font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
+    font-size: 0.85rem;
+}
+.form-row .form-group input, .form-row .form-group select {
+    border: none;
+    background-color: #f2f4f5;
 }
 // FOOTER
 .border-top-footer {
