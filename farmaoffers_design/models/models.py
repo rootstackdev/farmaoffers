@@ -118,6 +118,7 @@ class ProductOffers(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    branch_office_id = fields.Many2one("branch.office", string="Branch Office")
     website_order_saving = fields.Float(
         compute='_compute_website_order_saving',
         string='Order Saving displayed on Website',
