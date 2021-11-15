@@ -355,5 +355,117 @@
         </div>
     </template>
 
+    <template id="quote">
+        <t t-call="website.layout">
+          <div id="wrap" class="oe_structure oe_empty">
+              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+              <div class="container s_allow_columns font-montserrat text-uppercase">
+                <h1 id="top_quote" class="m-0" style="text-align: center;">
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Cotizar productos de alto costo</font>
+                </h1>
+              </div>
+            </section>
+            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+              <div class="s_allow_columns o_container_small">
+                <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
+                <section>
+                  <div class="container">
+                    <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom">
+                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0" style="width: 200px" for="nameQuote">
+                            <span>Nombre</span>
+                            <span>             *</span>
+                          </label>
+                          <input type="text" class="form-control" name="name" required="1" placeholder="" id="nameQuote"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="lastnameQuote">
+                            <span>Apellido</span>
+                          </label>
+                          <input type="text" class="form-control" name="lastname" placeholder="" id="lastnameQuote"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="cityQuote">
+                            <span>Ciudad</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="city" required="true" placeholder="" id="cityQuote"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="addressQuote">
+                            <span>Dirección</span>
+                          </label>
+                          <input type="text" class="form-control" name="address" placeholder="" id="addressQuote"/>
+                        </div>
+                        <div class="form-group col-12" data-type="tel" data-name="Field">
+                          <label class="text-dark-fo mb-0" style="width: 200px" for="phoneQuote">
+                            <span>Teléfono</span>
+                            <span>     *</span>
+                          </label>
+                          <input type="tel" class="form-control" name="phone" required="1" placeholder="" id="phoneQuote"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="emailQuote">
+                            <span>Correo Electrónico</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="email" required="true" placeholder="" id="emailQuote"/>
+                        </div>
+                        <div class="form-group col-12" data-type="text" data-name="Field">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="descriptionQuote">
+                            <span>Descripción de la solicitud</span>
+                            <span>     *</span>
+                          </label>
+                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"/>
+                        </div>
+                        <div class="form-group col-12   " data-type="binary" data-name="Field">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="uploadQuote">
+                            <span>Adjuntar receta médica</span>
+                          </label>
+                          <input type="file" class="form-control-file" name="upload" id="uploadQuote"/>
+                        </div>
+                        <div class="form-group col-12 text-right">
+                          <div style="width: 200px;" class="s_website_form_label"/>
+                          <button type="submit" role="button" class="btn btn-secondary">Enviar</button>
+                          <span id="form_result" class="d-block text-center"/>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </section>
+            </div>
+          </div>
+        </t>
+    </template>
+
+    <template id="thanks_page">
+        <t t-call="website.layout">
+          <div id="wrap" class="oe_structure oe_empty">
+              <div class="container-fo mx-auto my-0 basic-bg basic-bg-thanks">
+            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+              <div class="o_container_small font-montserrat text-uppercase">
+                <h1 class="title-thanks m-0" style="text-align: center;">
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;"><t t-esc="title"/></font>
+                </h1>
+              </div>
+            </section>
+            <section class="pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+              <div class="o_container_small">
+                <p class="text-center text-white font-montserrat m-0 font-size-cards"><t t-esc="body"/></p>
+              </div>
+              <div class="text-center my-4">
+                <a t-att-href="back_url or '/'" class="btn btn-secondary font-montserrat text-uppercase font-8-5 font-weight-bold"><t t-esc="back_button_text or 'Volver al inicio'"/></a>
+              </div>
+            </section>
+            </div>
+          </div>
+        </t>
+    </template>
+
     </data>
 </odoo>

@@ -223,7 +223,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" title="Cotizar">
+                <a class="nav-link" href="/quote#top_quote" title="Cotizar">
                   Cotizar
                 </a>
               </li>
@@ -243,7 +243,8 @@
                   </b>
                 </a>
                 <ul class="dropdown-menu js_usermenu" role="menu">
-                  <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+                  <li class="dropdown-item dropdown-item-profile"><a class="text-white" t-attf-href="/my" role="menuitem">Perfil</a></li>
+                  <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a></li>
                 </ul>
               </li>
             </ul>

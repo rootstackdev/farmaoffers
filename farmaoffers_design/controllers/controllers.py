@@ -7,6 +7,7 @@ from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.addons.payment.controllers.portal import PaymentProcessing
 from werkzeug.exceptions import Forbidden, NotFound
 from odoo.osv import expression
+import base64
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -21,6 +22,15 @@ class SignUpFO(AuthSignupHome):
         values.update({'street': context.get('address')})
         values.update({'phone': context.get('phone')})
         super(SignUpFO, self)._signup_with_values(token, values)
+
+    @http.route(['/products/same-compounds'], type='json', website=True, auth='public', Sitemap=False)
+    def get_all_products_with_same_compound(self, exception, compound=None, limit=None):
+        products = http.request.env['product.template'].search([('id', '!=', exception), ('active_compound', '=', compound)], limit=limit)
+        jsonProducts = []
+        for product in products:
+            jsonProducts.append({"id": product.id, "name": product.name, "website_url":product.website_url})
+
+        return jsonProducts
 
 class website_sale_extend(WebsiteSale):
 
@@ -245,13 +255,28 @@ class website_sale_extend(WebsiteSale):
 
         return request.render("website_sale.payment", render_values)
 
-class SignUpFO(AuthSignupHome):
-
-    @http.route(['/products/same-compounds'], type='json', website=True, auth='public', Sitemap=False)
-    def get_all_products_with_same_compound(self, exception, compound=None, limit=None):
-        products = http.request.env['product.template'].search([('id', '!=', exception), ('active_compound', '=', compound)], limit=limit)
-        jsonProducts = []
-        for product in products:
-            jsonProducts.append({"id": product.id, "name": product.name, "website_url":product.website_url})
-
-        return jsonProducts
+class Quote(http.Controller):
+    @http.route('/quote', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
+    def quote(self, **kw):
+        if request.httprequest.method == 'POST':
+            _logger.warning("Data %s", kw)
+            image = kw.get('upload', False)
+            quote = request.env['farmaoffers.quote'].create({
+                'name': kw.get('name'),
+                'lastname': kw.get('lastname'),
+                'city': kw.get('city'),
+                'address': kw.get('address'),
+                'phone': kw.get('phone'),
+                'email': kw.get('email'),
+                'description': kw.get('description'),
+                'image': base64.encodestring(image.read()) if image else False
+            })
+            _logger.warning("Quote %s", quote.name)
+            render_values = {
+                'title':'Gracias!', 
+                'body': quote.name +' estaremos contáctandole muy pronto', 
+                'back_button_text': 'Volver al inicio', 
+                'back_url': '/'
+            }
+            return http.request.render('farmaoffers_design.thanks_page', render_values)
+        return http.request.render('farmaoffers_design.quote')

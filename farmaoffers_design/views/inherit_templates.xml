@@ -1006,6 +1006,12 @@
         <xpath expr="//input[@name='csrf_token']" position="after">
             <input type="hidden" name="is_branch_office" t-att-value="False" />
         </xpath>
+
+        <xpath expr="//form[hasclass('checkout_autoformat')]" position="after">
+            <div id="branch_office_load" class="d-none text-center text-primary h4 font-montserrat py-3">
+                <span>Cargando...</span>
+            </div>
+        </xpath>
         
     </template>
 

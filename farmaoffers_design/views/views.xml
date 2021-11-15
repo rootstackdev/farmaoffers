@@ -300,6 +300,59 @@
             </field>
         </record>
 
+        <!-- Quotes -->
+        <record id="quote_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.quote.form</field>
+            <field name="model">farmaoffers.quote</field>
+            <field name="arch" type="xml">
+                <form string="Branch Offices">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="city"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="description"/>
+                                <field name="image" widget='image'/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="quote_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.quote.tree</field>
+            <field name="model">farmaoffers.quote</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Quotes">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_quote_action" model="ir.actions.act_window">
+            <field name="name">Quotes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">farmaoffers.quote</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a Quote.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
         <!-- <record id="menu_product_ribbon_action" model="ir.actions.act_window">
             <field name="name">Product ribbons</field>
             <field name="type">ir.actions.act_window</field>
@@ -329,6 +382,10 @@
         <menuitem id="menu_branch_office"
             action="menu_branch_office_action"
             parent="menu_farma_offers" sequence="4"/>
+
+        <menuitem id="menu_quote"
+            action="menu_quote_action"
+            parent="menu_farma_offers" sequence="5"/>
 
         <!-- Default values -->
         <record id="default_price_filter" model="price.filter">
