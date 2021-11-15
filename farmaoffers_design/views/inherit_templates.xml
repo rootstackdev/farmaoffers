@@ -1120,8 +1120,84 @@
             </div>
         </xpath>
     </template>
-    
 
+    <template id='portal_my_quotations_fo' inherit_id="sale.portal_my_quotations" name="My Quotations FO">
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="before">
+            <t t-call="farmaoffers_design.breadcrumb_fo">
+                <t t-set="bg_title" t-value="'Listado de ordenes'"/>
+                <t t-set="classes" t-value="'p-0 mt-3'"/>
+                <t t-set="breadcrumb_definition" t-value="'Listado de ordenes'"/>
+            </t>
+            <div class="col-12 p-0">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
+                            <span class="text-secondary">Listado </span><span class="text-primary">de ordenes</span>
+                        </h2>
+                        <p>Historial de ordenes compradas
+                        </p>
+                    </div>
+                    <div id="o_portal_navbar_content">
+                        <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
+                            <div t-if="searchbar_sortings" class="form-inline">
+                                <span class="mr-3 navbar-text text-uppercase font-montserrat font-8-5 text-primary font-weight-bold">Ordenar por</span>
+                                <div class="btn-group">
+                                    <button id="portal_searchbar_sortby" data-toggle="dropdown" class="btn btn-outline-dark dropdown-toggle">
+                                        <t t-esc="searchbar_sortings[sortby].get('label', 'Newest')"/>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="portal_searchbar_sortby">
+                                        <t t-foreach="searchbar_sortings" t-as="option">
+                                            <a t-att-href="request.httprequest.path + '?' + keep_query('*', sortby=option)"
+                                            t-attf-class="dropdown-item#{sortby == option and ' active' or ''}">
+                                                <span t-esc="searchbar_sortings[option].get('label')"/>
+                                            </a>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="replace">
+        </xpath>
+    </template>
+
+    <template id='portal_table_fo' inherit_id="portal.portal_table" name="My Portal Table FO">
+        <xpath expr="//div[1]" position="replace">
+            <div t-attf-class="table-responsive cart-box-nsh #{classes if classes else ''}">
+                <table class="table table-striped mb-0 bg-white o_portal_my_doc_table font-montserrat font-size-cards">
+                    <t t-raw="0"/>
+                </table>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_portal_pager')]" position="replace">
+            <div t-if="pager" class="o_portal_pager text-center d-flex justify-content-center mt-3">
+                <t t-call="portal.pager"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="pager_fo" inherit_id="portal.pager" name="Pager FO">
+        <xpath expr="//ul" position="replace">
+            <ul t-if="pager['page_count'] > 1" t-attf-class="#{ classname or '' } pagination m-0 font-montserrat font-size-cards #{_classes}" t-att-style="style or None">
+                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == 1 else ''}">
+                    <a t-att-href=" pager['page_previous']['url'] if pager['page']['num'] != 1 else None" t-attf-class="page-link #{extraLinkClass}">Anterior</a>
+                </li>
+                <t t-foreach="pager['pages']" t-as="page">
+                    <li t-attf-class="page-item #{'active' if page['num'] == pager['page']['num'] else ''}"> <a t-att-href="page['url']" t-attf-class="page-link #{extraLinkClass}" t-raw="page['num']"></a></li>
+                </t>
+                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == pager['page_count'] else ''}">
+                    <a t-att-href="pager['page_next']['url'] if pager['page']['num'] != pager['page_count'] else None" t-attf-class="page-link #{extraLinkClass}">Siguiente</a>
+                </li>
+            </ul>
+        </xpath>
+    </template>
+
+    
     
     
 </data>

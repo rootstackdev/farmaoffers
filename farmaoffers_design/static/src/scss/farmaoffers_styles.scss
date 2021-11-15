@@ -919,6 +919,20 @@ div.collapse .card-body-offers {
         font-size: 2rem;
     }
 }
+.table-responsive .table th, .table td {
+    border-top: none;
+}
+main div.o_portal_wrap .o_portal_my_doc_table td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.o_portal_wrap .o_portal_my_doc_table th {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+body #wrapwrap.o_portal {
+    background-color: white !important;
+}
 // FOOTER
 footer.o_footer {
     margin-top: 3rem;
