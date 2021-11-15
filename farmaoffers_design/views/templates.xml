@@ -269,7 +269,7 @@
     </template>
 
     <template id="breadcrumb_fo">
-      <div class="col-12">
+      <div t-attf-class="col-12 #{classes if classes else ''}">
         <div class="shop-banner m-0">
           <h2 class="m-0 text-uppercase" t-esc="bg_title"/>
         </div>
