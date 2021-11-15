@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'theme_grocery'],
+    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery'],
 
     # always loaded
     'data': [

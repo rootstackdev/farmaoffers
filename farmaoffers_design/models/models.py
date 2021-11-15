@@ -118,6 +118,7 @@ class ProductOffers(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    branch_office_id = fields.Many2one("branch.office", string="Branch Office")
     website_order_saving = fields.Float(
         compute='_compute_website_order_saving',
         string='Order Saving displayed on Website',
@@ -139,3 +140,16 @@ class BranchOffice(models.Model):
     name = fields.Char(string="Name", size=60)
     description = fields.Text(string="Description")
     address = fields.Text(string="Address")
+
+class Quote(models.Model):
+    _name = 'farmaoffers.quote'
+    _description = "Quotes."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    city = fields.Char(string="City", size=60)
+    address = fields.Char(string="Address", size=60)
+    phone = fields.Char(string="Phone", size=60)
+    email = fields.Char(string="Email", size=60)
+    description = fields.Text(string="Description")
+    image = fields.Binary('Image', help='Image size must be 256px x 256px.')

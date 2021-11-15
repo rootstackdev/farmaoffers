@@ -679,29 +679,19 @@
                 </h2>
                 <p class="font-montserrat font-8-5">Verificar su carrito de compra
                 </p>
-                <!-- <div class="select_pickup mb-3">
+                <div class="select_pickup mb-3">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline1">Retirar en tienda</label>
+                        <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="'checked' if not is_branch_office else ''" class="custom-control-input" value="pickAddress"/>
+                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline2" name="customRadioInline1" checked="checked" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline2">Dirección</label>
+                        <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="'checked' if is_branch_office else ''"  class="custom-control-input" value="pickBranch"/>
+                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
                     </div>
-                </div> -->
-                <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Su dirección</p>
-                <hr/>
-                <!-- <div t-attf-class="form-group col-8 col-lg-4 p-0 div_branch_office">
-                    <t t-set="offices" t-value="website.get_branch_offices()"/>
-                    <select id="branch_office_id" name="branch_office_id" class="px-2 w-1">
-                        <option value="">-SUCURSALES-</option>
-                        <t t-foreach="offices" t-as="bo">
-                            <option t-att-value="bo.id" t-att-selected="bo.id == (branch_office and branch_office.id or -1)">
-                                <t t-esc="bo.name" />
-                            </option>
-                        </t>
-                    </select>
-                </div> -->
+                </div>
+                <!-- <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Su dirección</p>
+                <hr/> -->
+                
             </div>
         </xpath>
 
@@ -714,6 +704,25 @@
                                 <t t-set='redirect' t-value="redirect or '/shop/payment'"></t>
                             </t>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div[hasclass('card')]" position="before">
+            <div t-attf-class="row col-8 col-lg-12 p-0 m-0 div_branch_office">
+                <t t-set="offices" t-value="website.get_branch_offices()"/>
+                <select id="branch_office_select" name="branch_office_select" class="px-2 w-100 col-12 col-lg-6 font-montserrat">
+                    <option value="">-SUCURSALES-</option>
+                    <t t-foreach="offices" t-as="bo">
+                        <option t-att-value="bo.id" t-att-selected="bo.id == (branch_office and branch_office.id or -1)">
+                            <t t-esc="bo.name" />
+                        </option>
+                    </t>
+                </select>
+                <div class="col-12 col-lg-6 pl-2">
+                    <div id="branch_office_error" class="alert alert-danger d-none" role="alert">
+                        Ingrese una sucursal por favor.
                     </div>
                 </div>
             </div>
@@ -790,6 +799,12 @@
         <xpath expr="//div[hasclass('o_payment_acquirer_select')]" position="attributes">
             <attribute name="class" add="cart-box br-0" separator=" " />
         </xpath>
+
+        <xpath expr="//input[@name='csrf_token']" position="after">
+            <input type="hidden" id="is_branch_office" name="is_branch_office" value="False"/>
+            <input type="hidden" id="branch_office_id" name="branch_office_id" value="0"/>
+        </xpath>
+
     </template>
 
     <template id="payment_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale_delivery.payment_delivery">
@@ -930,6 +945,8 @@
                 <h2 class="o_page_header mt8 d-flex align-items-center font-montserrat font-8-5 font-weight-bold text-uppercase">Su dirección
                     <small class="mx-3"> o </small>
                     <a role="button" href='/web/login?redirect=/shop/checkout' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'> Iniciar sesión</a>
+                    <small class="mx-3"> o </small>
+                    <a id="byBranchOffice" role="button" href='#' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'>Seleccionar sucursal</a>
                 </h2>
             </t>
         </xpath>
@@ -983,6 +1000,16 @@
                 <a role="button" href="#" class="btn btn-secondary mb32 a-submit a-submit-disable a-submit-loading br-10 font-montserrat font-8-5 text-uppercase font-weight-bold">
                     <span>Siguiente</span>
                 </a>
+            </div>
+        </xpath>
+
+        <xpath expr="//input[@name='csrf_token']" position="after">
+            <input type="hidden" name="is_branch_office" t-att-value="False" />
+        </xpath>
+
+        <xpath expr="//form[hasclass('checkout_autoformat')]" position="after">
+            <div id="branch_office_load" class="d-none text-center text-primary h4 font-montserrat py-3">
+                <span>Cargando...</span>
             </div>
         </xpath>
         
