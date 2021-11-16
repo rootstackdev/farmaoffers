@@ -373,59 +373,63 @@
                   <div class="container">
                     <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
+                        <i class="fa fa-exclamation" aria-hidden="false"></i>
+                        <t t-esc="error"/>
+                      </div>
                       <div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="nameQuote">
                             <span>Nombre</span>
                             <span>             *</span>
                           </label>
-                          <input type="text" class="form-control" name="name" required="1" placeholder="" id="nameQuote"/>
+                          <input type="text" class="form-control" name="name" t-att-value="name" required="1" placeholder="" id="nameQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="lastnameQuote">
                             <span>Apellido</span>
                           </label>
-                          <input type="text" class="form-control" name="lastname" placeholder="" id="lastnameQuote"/>
+                          <input type="text" class="form-control" name="lastname" t-att-value="lastname" placeholder="" id="lastnameQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="cityQuote">
                             <span>Ciudad</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="city" required="true" placeholder="" id="cityQuote"/>
+                          <input type="text" class="form-control" name="city" t-att-value="city" required="true" placeholder="" id="cityQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="addressQuote">
                             <span>Dirección</span>
                           </label>
-                          <input type="text" class="form-control" name="address" placeholder="" id="addressQuote"/>
+                          <input type="text" class="form-control" name="address" t-att-value="address" placeholder="" id="addressQuote"/>
                         </div>
-                        <div class="form-group col-12" data-type="tel" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="phoneQuote">
                             <span>Teléfono</span>
                             <span>     *</span>
                           </label>
-                          <input type="tel" class="form-control" name="phone" required="1" placeholder="" id="phoneQuote"/>
+                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="" id="phoneQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="emailQuote">
                             <span>Correo Electrónico</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="email" required="true" placeholder="" id="emailQuote"/>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="emailQuote"/>
                         </div>
-                        <div class="form-group col-12" data-type="text" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="descriptionQuote">
                             <span>Descripción de la solicitud</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"/>
+                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"><t t-if="description" t-esc="description"/></textarea>
                         </div>
-                        <div class="form-group col-12   " data-type="binary" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="uploadQuote">
                             <span>Adjuntar receta médica</span>
                           </label>
-                          <input type="file" class="form-control-file" name="upload" id="uploadQuote"/>
+                          <input type="file" class="form-control-file" accept="application/pdf" name="upload" id="uploadQuote"/>
                         </div>
                         <div class="form-group col-12 text-right">
                           <div style="width: 200px;" class="s_website_form_label"/>

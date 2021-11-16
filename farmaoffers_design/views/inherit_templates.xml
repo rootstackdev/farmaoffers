@@ -1197,6 +1197,35 @@
         </xpath>
     </template>
 
+    <template id="sale_order_portal_content_fo" inherit_id="sale.sale_order_portal_content" name="Sales Order Portal Content FO">
+        <xpath expr="//div[@id='informations']/div[hasclass('row')][3]" position="replace">
+            <div class="row" t-if="not sale_order.branch_office_id">
+                <div class="col-lg-6">
+                    <strong t-if="sale_order.partner_shipping_id == sale_order.partner_invoice_id" class="d-block mb-1">Dirección de facturación y envío:</strong>
+                    <strong t-if="sale_order.partner_shipping_id != sale_order.partner_invoice_id" class="d-block mb-1">Dirección de facturación:</strong>
+                    <address t-field="sale_order.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                </div>
+                <t t-if="sale_order.partner_shipping_id != sale_order.partner_invoice_id">
+                    <div id="shipping_address" class="col-lg-6">
+                        <strong class="d-block mb-1">Dirección de envío:</strong>
+                        <address t-field="sale_order.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='informations']/div[hasclass('row')][3]" position="after">
+            <div class="row" t-if="sale_order.branch_office_id">
+                <div class="col-lg-6">
+                    <strong class="d-block mb-1">Sucursal:</strong>
+                    <t t-esc="sale_order.branch_office_id.name"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+    
+
     
     
     

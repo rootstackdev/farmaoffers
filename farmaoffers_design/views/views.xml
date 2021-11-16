@@ -318,7 +318,7 @@
                                 <field name="phone"/>
                                 <field name="email"/>
                                 <field name="description"/>
-                                <field name="image" widget='image'/>
+                                <field name="file" widget="pdf_viewer"/>
                             </group>
                         </group>
                     </sheet>

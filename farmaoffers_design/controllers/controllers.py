@@ -9,6 +9,7 @@ from werkzeug.exceptions import Forbidden, NotFound
 from odoo.osv import expression
 import base64
 import logging
+import PyPDF2
 
 _logger = logging.getLogger(__name__)
 
@@ -322,23 +323,31 @@ class Quote(http.Controller):
     def quote(self, **kw):
         if request.httprequest.method == 'POST':
             _logger.warning("Data %s", kw)
-            image = kw.get('upload', False)
-            quote = request.env['farmaoffers.quote'].create({
-                'name': kw.get('name'),
-                'lastname': kw.get('lastname'),
-                'city': kw.get('city'),
-                'address': kw.get('address'),
-                'phone': kw.get('phone'),
-                'email': kw.get('email'),
-                'description': kw.get('description'),
-                'image': base64.encodestring(image.read()) if image else False
-            })
-            _logger.warning("Quote %s", quote.name)
-            render_values = {
-                'title':'Gracias!', 
-                'body': quote.name +' estaremos contáctandole muy pronto', 
-                'back_button_text': 'Volver al inicio', 
-                'back_url': '/'
-            }
-            return http.request.render('farmaoffers_design.thanks_page', render_values)
+            file = kw.get('upload', False)
+
+
+            try:
+                PyPDF2.PdfFileReader(file)
+                quote = request.env['farmaoffers.quote'].create({
+                    'name': kw.get('name'),
+                    'lastname': kw.get('lastname'),
+                    'city': kw.get('city'),
+                    'address': kw.get('address'),
+                    'phone': kw.get('phone'),
+                    'email': kw.get('email'),
+                    'description': kw.get('description'),
+                    'file': base64.encodebytes(file.read()) if file else False
+                })
+                _logger.warning("Quote %s", quote.name)
+                render_values = {
+                    'title':'Gracias!', 
+                    'body': quote.name +' estaremos contáctandole muy pronto', 
+                    'back_button_text': 'Volver al inicio', 
+                    'back_url': '/'
+                }
+                return http.request.render('farmaoffers_design.thanks_page', render_values)
+            except PyPDF2.utils.PdfReadError:
+                kw["error"] = "Ingrese un archivo PDF válido."
+                return http.request.render('farmaoffers_design.quote', kw)
+
         return http.request.render('farmaoffers_design.quote')
