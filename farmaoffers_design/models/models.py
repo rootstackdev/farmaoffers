@@ -152,4 +152,4 @@ class Quote(models.Model):
     phone = fields.Char(string="Phone", size=60)
     email = fields.Char(string="Email", size=60)
     description = fields.Text(string="Description")
-    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
+    file = fields.Binary('File', help='Only PDF\'s', attachment=True)

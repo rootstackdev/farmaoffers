@@ -373,59 +373,63 @@
                   <div class="container">
                     <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
+                        <i class="fa fa-exclamation" aria-hidden="false"></i>
+                        <t t-esc="error"/>
+                      </div>
                       <div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="nameQuote">
                             <span>Nombre</span>
                             <span>             *</span>
                           </label>
-                          <input type="text" class="form-control" name="name" required="1" placeholder="" id="nameQuote"/>
+                          <input type="text" class="form-control" name="name" t-att-value="name" required="1" placeholder="" id="nameQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="lastnameQuote">
                             <span>Apellido</span>
                           </label>
-                          <input type="text" class="form-control" name="lastname" placeholder="" id="lastnameQuote"/>
+                          <input type="text" class="form-control" name="lastname" t-att-value="lastname" placeholder="" id="lastnameQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="cityQuote">
                             <span>Ciudad</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="city" required="true" placeholder="" id="cityQuote"/>
+                          <input type="text" class="form-control" name="city" t-att-value="city" required="true" placeholder="" id="cityQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="addressQuote">
                             <span>Dirección</span>
                           </label>
-                          <input type="text" class="form-control" name="address" placeholder="" id="addressQuote"/>
+                          <input type="text" class="form-control" name="address" t-att-value="address" placeholder="" id="addressQuote"/>
                         </div>
-                        <div class="form-group col-12" data-type="tel" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="phoneQuote">
                             <span>Teléfono</span>
                             <span>     *</span>
                           </label>
-                          <input type="tel" class="form-control" name="phone" required="1" placeholder="" id="phoneQuote"/>
+                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="" id="phoneQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="emailQuote">
                             <span>Correo Electrónico</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="email" required="true" placeholder="" id="emailQuote"/>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="emailQuote"/>
                         </div>
-                        <div class="form-group col-12" data-type="text" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="descriptionQuote">
                             <span>Descripción de la solicitud</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"/>
+                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"><t t-if="description" t-esc="description"/></textarea>
                         </div>
-                        <div class="form-group col-12   " data-type="binary" data-name="Field">
+                        <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="uploadQuote">
                             <span>Adjuntar receta médica</span>
                           </label>
-                          <input type="file" class="form-control-file" name="upload" id="uploadQuote"/>
+                          <input type="file" class="form-control-file" accept="application/pdf" name="upload" id="uploadQuote"/>
                         </div>
                         <div class="form-group col-12 text-right">
                           <div style="width: 200px;" class="s_website_form_label"/>
@@ -465,6 +469,136 @@
             </div>
           </div>
         </t>
+    </template>
+
+    <template id="filters_shop_list">
+        <div class="col-12">
+            <div class="font-montserrat font-8-5 d-flex justify-content-end align-items-center">
+                <span class="mr-2 font-size-cards">Mostrar:</span>
+                <div class="show_items btn-group">
+                    <t t-set="website_sale_show" t-value="[24, 15, 9]"/>
+                    <button type="button" class="btn btn-outline-gray-fo show_items_current"><t t-if="ppg" t-esc="ppg"/></button>
+                    <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <t t-foreach="website_sale_show" t-as="to_show">
+                        <a class="dropdown-item show_items_24" t-att-href="keep('/shop', show=to_show)"><t t-esc="to_show"/></a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-2"/>
+            <div class="font-montserrat font-8-5 d-flex justify-content-between">
+                <div>
+                    <div class="show_order btn-group">
+                        <t t-set="list_price_desc_label">precio mayor</t>
+                        <t t-set="list_price_asc_label">precio menor</t>
+                        <t t-set="name_asc_label">de la A a la Z</t>
+                        <t t-set="name_desc_label">de la Z a la A</t>
+                        <t t-set="website_sale_sortable" t-value="[
+                            (list_price_desc_label, 'list_price desc'),
+                            (list_price_asc_label, 'list_price asc'),
+                            (name_asc_label, 'name asc'),
+                            (name_desc_label, 'name desc')
+                        ]"/>
+                        <t t-set="website_sale_sortable_current" t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>
+                        <button type="button" class="btn btn-outline-gray-fo">Ordenar por:
+                          <t t-if='len(website_sale_sortable_current)'>
+                            <t t-raw='website_sale_sortable_current[0][0]'/>
+                          </t>
+                        </button>
+                        <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <t t-foreach="website_sale_sortable" t-as="sortby">
+                              <a class="dropdown-item show_order" t-att-href="keep('/shop', order=sortby[1])"><span t-raw="sortby[0]"/></a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <t t-call="farmaoffers_design.pager_product_list"/>
+                    <!-- <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-fo">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-caret-left" aria-hidden="false"></i></a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-caret-right" aria-hidden="false"></i></a></li>
+                        </ul>
+                    </nav> -->
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="pager_product_list" name="Pager FO">
+        <nav aria-label="Page navigation example">
+            <ul t-if="pager['page_count'] > 1" class="pagination pagination-fo">
+                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == 1 else ''}">
+                    <a t-att-href=" pager['page_previous']['url'] if pager['page']['num'] != 1 else None" t-attf-class="page-link #{extraLinkClass}"><i class="fa fa-caret-left" aria-hidden="false"></i></a>
+                </li>
+                <t t-foreach="pager['pages']" t-as="page">
+                    <li t-attf-class="page-item #{'active' if page['num'] == pager['page']['num'] else ''}"> <a t-att-href="page['url']" t-attf-class="page-link #{extraLinkClass}" t-raw="page['num']"></a></li>
+                </t>
+                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == pager['page_count'] else ''}">
+                    <a t-att-href="pager['page_next']['url'] if pager['page']['num'] != pager['page_count'] else None" t-attf-class="page-link #{extraLinkClass}"><i class="fa fa-caret-right" aria-hidden="false"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </template>
+
+    <template id="list_filters_fo">
+        <ul class="nav nav-pills flex-column mb-4">
+            <t t-set="attributes" t-value="website.get_product_attributes()"/>
+            <t t-foreach="attributes" t-as="a">
+                <t t-if="a.name == 'Brand' or a.name == 'Marca'">
+                    <li t-if="a.value_ids and len(a.value_ids) &gt; 0" class="nav-item fo-side-price">
+                        <div class="brand-list">
+                            <!-- <h3 class="text-uppercase" t-field="a.name" /> -->
+                            <h3 class="text-uppercase">Marcas</h3>
+                        </div>
+                        <t t-if="a.display_type == 'select'">
+                            <select class="form-control" name="attrib">
+                                <option value="" />
+                                <t t-foreach="a.value_ids" t-as="v">
+                                    <option t-att-value="'%s-%s' % (a.id,v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set" />
+                                </t>
+                            </select>
+                        </t>
+                        <t t-if="a.display_type == 'radio'">
+                            <div class="wrapper_search_brand">
+                                <input class="wrapper_search_brand--input" type="text" name="search_brand" autocomplete="on" t-att-value="request.httprequest.args.get('search_brand')" placeholder="Buscar marca"/>
+                                <span>
+                                    <i class="fa fa-search" aria-hidden="false"></i>
+                                </span>
+                            </div>
+                            <ul class="nav nav-pills flex-column m-0">
+                                <t t-foreach="a.value_ids[:4]" t-as="v">
+                                    <li t-attf-class="nav-item">
+                                        <div class="custom-control custom-checkbox mb-2 ml-1">
+                                            <input type="checkbox" name="attrib" t-att-id="'attrib-%s' % (v.id)" class="custom-control-input" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                                            <label class="custom-control-label" t-att-for="'attrib-%s' % (v.id)"><span t-field="v.name" /></label>
+                                        </div>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-if="a.display_type == 'color'">
+                            <t t-foreach="a.value_ids" t-as="v">
+                                <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                                    <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name" />
+                                </label>
+                            </t>
+                        </t>
+                    </li>
+                </t>
+            </t>
+        </ul>
+
     </template>
 
     </data>
