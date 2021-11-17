@@ -416,6 +416,7 @@
                 <xpath expr="//div[hasclass('tp-filter-attribute')]" position="replace">
                 </xpath>
                 <xpath expr="//div[@id='wsale_products_attributes_collapse']/form/ul" position="after">
+                    <t t-call="farmaoffers_design.list_filters_fo"/>
                     <!-- Price -->
                     <div class="nav-item tp-filter-attribute tp-hook-filter-price fo-side-price mb-4">
                         <t t-set="tp_is_attribute_filtered" t-value="bool(request.httprequest.args.get('min_price') or request.httprequest.args.get('max_price') or request.httprequest.args.get('under_10') or request.httprequest.args.get('over_20') or request.httprequest.args.get('ten_to_tweenty'))"/>
@@ -555,6 +556,16 @@
                 <xpath expr="//td[@t-attf-class='oe_product']" position="attributes">
                     <attribute name="class" add="border-0" separator=" " />
                 </xpath>
+                <xpath expr="//table[hasclass('table')]" position="after">
+                    <div class="mt-3">
+                        <t t-call="farmaoffers_design.filters_shop_list"/>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('pull-left')]" position="before">
+                    <t t-call="farmaoffers_design.filters_shop_list"/>
+                </xpath>
+                <xpath expr="//div[hasclass('pull-right')]" position="replace">
+                </xpath>
             </field>
         </record>
 
@@ -674,6 +685,17 @@
                             <t t-esc="product.short_description"/>
                         </p>
                     </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sort_inherit_customize" model="ir.ui.view">
+            <field name="name">sort_inherit_customize</field>
+            <field name="inherit_id" search="[('key', '=', 'theme_grocery.sort_inherit')]"/>
+            <field name="type">qweb</field>
+            <field name="key">farmaoffers_design.sort_inherit_customize</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[1]" position="replace">
                 </xpath>
             </field>
         </record>

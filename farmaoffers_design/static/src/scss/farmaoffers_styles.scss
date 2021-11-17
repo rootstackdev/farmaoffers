@@ -933,6 +933,39 @@ main div.o_portal_wrap .o_portal_my_doc_table td {
 body #wrapwrap.o_portal {
     background-color: white !important;
 }
+.btn-outline-gray-fo {
+    border: 1px solid #d7d7d7 !important;
+    background-color: #feffff !important;
+    outline: none;
+}
+.btn-outline-gray-fo:hover {
+    background-color: #d7d7d7 !important;
+}
+.btn-outline-gray-fo:focus {
+    box-shadow: none !important;
+}
+.pagination-fo {
+    li.page-item {
+        border: 1px solid #d7d7d7;
+        border-radius: 5px;
+        padding: 0.25rem 0;
+        margin: 0 0.1rem;
+        a.page-link {
+            border: none;
+        }
+        a.page-link:focus {
+            box-shadow: none !important;
+        }
+    }
+    li.page-item.active {
+        background-color: #4cbb17;
+        border: 1px solid #4cbb17;
+        a.page-link {
+            font-weight: bold;
+            color: white !important;
+        }
+    }
+}
 // FOOTER
 footer.o_footer {
     margin-top: 3rem;
