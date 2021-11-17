@@ -564,7 +564,8 @@
                 <xpath expr="//div[hasclass('pull-left')]" position="before">
                     <t t-call="farmaoffers_design.filters_shop_list"/>
                 </xpath>
-                <xpath expr="//div[hasclass('pull-right')]" position="replace">
+                <xpath expr="//div[hasclass('pull-right')]" position="attributes">
+                    <attribute name="class" add="d-none" separator=" " />
                 </xpath>
             </field>
         </record>
