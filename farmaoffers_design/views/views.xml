@@ -353,6 +353,104 @@
             </field>
         </record>
 
+        <!-- Contact Us -->
+        <record id="contactus_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.contactus.form</field>
+            <field name="model">farmaoffers.contactus</field>
+            <field name="arch" type="xml">
+                <form string="Contact us">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="lastname"/>
+                            <field name="company"/>
+                            <field name="email"/>
+                            <field name="message"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="contactus_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.contactus.tree</field>
+            <field name="model">farmaoffers.contactus</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Contactus">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="message"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_contactus_action" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">farmaoffers.contactus</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Prescription -->
+        <record id="prescription_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.prescription.form</field>
+            <field name="model">farmaoffers.prescription</field>
+            <field name="arch" type="xml">
+                <form string="Contact us">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="city"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="message"/>
+                                <field name="attachment" widget="pdf_viewer"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="prescription_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.prescription.tree</field>
+            <field name="model">farmaoffers.prescription</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="prescription">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="message"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_prescription_action" model="ir.actions.act_window">
+            <field name="name">Prescriptions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">farmaoffers.prescription</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a prescription.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
         <!-- <record id="menu_product_ribbon_action" model="ir.actions.act_window">
             <field name="name">Product ribbons</field>
             <field name="type">ir.actions.act_window</field>
@@ -386,6 +484,14 @@
         <menuitem id="menu_quote"
             action="menu_quote_action"
             parent="menu_farma_offers" sequence="5"/>
+        
+        <menuitem id="menu_contactus"
+            action="menu_contactus_action"
+            parent="menu_farma_offers" sequence="6"/>
+
+        <menuitem id="menu_prescription"
+            action="menu_prescription_action"
+            parent="menu_farma_offers" sequence="7"/>
 
         <!-- Default values -->
         <record id="default_price_filter" model="price.filter">

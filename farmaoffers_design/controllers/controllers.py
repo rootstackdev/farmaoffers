@@ -484,3 +484,64 @@ class Quote(http.Controller):
                 return http.request.render('farmaoffers_design.quote', kw)
 
         return http.request.render('farmaoffers_design.quote')
+
+class FarmaOffersContact(http.Controller):
+    @http.route('/farmaoffers-contact', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
+    def contactus(self, **kw):
+        if request.httprequest.method == 'POST':
+            _logger.warning("Data %s", kw)
+
+
+            try:
+                contact = request.env['farmaoffers.contactus'].create({
+                    'name': kw.get('name'),
+                    'lastname': kw.get('lastname'),
+                    'company': kw.get('company'),
+                    'email': kw.get('email'),
+                    'message': kw.get('message')
+                })
+                render_values = {
+                    'title':'Gracias!', 
+                    'body': contact.name +' estaremos contáctandole muy pronto', 
+                    'back_button_text': 'Volver al inicio', 
+                    'back_url': '/'
+                }
+                return http.request.render('farmaoffers_design.thanks_page', render_values)
+            except:
+                kw["error"] = "Ha ocurrido un error."
+                return http.request.render('farmaoffers_design.contact_us', kw)
+
+        return http.request.render('farmaoffers_design.contact_us')
+
+class Prescription(http.Controller):
+    @http.route('/prescription', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
+    def prescription(self, **kw):
+        if request.httprequest.method == 'POST':
+            _logger.warning("Data %s", kw)
+            file = kw.get('attachment', False)
+
+            try:
+                PyPDF2.PdfFileReader(file)
+                prescription = request.env['farmaoffers.prescription'].create({
+                    'name': kw.get('name'),
+                    'lastname': kw.get('lastname'),
+                    'city': kw.get('city'),
+                    'address': kw.get('address'),
+                    'phone': kw.get('phone'),
+                    'email': kw.get('email'),
+                    'message': kw.get('message'),
+                    'attachment': file.read() #base64.encodebytes(file.read()) if file else False
+                })
+                _logger.warning("Prescription %s", prescription.name)
+                render_values = {
+                    'title':'Gracias!', 
+                    'body': prescription.name +' estaremos contáctandole muy pronto', 
+                    'back_button_text': 'Volver al inicio', 
+                    'back_url': '/'
+                }
+                return http.request.render('farmaoffers_design.thanks_page', render_values)
+            except PyPDF2.utils.PdfReadError:
+                kw["error"] = "Ingrese un archivo PDF válido."
+                return http.request.render('farmaoffers_design.prescription', kw)
+
+        return http.request.render('farmaoffers_design.prescription')
