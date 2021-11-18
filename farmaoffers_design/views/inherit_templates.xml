@@ -247,6 +247,7 @@
             </t>
         </xpath>
         <xpath expr="//div[hasclass('products_pager')]" position="replace">
+            <t t-call=""/>
         </xpath>
     </template>
     <template id="shop_attributes_customize" inherit_id="website_sale.products_attributes" name="Shop attributes FarmaOffers">
