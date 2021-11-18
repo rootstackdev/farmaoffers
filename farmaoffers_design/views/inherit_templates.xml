@@ -246,10 +246,8 @@
                 <t t-set="breadcrumb_definition" t-value="'Productos'"/>
             </t>
         </xpath>
-        <xpath expr="//div[hasclass('products_pager')]" position="replace">
-            <div class="products_pager form-inline justify-content-center py-3">
-                <t t-call=""/>
-            </div>
+        <xpath expr="//div[hasclass('products_pager')]" position="attributes">
+            <attribute name="class" add="d-none" separator=" " />
         </xpath>
     </template>
     <template id="shop_attributes_customize" inherit_id="website_sale.products_attributes" name="Shop attributes FarmaOffers">
