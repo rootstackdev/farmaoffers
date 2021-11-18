@@ -802,7 +802,8 @@
             <field name="type">qweb</field>
             <field name="key">farmaoffers_design.sort_inherit_customize</field>
             <field name="arch" type="xml">
-                <xpath expr="//div[1]" position="replace">
+                <xpath expr="//div[hasclass('o_wsale_apply_layout')]" position="attributes">
+                    <attribute name="class" add="d-none" separator=" " />
                 </xpath>
             </field>
         </record>
