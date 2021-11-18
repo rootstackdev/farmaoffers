@@ -447,6 +447,171 @@
         </t>
     </template>
 
+    <template id="contact_us">
+        <t t-call="website.layout">
+          <div id="wrap" class="oe_structure oe_empty">
+              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+              <div class="container s_allow_columns font-montserrat text-uppercase">
+                <h1 id="top_quote" class="m-0" style="text-align: center;">
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Formulario de contacto</font>
+                </h1>
+              </div>
+            </section>
+            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+              <div class="s_allow_columns o_container_small">
+                <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
+                <section>
+                  <div class="container">
+                    <form action="/farmaoffers-contact/" method="post" class="login-form-custom">
+                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
+                        <i class="fa fa-exclamation" aria-hidden="false"></i>
+                        <t t-esc="error"/>
+                      </div>
+                      <div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0" style="width: 200px" for="name">
+                            <span>Nombre</span>
+                            <span>             *</span>
+                          </label>
+                          <input type="text" class="form-control" name="name" t-att-value="name" required="1" placeholder="" id="name"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="lastname">
+                            <span>Apellido</span>
+                          </label>
+                          <input type="text" class="form-control" name="lastname" t-att-value="lastname" placeholder="" id="lastname"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="company">
+                            <span>Compañia</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="company" t-att-value="company" required="true" placeholder="" id="company"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="email">
+                            <span>Correo Electrónico</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="email"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="message">
+                            <span>Mensaje</span>
+                            <span>     *</span>
+                          </label>
+                          <textarea class="form-control" name="message" required="1" placeholder="" rows="3"><t t-if="message" t-esc="message"/></textarea>
+                        </div>
+                        <div class="form-group col-12 text-right">
+                          <div style="width: 200px;" class="s_website_form_label"/>
+                          <button type="submit" role="button" class="btn btn-secondary">Enviar</button>
+                          <span id="form_result" class="d-block text-center"/>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </section>
+            </div>
+          </div>
+        </t>
+    </template>
+
+        <template id="prescription">
+        <t t-call="website.layout">
+          <div id="wrap" class="oe_structure oe_empty">
+              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+              <div class="container s_allow_columns font-montserrat text-uppercase">
+                <h1 id="top_quote" class="m-0" style="text-align: center;">
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Formulario de prescripción</font>
+                </h1>
+              </div>
+            </section>
+            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+              <div class="s_allow_columns o_container_small">
+                <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
+                <section>
+                  <div class="container">
+                    <form action="/prescription/" method="post" enctype="multipart/form-data" class="login-form-custom">
+                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
+                        <i class="fa fa-exclamation" aria-hidden="false"></i>
+                        <t t-esc="error"/>
+                      </div>
+                      <div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0" style="width: 200px" for="name">
+                            <span>Nombre</span>
+                            <span>             *</span>
+                          </label>
+                          <input type="text" class="form-control" name="name" t-att-value="name" required="1" placeholder="" id="name"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="lastname">
+                            <span>Apellido</span>
+                          </label>
+                          <input type="text" class="form-control" name="lastname" t-att-value="lastname" placeholder="" id="lastname"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="city">
+                            <span>Ciudad</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="city" t-att-value="city" required="true" placeholder="" id="city"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="address">
+                            <span>Dirección</span>
+                          </label>
+                          <input type="text" class="form-control" name="address" t-att-value="address" placeholder="" id="address"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0" style="width: 200px" for="phone">
+                            <span>Teléfono</span>
+                            <span>     *</span>
+                          </label>
+                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="" id="phone"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="email">
+                            <span>Correo Electrónico</span>
+                            <span>       *</span>
+                          </label>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="email"/>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="message">
+                            <span>Mensaje</span>
+                            <span>     *</span>
+                          </label>
+                          <textarea class="form-control" name="message" required="1" placeholder="" id="message" rows="3"><t t-if="message" t-esc="message"/></textarea>
+                        </div>
+                        <div class="form-group col-12">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="attachment">
+                            <span>Adjuntar receta</span>
+                          </label>
+                          <input type="file" class="form-control-file" accept="application/pdf" name="attachment" id="attachment"/>
+                        </div>
+                        <div class="form-group col-12 text-right">
+                          <div style="width: 200px;" class="s_website_form_label"/>
+                          <button type="submit" role="button" class="btn btn-secondary">Enviar</button>
+                          <span id="form_result" class="d-block text-center"/>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </section>
+              </div>
+            </section>
+            </div>
+          </div>
+        </t>
+    </template>
+
     <template id="thanks_page">
         <t t-call="website.layout">
           <div id="wrap" class="oe_structure oe_empty">
@@ -520,15 +685,6 @@
                 </div>
                 <div>
                     <t t-call="farmaoffers_design.pager_product_list"/>
-                    <!-- <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-fo">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-caret-left" aria-hidden="false"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-caret-right" aria-hidden="false"></i></a></li>
-                        </ul>
-                    </nav> -->
                 </div>
             </div>
         </div>

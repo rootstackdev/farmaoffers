@@ -88,7 +88,7 @@
         <div class="container">
           <div class="container--content">
             <span>
-              <a class="text-secondary" href="#" title="Contáctanos">
+              <a class="text-secondary" href="/farmaoffers-contact" title="Contáctanos">
                 Contáctanos
               </a>
             </span>
@@ -156,13 +156,13 @@
             </div>
             <div class="pr-0 d-flex justify-content-around justify-content-md-center justify-content-lg-around col-lg-4 col-12 cart-header p-0">
               <div class="">
-                <a href="#" title="Tengo una preescripción">
+                <a href="/prescription" title="Tengo una preescripción">
                   <div class="container--prescription bg-secondary">
                     <div class="container--icon">
                       <i class="fa fa-file-text-o" aria-hidden="false"></i>
                     </div>
                     <div class="text-prescription text-uppercase">
-                      Tengo una preescripción
+                        Tengo una preescripción
                     </div>
                   </div>
                 </a>

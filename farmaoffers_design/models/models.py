@@ -153,3 +153,27 @@ class Quote(models.Model):
     email = fields.Char(string="Email", size=60)
     description = fields.Text(string="Description")
     file = fields.Binary('File', help='Only PDF\'s', attachment=True)
+
+
+class FarmaOffersContactUs(models.Model):
+    _name = 'farmaoffers.contactus'
+    _description = "Contacts."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    company = fields.Char(string="Company", size=60)
+    email = fields.Char(string="Email", size=60)
+    message = fields.Text(string="Message")
+
+class Prescription(models.Model):
+    _name = 'farmaoffers.prescription'
+    _description = "Prescriptions."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    city = fields.Char(string="City", size=60)
+    address = fields.Char(string="Address", size=60)
+    phone = fields.Char(string="Phone", size=60)
+    email = fields.Char(string="Email", size=60)
+    message = fields.Text(string="Message")
+    attachment = fields.Binary('File', help='Only PDF\'s', attachment=True)
