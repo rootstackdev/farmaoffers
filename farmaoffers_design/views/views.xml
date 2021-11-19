@@ -305,7 +305,7 @@
             <field name="name">farmaoffers.quote.form</field>
             <field name="model">farmaoffers.quote</field>
             <field name="arch" type="xml">
-                <form string="Branch Offices">
+                <form string="Quotes">
                     <sheet>
                         <group>
                             <group>
