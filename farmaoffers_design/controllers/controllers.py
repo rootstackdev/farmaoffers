@@ -455,33 +455,40 @@ class Quote(http.Controller):
     @http.route('/quote', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def quote(self, **kw):
         if request.httprequest.method == 'POST':
-            _logger.warning("Data %s", kw)
-            file = kw.get('upload', False)
+            filename = kw.get('upload', False).filename
+            file = kw.get('upload', False).read()
+            test = file
 
-
-            try:
-                PyPDF2.PdfFileReader(file)
-                quote = request.env['farmaoffers.quote'].create({
-                    'name': kw.get('name'),
-                    'lastname': kw.get('lastname'),
-                    'city': kw.get('city'),
-                    'address': kw.get('address'),
-                    'phone': kw.get('phone'),
-                    'email': kw.get('email'),
-                    'description': kw.get('description'),
-                    'file': base64.encodebytes(file.read()) if file else False
-                })
-                _logger.warning("Quote %s", quote.name)
-                render_values = {
-                    'title':'Gracias!', 
-                    'body': quote.name +' estaremos contáctandole muy pronto', 
-                    'back_button_text': 'Volver al inicio', 
-                    'back_url': '/'
-                }
-                return http.request.render('farmaoffers_design.thanks_page', render_values)
-            except PyPDF2.utils.PdfReadError:
+            if not test.startswith(b'%PDF-'):
                 kw["error"] = "Ingrese un archivo PDF válido."
                 return http.request.render('farmaoffers_design.quote', kw)
+            quote = request.env['farmaoffers.quote'].create({
+                'name': kw.get('name'),
+                'lastname': kw.get('lastname'),
+                'city': kw.get('city'),
+                'address': kw.get('address'),
+                'phone': kw.get('phone'),
+                'email': kw.get('email'),
+                'description': kw.get('description'),
+            })
+
+            request.env['ir.attachment'].sudo().create({
+                'name': filename,
+                'type': 'binary',
+                'datas': base64.encodebytes(file),
+                'res_model': 'farmaoffers.quote',
+                'res_id': quote.id,
+                'res_field': 'file',
+                'mimetype': 'application/x-pdf'
+            })
+            
+            render_values = {
+                'title':'Gracias!', 
+                'body': quote.name +' estaremos contáctandole muy pronto', 
+                'back_button_text': 'Volver al inicio', 
+                'back_url': '/'
+            }
+            return http.request.render('farmaoffers_design.thanks_page', render_values)
 
         return http.request.render('farmaoffers_design.quote')
 

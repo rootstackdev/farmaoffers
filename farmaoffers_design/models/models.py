@@ -154,7 +154,6 @@ class Quote(models.Model):
     description = fields.Text(string="Description")
     file = fields.Binary('File', help='Only PDF\'s', attachment=True)
 
-
 class FarmaOffersContactUs(models.Model):
     _name = 'farmaoffers.contactus'
     _description = "Contacts."

@@ -300,6 +300,31 @@ odoo.define('farmaoffers_design.script', function (require) {
         }
     });
   
+    publicWidget.registry.WebsiteSale.include({
+      _onChangeAttribute: function (ev) {
+          if (!ev.isDefaultPrevented()) {
+              ev.preventDefault();
+              var show = $('.show_items_current').first().text().trim();
+              var order = $('.order_items_current').first().text().trim();
+              console.log(show, order)
+  
+              var form = $(ev.currentTarget).closest("form");
+  
+              $("<input />").attr("type", "hidden")
+                  .attr("name", "show")
+                  .attr("value", show)
+                  .appendTo(form);
+              $("<input />").attr("type", "hidden")
+                  .attr("name", "order")
+                  .attr("value", order)
+                  .appendTo(form);
+  
+  
+              form.submit();
+          }
+      },
+    });
+  
   
   });
   

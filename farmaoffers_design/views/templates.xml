@@ -648,7 +648,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <t t-foreach="website_sale_show" t-as="to_show">
-                        <a class="dropdown-item show_items_24" t-att-href="keep('/shop', show=to_show)"><t t-esc="to_show"/></a>
+                        <a class="dropdown-item show_items_24" t-att-href="keep('/shop', order=request.params.get('order', ''), show=to_show)"><t t-esc="to_show"/></a>
                         </t>
                     </div>
                 </div>
@@ -671,6 +671,7 @@
                         <button type="button" class="btn btn-outline-gray-fo">Ordenar por:
                           <t t-if='len(website_sale_sortable_current)'>
                             <t t-raw='website_sale_sortable_current[0][0]'/>
+                            <span class="d-none order_items_current" t-esc="request.params.get('order', '')"/>
                           </t>
                         </button>
                         <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
@@ -678,7 +679,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <t t-foreach="website_sale_sortable" t-as="sortby">
-                              <a class="dropdown-item show_order" t-att-href="keep('/shop', order=sortby[1])"><span t-raw="sortby[0]"/></a>
+                              <a class="dropdown-item show_order" t-att-href="keep('/shop', order=sortby[1], show=ppg)"><span t-raw="sortby[0]"/></a>
                             </t>
                         </div>
                     </div>
