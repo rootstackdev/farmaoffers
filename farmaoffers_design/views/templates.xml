@@ -1,6 +1,6 @@
 <odoo>
   <data>
-<!--
+    <!--
     <template id="listing">
       <ul>
         <li t-foreach="objects" t-as="object">
@@ -35,10 +35,12 @@
 
         <!-- Tab panes -->
         <div class="tab-content mt-2 px-3 border rounded">
-          <div t-if="product.description" id="description" class="container tab-pane active"><br/>
+          <div t-if="product.description" id="description" class="container tab-pane active">
+            <br/>
             <p t-esc="product.description"/>
           </div>
-          <div t-if="res_company.disclaimer" id="disclaimer" t-attf-class="container tab-pane #{ 'active' if not product.description else 'fade'}"><br/>
+          <div t-if="res_company.disclaimer" id="disclaimer" t-attf-class="container tab-pane #{ 'active' if not product.description else 'fade'}">
+            <br/>
             <p t-esc="res_company.disclaimer"/>
           </div>
         </div>
@@ -54,11 +56,13 @@
         <hr class="mx-0 mt-1 mb-4"/>
         <div class="content-section aditional-info">
           <ul>
-            <t t-foreach="aditionals" t-as="item" >
+            <t t-foreach="aditionals" t-as="item">
               <li class="font-montserrat font-size-cards">
                 <!-- <img class="" src="/farmaoffers_design/static/src/img/icon-box.png" alt="Icon box"/> -->
                 <img t-attf-src="/website/image/product.aditional.info/{{item.id}}/image" t-att-alt="item.description"/>
-                <p><t t-esc="item.description" /></p>
+                <p>
+                  <t t-esc="item.description" />
+                </p>
               </li>
               <hr class="hr-aditional-info"/>
             </t>
@@ -86,7 +90,9 @@
             </li>
           </ul>
         </div>
-        <div class="d-none" id="current_product_compound"><t t-esc="product.active_compound" /></div>
+        <div class="d-none" id="current_product_compound">
+          <t t-esc="product.active_compound" />
+        </div>
         <a id="show-more-with-same-compound" class="show-more font-montserrat font-size-cards" href="#" title="Desplegar más">Desplegar más</a>
         <!-- <a id="show-less-with-same-compound" class="d-none show-more font-montserrat font-size-cards" href="#" title="Desplegar menos">Desplegar menos</a> -->
       </section>
@@ -96,99 +102,108 @@
       <t t-set="optional_products" t-value="product.optional_product_ids"/>
       <section t-if="len(optional_products) &gt; 0" class="mb-4 pt-5">
         <section class="list-slider bought-together">
-            <!-- <div class="block-title"><span>Best Sellers</span></div> -->
-            <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
-              <span class="text-secondary">Productos</span>
-              <span class="text-primary">Comprados juntos</span>
-            </h3>
-            <hr class="mx-0 mt-1 mb-4"/>
-            <div class="owl-carousel">
-              <t t-foreach="range(0, len(optional_products), 1)" t-as="step">
-                <div class="item">
-                  <ul class="widget-products">
-                    <li t-foreach="optional_products[step:step+1]" t-as="optional_product" class="d-flex flex-column align-items-center">
-                      <span class="img">
-                        <img class="img-thumbnail" t-attf-src="/website/image/product.template/{{optional_product.id}}/image_512" t-att-title="optional_product.name"/>
-                      </span>
-                      <span class="product m-0 font-montserrat">
-                        <t t-set="combination_info" t-value="optional_product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
-                        <div class="price product_price mb-2" style="white-space: nowrap;">
-                          <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                          <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
-                          <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
-                        </div>
+          <!-- <div class="block-title"><span>Best Sellers</span></div> -->
+          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <span class="text-secondary">Productos</span>
+            <span class="text-primary">Comprados juntos</span>
+          </h3>
+          <hr class="mx-0 mt-1 mb-4"/>
+          <div class="owl-carousel">
+            <t t-foreach="range(0, len(optional_products), 1)" t-as="step">
+              <div class="item">
+                <ul class="widget-products">
+                  <li t-foreach="optional_products[step:step+1]" t-as="optional_product" class="d-flex flex-column align-items-center">
+                    <span class="img">
+                      <img class="img-thumbnail" t-attf-src="/website/image/product.template/{{optional_product.id}}/image_512" t-att-title="optional_product.name"/>
+                    </span>
+                    <span class="product m-0 font-montserrat">
+                      <t t-set="combination_info" t-value="optional_product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                      <div class="price product_price mb-2" style="white-space: nowrap;">
+                        <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                        <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                      </div>
 
-                        <a t-att-href="'/shop/product/' + slug(optional_product)" t-att-title="optional_product.name">
-                          <span class="name mb-1 d-inline-block text-uppercase font-montserrat text-primary w-100 font-weight-bold font-8-5"><t t-esc="optional_product.name"/></span>
-                        </a>
+                      <a t-att-href="'/shop/product/' + slug(optional_product)" t-att-title="optional_product.name">
+                        <span class="name mb-1 d-inline-block text-uppercase font-montserrat text-primary w-100 font-weight-bold font-8-5">
+                          <t t-esc="optional_product.name"/>
+                        </span>
+                      </a>
 
-                        <t t-if="len(optional_product.product_variant_ids) == 1">
-                          <form action="/shop/cart/update" class="js_add_cart_variants" method="POST">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                            <input name="product_id" t-att-value="optional_product.product_variant_id.id" type="hidden" />
-                            <a class="add-cart-btn a-submit text-uppercase font-montserrat">Agregar al carrito</a>
-                          </form>
-                        </t>
-                        <t t-if="len(optional_product.product_variant_ids) &gt; 1">
-                          <a class="add-cart-btn text-uppercase" t-att-href="'/shop/product/%s' % slug(optional_product)">Agregar al carrito</a>
-                        </t>
-                      </span>
-                      <div class="clearfix"/>
-                    </li>
-                  </ul>
-                </div>
-              </t>
-            </div>
-          </section>
+                      <t t-if="len(optional_product.product_variant_ids) == 1">
+                        <form action="/shop/cart/update" class="js_add_cart_variants" method="POST">
+                          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                          <input name="product_id" t-att-value="optional_product.product_variant_id.id" type="hidden" />
+                          <a class="add-cart-btn a-submit text-uppercase font-montserrat">Agregar al carrito</a>
+                        </form>
+                      </t>
+                      <t t-if="len(optional_product.product_variant_ids) &gt; 1">
+                        <a class="add-cart-btn text-uppercase" t-att-href="'/shop/product/%s' % slug(optional_product)">Agregar al carrito</a>
+                      </t>
+                    </span>
+                    <div class="clearfix"/>
+                  </li>
+                </ul>
+              </div>
+            </t>
+          </div>
+        </section>
       </section>
     </template>
 
     <template id="section_general_info">
       <t t-set="general_data" t-value="website.get_general_info_by_type(product.id)"/>
       <section t-if="len(general_data) &gt; 0" class="mb-4 pt-5">
-          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
-            <span class="text-secondary">Información</span>
-            <span class="text-primary">General</span>
-          </h3>
-          <hr class="mx-0 mt-1 mb-4"/>
-          <div class="content-section">
-            <ul>
-              <li t-attf-id="general-info-#{item.id}" t-foreach="general_data" t-as="item" class="my-3 font-montserrat font-size-cards">
-                <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold"><t t-esc="item.title" /></h4>
-                <p><t t-esc="item.description" /></p>
-              </li>
-            </ul>
-          </div>
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+          <span class="text-secondary">Información</span>
+          <span class="text-primary">General</span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-4"/>
+        <div class="content-section">
+          <ul>
+            <li t-attf-id="general-info-#{item.id}" t-foreach="general_data" t-as="item" class="my-3 font-montserrat font-size-cards">
+              <h4 class="font-montserrat font-size-cards text-primary text-uppercase font-weight-bold">
+                <t t-esc="item.title" />
+              </h4>
+              <p>
+                <t t-esc="item.description" />
+              </p>
+            </li>
+          </ul>
+        </div>
       </section>
     </template>
 
     <template id="section_faqs">
-    <t t-set="faqs_data" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
-      <section t-if="len(faqs_data) &gt; 0" class="mb-4 pt-5">
-          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
-            <span class="text-secondary">Preguntas</span>
-            <span class="text-primary">Frecuentes</span>
-          </h3>
-          <hr class="mx-0 mt-1 mb-4"/>
-          <div class="content-section">
-            <div class="accordion font-montserrat" id="faqsAccordion">
-              <div  t-foreach="faqs_data" t-as="item" class="card">
-                <div class="card-header" t-attf-id="heading-#{item.id}">
-                  <h2 class="mb-0">
-                    <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5" type="button" data-toggle="collapse" t-attf-data-target="#collapse-#{item.id}" aria-expanded="true" t-attf-aria-controls="collapse-#{item.id}">
-                      <t t-esc="item.title" />
-                    </button>
-                  </h2>
-                </div>
+      <section t-if="len(faqs) &gt; 0" class="mb-4 pt-5">
+        <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+          <span class="text-secondary">
+            <t t-esc="title_p1"/>
+          </span>
+          <span class="text-primary">
+            <t t-esc="title_p2"/>
+          </span>
+        </h3>
+        <hr class="mx-0 mt-1 mb-4"/>
+        <div class="content-section">
+          <div class="accordion font-montserrat" id="faqsAccordion">
+            <div t-foreach="faqs" t-as="item" class="card">
+              <div class="card-header bg-white mb-2" t-attf-id="heading-#{item.id}">
+                <h2 class="mb-0">
+                  <button class="btn btn-block text-left text-uppercase text-primary font-montserrat font-weight-bold font-8-5" type="button" data-toggle="collapse" t-attf-data-target="#collapse-#{item.id}" aria-expanded="true" t-attf-aria-controls="collapse-#{item.id}">
+                    <t t-esc="item.title" />
+                  </button>
+                </h2>
+              </div>
 
-                <div t-attf-id="collapse-#{item.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="heading-#{item.id}" data-parent="#faqsAccordion">
-                  <div class="card-body font-8-5">
-                    <t t-esc="item.description" />
-                  </div>
+              <div t-attf-id="collapse-#{item.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="heading-#{item.id}" data-parent="#faqsAccordion">
+                <div class="card-body font-8-5">
+                  <t t-esc="item.description" />
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </section>
     </template>
 
@@ -206,21 +221,31 @@
               <t t-if="combination_info['has_discounted_price']">
                 <tr>
                   <th scope="row">Oferta del producto</th>
-                  <td class="text-right"><t t-esc="website.currency_id.symbol"/> <t t-esc="combination_info['price']" /></td>
+                  <td class="text-right">
+                    <t t-esc="website.currency_id.symbol"/>
+                    <t t-esc="combination_info['price']" />
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row">Su ahorro</th>
                   <td class="text-right">
                     <span class="text-secondary">
-                      <t t-esc="website.currency_id.symbol"/> <t t-esc="combination_info['list_price'] - combination_info['price']"/> - <t t-esc="100 - (combination_info['price'] * 100) /combination_info['list_price']"/>% OFF 
+                      <t t-esc="website.currency_id.symbol"/>
+                      <t t-esc="combination_info['list_price'] - combination_info['price']"/>
+ -                      <t t-esc="100 - (combination_info['price'] * 100) /combination_info['list_price']"/>
+% OFF 
                     </span>
                   </td>
                 </tr>
               </t>
-              
+
               <tr t-foreach="items_resume" t-as="item">
-                <th scope="row"><t t-esc="item.title"/></th>
-                <td class="text-right"><t t-esc="item.description"/></td>
+                <th scope="row">
+                  <t t-esc="item.title"/>
+                </th>
+                <td class="text-right">
+                  <t t-esc="item.description"/>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -236,7 +261,9 @@
         </div>
         <ul class="nav nav-pills flex-column mb-2">
           <li t-foreach="general_data" t-as="item" class="nav-item">
-            <a class="nav-link p-0 text-capitalize" t-attf-href="#general-info-#{item.id}" t-att-title="item.title"><t t-esc="item.title"/></a>
+            <a class="nav-link p-0 text-capitalize" t-attf-href="#general-info-#{item.id}" t-att-title="item.title">
+              <t t-esc="item.title"/>
+            </a>
           </li>
         </ul>
       </div>
@@ -277,7 +304,9 @@
           <div class="row">
             <div class="col-md-12">
               <ol class="breadcrumb bg-white px-0 mb-1">
-                <li class="breadcrumb-item"><a class="text-blue" href="/">Home</a></li>
+                <li class="breadcrumb-item">
+                  <a class="text-blue" href="/">Home</a>
+                </li>
                 <t t-if="breadcrumb_definition">
                   <li class="breadcrumb-item active">
                     <span t-esc="breadcrumb_definition" />
@@ -292,74 +321,75 @@
     </template>
 
     <template id="extend_table_cart">
-        <div class="extend-section">
-            <hr class="my-5"/>
-            <div class="row">
-                <div class="col-12 col-xl-5">
-                    <div class="coupon_form">
-                        <t t-call="website_sale.coupon_form"/>
-                    </div>
-                </div>
-                <div class="col-12 offset-xl-4 col-xl-3">
-                    <t t-call="website_sale.short_cart_summary"/>
-                </div>
+      <div class="extend-section">
+        <hr class="my-5"/>
+        <div class="row">
+          <div class="col-12 col-xl-5">
+            <div class="coupon_form">
+              <t t-call="website_sale.coupon_form"/>
             </div>
+          </div>
+          <div class="col-12 offset-xl-4 col-xl-3">
+            <t t-call="website_sale.short_cart_summary"/>
+          </div>
         </div>
+      </div>
     </template>
 
     <template id="total_f2">
-        <div id="cart_total" t-att-class="extra_class or ''" t-if="website_sale_order and website_sale_order.website_order_line">
-            <h5 class="h6 font-montserrat text-uppercase font-weight-bold text-black">Total del pedido</h5>
-            <hr class="my-3"/>
-            <table class="table">
-                  <tr id="empty">
-                      <t t-if='not no_rowspan'><td rowspan="10" class="border-0"/></t>
-                      <td class="col-md-2 col-3 border-0"></td>
-                      <td class="col-md-2 col-3 border-0" ></td>
-                  </tr>
-                  <tr id="order_total_untaxed">
-                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Sub-total</td>
-                      <td class="text-xl-right border-0" >
-                          <span t-field="website_sale_order.amount_untaxed" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
-                      </td>
-                  </tr>
-                  <tr t-if="website_sale_order.website_order_saving &gt; 0" id="order_total_saving">
-                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Ahorro</td>
-                      <td class="text-xl-right border-0 text-secondary">
-                          -<span t-field="website_sale_order.website_order_saving" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
-                      </td>
-                  </tr>
-                  <tr id="order_total_taxes">
-                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Impuesto</td>
-                      <td class="text-xl-right border-0">
-                            <span t-field="website_sale_order.amount_tax" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
-                      </td>
-                  </tr>
-                  <tr id="order_delivery" t-if="website_sale_order and website_sale_order.carrier_id">
-                      <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5"  title="Delivery will be updated after choosing a new delivery method">Costo Delivery</td>
-                      <td class="text-xl-right border-0 text-muted" >
-                          <span t-field="website_sale_order.amount_delivery" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options='{
+      <div id="cart_total" t-att-class="extra_class or ''" t-if="website_sale_order and website_sale_order.website_order_line">
+        <h5 class="h6 font-montserrat text-uppercase font-weight-bold text-black">Total del pedido</h5>
+        <hr class="my-3"/>
+        <table class="table">
+          <tr id="empty">
+            <t t-if='not no_rowspan'>
+              <td rowspan="10" class="border-0"/>
+            </t>
+            <td class="col-md-2 col-3 border-0"></td>
+            <td class="col-md-2 col-3 border-0"></td>
+          </tr>
+          <tr id="order_total_untaxed">
+            <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Sub-total</td>
+            <td class="text-xl-right border-0">
+              <span t-field="website_sale_order.amount_untaxed" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+            </td>
+          </tr>
+          <tr t-if="website_sale_order.website_order_saving &gt; 0" id="order_total_saving">
+            <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Ahorro</td>
+            <td class="text-xl-right border-0 text-secondary">
+                          -              <span t-field="website_sale_order.website_order_saving" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+            </td>
+          </tr>
+          <tr id="order_total_taxes">
+            <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Impuesto</td>
+            <td class="text-xl-right border-0">
+              <span t-field="website_sale_order.amount_tax" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+            </td>
+          </tr>
+          <tr id="order_delivery" t-if="website_sale_order and website_sale_order.carrier_id">
+            <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5" title="Delivery will be updated after choosing a new delivery method">Costo Delivery</td>
+            <td class="text-xl-right border-0 text-muted">
+              <span t-field="website_sale_order.amount_delivery" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options='{
                               "widget": "monetary",
                               "display_currency": website_sale_order.currency_id,
                           }'/>
-                      </td>
-                  </tr>
-                  <tr id="order_total" class="border-top">
-                      <td class="text-left border-0 font-montserrat text-uppercase text-secondary font-weight-bold font-8-5">Total</td>
-                      <td class="text-xl-right border-0">
-                          <strong t-field="website_sale_order.amount_total" class="monetary_field text-black font-montserrat font-8-5 font-weight-bold"
-                              t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
-                      </td>
-                  </tr>
-            </table>
-        </div>
+            </td>
+          </tr>
+          <tr id="order_total" class="border-top">
+            <td class="text-left border-0 font-montserrat text-uppercase text-secondary font-weight-bold font-8-5">Total</td>
+            <td class="text-xl-right border-0">
+              <strong t-field="website_sale_order.amount_total" class="monetary_field text-black font-montserrat font-8-5 font-weight-bold" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+            </td>
+          </tr>
+        </table>
+      </div>
     </template>
 
     <template id="quote">
-        <t t-call="website.layout">
-          <div id="wrap" class="oe_structure oe_empty">
-              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
-            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="pt8 pb0" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
                 <h1 id="top_quote" class="m-0" style="text-align: center;">
                   <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Cotizar productos de alto costo</font>
@@ -423,7 +453,9 @@
                             <span>Descripción de la solicitud</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"><t t-if="description" t-esc="description"/></textarea>
+                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3">
+                            <t t-if="description" t-esc="description"/>
+                          </textarea>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="uploadQuote">
@@ -442,16 +474,16 @@
                 </section>
               </div>
             </section>
-            </div>
           </div>
-        </t>
+        </div>
+      </t>
     </template>
 
     <template id="contact_us">
-        <t t-call="website.layout">
-          <div id="wrap" class="oe_structure oe_empty">
-              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
-            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
                 <h1 id="top_quote" class="m-0" style="text-align: center;">
                   <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Formulario de contacto</font>
@@ -502,7 +534,9 @@
                             <span>Mensaje</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="message" required="1" placeholder="" rows="3"><t t-if="message" t-esc="message"/></textarea>
+                          <textarea class="form-control" name="message" required="1" placeholder="" rows="3">
+                            <t t-if="message" t-esc="message"/>
+                          </textarea>
                         </div>
                         <div class="form-group col-12 text-right">
                           <div style="width: 200px;" class="s_website_form_label"/>
@@ -515,16 +549,16 @@
                 </section>
               </div>
             </section>
-            </div>
           </div>
-        </t>
+        </div>
+      </t>
     </template>
 
-        <template id="prescription">
-        <t t-call="website.layout">
-          <div id="wrap" class="oe_structure oe_empty">
-              <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
-            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+    <template id="prescription">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
                 <h1 id="top_quote" class="m-0" style="text-align: center;">
                   <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">Formulario de prescripción</font>
@@ -588,13 +622,15 @@
                             <span>Mensaje</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="message" required="1" placeholder="" id="message" rows="3"><t t-if="message" t-esc="message"/></textarea>
+                          <textarea class="form-control" name="message" required="1" placeholder="" id="message" rows="3">
+                            <t t-if="message" t-esc="message"/>
+                          </textarea>
                         </div>
                         <div class="form-group col-12">
-                          <label class="text-dark-fo mb-0 " style="width: 200px" for="attachment">
+                          <label class="text-dark-fo mb-0 " style="width: 200px" for="upload">
                             <span>Adjuntar receta</span>
                           </label>
-                          <input type="file" class="form-control-file" accept="application/pdf" name="attachment" id="attachment"/>
+                          <input type="file" class="form-control-file" accept="application/pdf" name="upload" id="upload"/>
                         </div>
                         <div class="form-group col-12 text-right">
                           <div style="width: 200px;" class="s_website_form_label"/>
@@ -607,156 +643,401 @@
                 </section>
               </div>
             </section>
-            </div>
           </div>
-        </t>
+        </div>
+      </t>
     </template>
 
     <template id="thanks_page">
-        <t t-call="website.layout">
-          <div id="wrap" class="oe_structure oe_empty">
-              <div class="container-fo mx-auto my-0 basic-bg basic-bg-thanks">
-            <section class="s_title o_colored_level pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <div class="container-fo mx-auto my-0 basic-bg basic-bg-thanks">
+            <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="o_container_small font-montserrat text-uppercase">
                 <h1 class="title-thanks m-0" style="text-align: center;">
-                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;"><t t-esc="title"/></font>
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">
+                    <t t-esc="title"/>
+                  </font>
                 </h1>
               </div>
             </section>
             <section class="pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
               <div class="o_container_small">
-                <p class="text-center text-white font-montserrat m-0 font-size-cards"><t t-esc="body"/></p>
+                <p class="text-center text-white font-montserrat m-0 font-size-cards">
+                  <t t-esc="body"/>
+                </p>
               </div>
               <div class="text-center my-4">
-                <a t-att-href="back_url or '/'" class="btn btn-secondary font-montserrat text-uppercase font-8-5 font-weight-bold"><t t-esc="back_button_text or 'Volver al inicio'"/></a>
+                <a t-att-href="back_url or '/'" class="btn btn-secondary font-montserrat text-uppercase font-8-5 font-weight-bold">
+                  <t t-esc="back_button_text or 'Volver al inicio'"/>
+                </a>
               </div>
             </section>
-            </div>
           </div>
-        </t>
+        </div>
+      </t>
     </template>
 
-    <template id="filters_shop_list">
-        <div class="col-12">
-            <div class="font-montserrat font-8-5 d-flex justify-content-end align-items-center">
-                <span class="mr-2 font-size-cards">Mostrar:</span>
-                <div class="show_items btn-group">
-                    <t t-set="website_sale_show" t-value="[24, 15, 9]"/>
-                    <button type="button" class="btn btn-outline-gray-fo show_items_current"><t t-if="ppg" t-esc="ppg"/></button>
-                    <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <t t-foreach="website_sale_show" t-as="to_show">
-                        <a class="dropdown-item show_items_24" t-att-href="keep('/shop', order=request.params.get('order', ''), show=to_show)"><t t-esc="to_show"/></a>
-                        </t>
+    <template id="all_offers">
+      <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+            <section class="pt8 pb0 mt-4" data-name="Title">
+              <div class="container s_allow_columns font-montserrat text-uppercase">
+                <h1 id="top_quote" class="m-0" style="text-align: center;">
+                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">todas las ofertas</font>
+                </h1>
+              </div>
+            </section>
+            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+              <div class="container">
+                <section>
+                  <div class="container">
+                    <t t-set="product_offers" t-value="website.get_product_offers()"/>
+                    <div class="row">
+                      <t t-foreach="product_offers" t-as="offer">
+                        <div class="col-6 col-md-3 py-3 offer-card">
+                          <div class="card">
+                            <img class="w-49 my-4 mx-auto" t-attf-src="/website/image/product.offers/{{offer.id}}/image" t-att-alt="offer.title"/>
+                            <div class="card-body">
+                              <h5 class="card-title"><t t-esc="offer.title"/></h5>
+                              <p class="card-text"><t t-esc="offer.description"/></p>
+                            </div>
+                          </div>
+                        </div>
+                      </t>
                     </div>
-                </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+          </div>
+        </div>
+      </t>
+    </template>
+
+
+    <template id="filters_shop_list">
+      <div class="col-12">
+        <div class="font-montserrat font-8-5 d-flex justify-content-end align-items-center">
+          <span class="mr-2 font-size-cards">Mostrar:</span>
+          <div class="show_items btn-group">
+            <t t-set="website_sale_show" t-value="[24, 15, 9]"/>
+            <button type="button" class="btn btn-outline-gray-fo show_items_current">
+              <t t-if="ppg" t-esc="ppg"/>
+            </button>
+            <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+              <t t-foreach="website_sale_show" t-as="to_show">
+                <a class="dropdown-item show_items_24" t-att-href="keep('/shop', order=request.params.get('order', ''), show=to_show)">
+                  <t t-esc="to_show"/>
+                </a>
+              </t>
             </div>
-            <hr class="my-2"/>
-            <div class="font-montserrat font-8-5 d-flex justify-content-between">
-                <div>
-                    <div class="show_order btn-group">
-                        <t t-set="list_price_desc_label">precio mayor</t>
-                        <t t-set="list_price_asc_label">precio menor</t>
-                        <t t-set="name_asc_label">de la A a la Z</t>
-                        <t t-set="name_desc_label">de la Z a la A</t>
-                        <t t-set="website_sale_sortable" t-value="[
+          </div>
+        </div>
+        <hr class="my-2"/>
+        <div class="font-montserrat font-8-5 d-flex justify-content-between">
+          <div>
+            <div class="show_order btn-group">
+              <t t-set="list_price_desc_label">precio mayor</t>
+              <t t-set="list_price_asc_label">precio menor</t>
+              <t t-set="name_asc_label">de la A a la Z</t>
+              <t t-set="name_desc_label">de la Z a la A</t>
+              <t t-set="website_sale_sortable" t-value="[
                             (list_price_desc_label, 'list_price desc'),
                             (list_price_asc_label, 'list_price asc'),
                             (name_asc_label, 'name asc'),
                             (name_desc_label, 'name desc')
                         ]"/>
-                        <t t-set="website_sale_sortable_current" t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>
-                        <button type="button" class="btn btn-outline-gray-fo">Ordenar por:
-                          <t t-if='len(website_sale_sortable_current)'>
-                            <t t-raw='website_sale_sortable_current[0][0]'/>
-                            <span class="d-none order_items_current" t-esc="request.params.get('order', '')"/>
-                          </t>
-                        </button>
-                        <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <div class="dropdown-menu">
-                            <t t-foreach="website_sale_sortable" t-as="sortby">
-                              <a class="dropdown-item show_order" t-att-href="keep('/shop', order=sortby[1], show=ppg)"><span t-raw="sortby[0]"/></a>
-                            </t>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <t t-call="farmaoffers_design.pager_product_list"/>
-                </div>
+              <t t-set="website_sale_sortable_current" t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>
+              <button type="button" class="btn btn-outline-gray-fo">Ordenar por:
+                <t t-if='len(website_sale_sortable_current)'>
+                  <t t-raw='website_sale_sortable_current[0][0]'/>
+                  <span class="d-none order_items_current" t-esc="request.params.get('order', '')"/>
+                </t>
+              </button>
+              <button type="button" class="btn btn-outline-gray-fo dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <t t-foreach="website_sale_sortable" t-as="sortby">
+                  <a class="dropdown-item show_order" t-att-href="keep('/shop', order=sortby[1], show=ppg)">
+                    <span t-raw="sortby[0]"/>
+                  </a>
+                </t>
+              </div>
             </div>
+          </div>
+          <div>
+            <t t-call="farmaoffers_design.pager_product_list"/>
+          </div>
         </div>
+      </div>
     </template>
 
 
     <template id="pager_product_list" name="Pager FO">
-        <nav aria-label="Page navigation example">
-            <ul t-if="pager['page_count'] > 1" class="pagination pagination-fo">
-                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == 1 else ''}">
-                    <a t-att-href=" pager['page_previous']['url'] if pager['page']['num'] != 1 else None" t-attf-class="page-link #{extraLinkClass}"><i class="fa fa-caret-left" aria-hidden="false"></i></a>
-                </li>
-                <t t-foreach="pager['pages']" t-as="page">
-                    <li t-attf-class="page-item #{'active' if page['num'] == pager['page']['num'] else ''}"> <a t-att-href="page['url']" t-attf-class="page-link #{extraLinkClass}" t-raw="page['num']"></a></li>
-                </t>
-                <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == pager['page_count'] else ''}">
-                    <a t-att-href="pager['page_next']['url'] if pager['page']['num'] != pager['page_count'] else None" t-attf-class="page-link #{extraLinkClass}"><i class="fa fa-caret-right" aria-hidden="false"></i></a>
-                </li>
-            </ul>
-        </nav>
+      <nav aria-label="Page navigation example">
+        <ul t-if="pager['page_count'] > 1" class="pagination pagination-fo">
+          <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == 1 else ''}">
+            <a t-att-href=" pager['page_previous']['url'] if pager['page']['num'] != 1 else None" t-attf-class="page-link #{extraLinkClass}">
+              <i class="fa fa-caret-left" aria-hidden="false"></i>
+            </a>
+          </li>
+          <t t-foreach="pager['pages']" t-as="page">
+            <li t-attf-class="page-item #{'active' if page['num'] == pager['page']['num'] else ''}">
+              <a t-att-href="page['url']" t-attf-class="page-link #{extraLinkClass}" t-raw="page['num']"></a>
+            </li>
+          </t>
+          <li t-attf-class="page-item #{'disabled' if pager['page']['num'] == pager['page_count'] else ''}">
+            <a t-att-href="pager['page_next']['url'] if pager['page']['num'] != pager['page_count'] else None" t-attf-class="page-link #{extraLinkClass}">
+              <i class="fa fa-caret-right" aria-hidden="false"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </template>
 
     <template id="list_filters_fo">
-        <ul class="nav nav-pills flex-column mb-4">
-            <t t-set="attributes" t-value="website.get_product_attributes()"/>
-            <t t-foreach="attributes" t-as="a">
-                <t t-if="a.name == 'Brand' or a.name == 'Marca'">
-                    <li t-if="a.value_ids and len(a.value_ids) &gt; 0" class="nav-item fo-side-price">
-                        <div class="brand-list">
-                            <!-- <h3 class="text-uppercase" t-field="a.name" /> -->
-                            <h3 class="text-uppercase">Marcas</h3>
-                        </div>
-                        <t t-if="a.display_type == 'select'">
-                            <select class="form-control" name="attrib">
-                                <option value="" />
-                                <t t-foreach="a.value_ids" t-as="v">
-                                    <option t-att-value="'%s-%s' % (a.id,v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set" />
-                                </t>
-                            </select>
-                        </t>
-                        <t t-if="a.display_type == 'radio'">
-                            <div class="wrapper_search_brand">
-                                <input class="wrapper_search_brand--input" type="text" name="search_brand" autocomplete="on" t-att-value="request.httprequest.args.get('search_brand')" placeholder="Buscar marca"/>
-                                <span>
-                                    <i class="fa fa-search" aria-hidden="false"></i>
-                                </span>
-                            </div>
-                            <ul class="nav nav-pills flex-column m-0">
-                                <t t-foreach="a.value_ids[:4]" t-as="v">
-                                    <li t-attf-class="nav-item">
-                                        <div class="custom-control custom-checkbox mb-2 ml-1">
-                                            <input type="checkbox" name="attrib" t-att-id="'attrib-%s' % (v.id)" class="custom-control-input" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
-                                            <label class="custom-control-label" t-att-for="'attrib-%s' % (v.id)"><span t-field="v.name" /></label>
-                                        </div>
-                                    </li>
-                                </t>
-                            </ul>
-                        </t>
-                        <t t-if="a.display_type == 'color'">
-                            <t t-foreach="a.value_ids" t-as="v">
-                                <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
-                                    <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name" />
-                                </label>
-                            </t>
-                        </t>
+      <ul class="nav nav-pills flex-column mb-4">
+        <t t-set="attributes" t-value="website.get_product_attributes()"/>
+        <t t-foreach="attributes" t-as="a">
+          <t t-if="a.name == 'Brand' or a.name == 'Marca'">
+            <li t-if="a.value_ids and len(a.value_ids) &gt; 0" class="nav-item fo-side-price">
+              <div class="brand-list">
+                <!-- <h3 class="text-uppercase" t-field="a.name" /> -->
+                <h3 class="text-uppercase">Marcas</h3>
+              </div>
+              <t t-if="a.display_type == 'select'">
+                <select class="form-control" name="attrib">
+                  <option value="" />
+                  <t t-foreach="a.value_ids" t-as="v">
+                    <option t-att-value="'%s-%s' % (a.id,v.id)" t-esc="v.name" t-att-selected="v.id in attrib_set" />
+                  </t>
+                </select>
+              </t>
+              <t t-if="a.display_type == 'radio'">
+                <div class="wrapper_search_brand">
+                  <input class="wrapper_search_brand--input" type="text" name="search_brand" autocomplete="on" t-att-value="request.httprequest.args.get('search_brand')" placeholder="Buscar marca"/>
+                  <span>
+                    <i class="fa fa-search" aria-hidden="false"></i>
+                  </span>
+                </div>
+                <ul class="nav nav-pills flex-column m-0">
+                  <t t-foreach="a.value_ids[:4]" t-as="v">
+                    <li t-attf-class="nav-item">
+                      <div class="custom-control custom-checkbox mb-2 ml-1">
+                        <input type="checkbox" name="attrib" t-att-id="'attrib-%s' % (v.id)" class="custom-control-input" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None"/>
+                        <label class="custom-control-label" t-att-for="'attrib-%s' % (v.id)">
+                          <span t-field="v.name" />
+                        </label>
+                      </div>
                     </li>
+                  </t>
+                </ul>
+              </t>
+              <t t-if="a.display_type == 'color'">
+                <t t-foreach="a.value_ids" t-as="v">
+                  <label t-attf-style="background-color:#{v.html_color or v.name}" t-attf-class="css_attribute_color #{'active' if v.id in attrib_set else ''}">
+                    <input type="checkbox" name="attrib" t-att-value="'%s-%s' % (a.id,v.id)" t-att-checked="'checked' if v.id in attrib_set else None" t-att-title="v.name" />
+                  </label>
                 </t>
-            </t>
-        </ul>
-
+              </t>
+            </li>
+          </t>
+        </t>
+      </ul>
     </template>
 
-    </data>
+    <template id="t_owl_carousel" name="Carousel template">
+      <section t-attf-class="#{mb_class}">
+        <section t-attf-class="list-slider #{carousel_class}">
+          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <span class="text-secondary">
+              <t t-esc="title_p1"/>
+            </span>
+            <span class="text-primary">
+              <t t-esc="title_p2"/>
+            </span>
+          </h3>
+          <hr class="mx-0 mt-1 mb-4"/>
+          <div class="owl-carousel">
+            <t t-foreach="range(0, len(items), 1)" t-as="step">
+              <div class="item">
+                <ul class="widget-products">
+                  <li t-foreach="items[step:step+1]" t-as="item" class="d-flex flex-column align-items-center">
+                    <t t-call="farmaoffers_design.select_body_item">
+                      <t t-set="item" t-value="item"/>
+                    </t>
+                  </li>
+                </ul>
+                <hr t-if="need_bottom_hr" class="hr-reviews"/>
+              </div>
+            </t>
+          </div>
+        </section>
+      </section>
+    </template>
+
+    <template id="card_client_reviews" name="Card Client Reviews">
+      <div>
+        <div class="d-flex justify-content-start">
+          <i class="fa fa-1x fa-quote-left"></i>
+        </div>
+        <div class="content-item px-4">
+          <t t-esc="item.review"/>
+        </div>
+        <div class="d-flex justify-content-end">
+          <i class="fa fa-1x fa-quote-right"></i>
+        </div>
+      </div>
+    </template>
+
+    <template id="card_top_offers" name="Card Top Offers">
+      <div>
+        <div class="img-offer">
+          <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title"/>
+        </div>
+        <div class="title-offer">
+          <t t-esc="item.title" />
+        </div>
+      </div>
+    </template>
+
+    <template id="card_our_tips" name="Card Our Tips">
+      <div class="card-our-tips d-flex align-items-center">
+        <div class="text-uppercase font-montserrat font-size-cards font-weight-bold pr-2">
+          <t t-esc="item.text" />
+        </div>
+        <div class="img">
+          <img t-attf-src="/website/image/fo.our.tips/{{item.id}}/image" t-att-alt="item.text"/>
+        </div>
+      </div>
+    </template>
+
+
+    <template id="t_top_products" name="Top products">
+      <t t-set="medicine_products" t-value="website.get_top_products('Medicamentos')"/>
+      <t t-set="health_products" t-value="website.get_top_products('Cuidado de la salud')"/>
+      <section t-if="len(medicine_products) &gt; 0 or len(health_products) &gt; 0" class="mb-4 pt-5">
+        <section class="list-slider top_products">
+          <!-- <div class="block-title"><span>Best Sellers</span></div> -->
+          <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
+            <span class="text-secondary">Productos</span>
+            <span class="text-primary">Top</span>
+          </h3>
+          <hr class="mx-0 mt-1 mb-3"/>
+          <div class="mb-3">
+            <button class="btn btn-secondary btn_medicine br-10 py-1 mr-2" style="
+                border-radius: 10px;
+            ">Medicamentos</button>
+            <button class="btn btn-gray-fo btn_health br-10 py-1">Cuidado de la salud</button>
+          </div>
+          <div class="owl-carousel medicine_carousel">
+            <t t-call="farmaoffers_design.t_body_categories">
+              <t t-set="products" t-value="medicine_products"/>
+            </t>
+          </div>
+          <div class="owl-carousel health_carousel">
+            <t t-call="farmaoffers_design.t_body_categories">
+              <t t-set="products" t-value="health_products"/>
+            </t>
+          </div>
+        </section>
+      </section>
+    </template>
+
+    <template id="t_body_categories" name="Body categories">
+      <t t-foreach="range(0, len(products), 1)" t-as="step">
+        <div class="item">
+          <ul class="widget-products">
+            <li t-foreach="products[step:step+1]" t-as="product" class="d-flex flex-column align-items-center">
+              <div class="medicine_items">
+                <span class="img w-100 m-0">
+                  <img class="img-thumbnail" t-attf-src="/website/image/product.template/{{product.id}}/image_512" t-att-title="product.name"/>
+                </span>
+                <div class="d-flex flex-column justify-content-between product m-0 font-montserrat w-100 p-2">
+                  <span class="name mb-1 d-inline-block text-uppercase font-montserrat w-100 font-weight-bold font-8-5">
+                    <t t-esc="product.name"/>
+                  </span>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <t t-set="combination_info" t-value="product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                    <div class="price product_price text-primary font-weight-bold font-8-5" style="white-space: nowrap;">
+                      <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                      <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                      <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                    </div>
+
+                    <a class="d-flex align-items-center" t-att-href="'/shop/product/' + slug(product)" t-att-title="product.name">
+                      <span class="name mr-1 d-inline-block text-uppercase font-montserrat text-blue w-100 font-weight-bold font-8-5">
+                              Ver más
+                      </span>
+                      <i class="icon-right fa fa-angle-double-right h3 text-white m-0" aria-hidden="false"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="clearfix"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </t>
+    </template>
+
+
+    <template id="stripe_info" name="Stripe Info">
+      <section class="stripe_info row col-12 p-0 m-0 mt-3">
+        <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+          <i class="fa fa-paper-plane fa-3x mr-3 text-white" aria-hidden="false"></i>
+          <div class="font-montserrat font-8-5 text-white">
+            <span class="font-weight-bold text-uppercase">delivery mismo dÍa</span>
+            <p class="m-0">Te llevamos tu mercancia en
+mismo dia dentro de la ciudad</p>
+          </div>
+        </div>
+        <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+          <i class="fa fa-credit-card fa-3x mr-3 text-white" aria-hidden="false"></i>
+          <div class="font-montserrat font-8-5 text-white">
+            <span class="font-weight-bold text-uppercase">pago seguro</span>
+            <p class="m-0">Paga seguro en nuestro sitio con 
+diferentes metodos de pago</p>
+          </div>
+        </div>
+        <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+          <i class="fa fa-question fa-3x mr-3 text-white" aria-hidden="false"></i>
+          <div class="font-montserrat font-8-5 text-white">
+            <span class="font-weight-bold text-uppercase">soporte</span>
+            <p class="m-0">Nuestras líneas estan disponibles
+800-23453 </p>
+          </div>
+        </div>
+        <div class="stripe_info--item d-flex justify-content-between align-items-center col-6 col-md-3 p-2">
+          <i class="fa fa-mobile fa-3x mr-3 text-white" aria-hidden="false"></i>
+          <div class="font-montserrat font-8-5 text-white">
+            <span class="font-weight-bold text-uppercase">AMPLIO CATALOGO</span>
+            <p class="m-0">Contamos con más de 10 mil 
+productos en nuestras tiendas
+            </p>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <template id="select_body_item" name="Body Selector">
+      <t t-if="client_review">
+        <t t-call="farmaoffers_design.card_client_reviews"/>
+      </t>
+      <t t-if="top_offers">
+        <t t-call="farmaoffers_design.card_top_offers"/>
+      </t>
+      <t t-if="our_tips">
+        <t t-call="farmaoffers_design.card_our_tips"/>
+      </t>
+    </template>
+
+  </data>
 </odoo>

@@ -30,6 +30,7 @@
         'views/h_f_templates.xml',
         'views/snippets.xml',
         'views/inherit_templates.xml',
+        'views/homepage_templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
