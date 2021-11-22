@@ -455,13 +455,14 @@ class Quote(http.Controller):
     @http.route('/quote', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def quote(self, **kw):
         if request.httprequest.method == 'POST':
-            filename = kw.get('upload', False).filename
-            file = kw.get('upload', False).read()
-            test = file
+            upload = kw.get('upload', False)
+            filename = upload.filename if upload else False
+            file = upload.read() if upload else False
 
-            if not test.startswith(b'%PDF-'):
+            if upload and not file.startswith(b'%PDF-'):
                 kw["error"] = "Ingrese un archivo PDF válido."
                 return http.request.render('farmaoffers_design.quote', kw)
+
             quote = request.env['farmaoffers.quote'].create({
                 'name': kw.get('name'),
                 'lastname': kw.get('lastname'),
@@ -472,15 +473,16 @@ class Quote(http.Controller):
                 'description': kw.get('description'),
             })
 
-            request.env['ir.attachment'].sudo().create({
-                'name': filename,
-                'type': 'binary',
-                'datas': base64.encodebytes(file),
-                'res_model': 'farmaoffers.quote',
-                'res_id': quote.id,
-                'res_field': 'file',
-                'mimetype': 'application/x-pdf'
-            })
+            if upload:
+                request.env['ir.attachment'].sudo().create({
+                    'name': filename,
+                    'type': 'binary',
+                    'datas': base64.encodebytes(file),
+                    'res_model': 'farmaoffers.quote',
+                    'res_id': quote.id,
+                    'res_field': 'file',
+                    'mimetype': 'application/x-pdf'
+                })
             
             render_values = {
                 'title':'Gracias!', 
@@ -524,31 +526,47 @@ class Prescription(http.Controller):
     @http.route('/prescription', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def prescription(self, **kw):
         if request.httprequest.method == 'POST':
-            _logger.warning("Data %s", kw)
-            file = kw.get('attachment', False)
 
-            try:
-                PyPDF2.PdfFileReader(file)
-                prescription = request.env['farmaoffers.prescription'].create({
-                    'name': kw.get('name'),
-                    'lastname': kw.get('lastname'),
-                    'city': kw.get('city'),
-                    'address': kw.get('address'),
-                    'phone': kw.get('phone'),
-                    'email': kw.get('email'),
-                    'message': kw.get('message'),
-                    'attachment': file.read() #base64.encodebytes(file.read()) if file else False
-                })
-                _logger.warning("Prescription %s", prescription.name)
-                render_values = {
-                    'title':'Gracias!', 
-                    'body': prescription.name +' estaremos contáctandole muy pronto', 
-                    'back_button_text': 'Volver al inicio', 
-                    'back_url': '/'
-                }
-                return http.request.render('farmaoffers_design.thanks_page', render_values)
-            except PyPDF2.utils.PdfReadError:
+            upload = kw.get('upload', False)
+            filename = upload.filename if upload else False
+            file = upload.read() if upload else False
+
+            if upload and not file.startswith(b'%PDF-'):
                 kw["error"] = "Ingrese un archivo PDF válido."
                 return http.request.render('farmaoffers_design.prescription', kw)
 
+            prescription = request.env['farmaoffers.prescription'].create({
+                'name': kw.get('name'),
+                'lastname': kw.get('lastname'),
+                'city': kw.get('city'),
+                'address': kw.get('address'),
+                'phone': kw.get('phone'),
+                'email': kw.get('email'),
+                'message': kw.get('message')
+            })
+
+            if upload:
+                request.env['ir.attachment'].sudo().create({
+                    'name': filename,
+                    'type': 'binary',
+                    'datas': base64.encodebytes(file),
+                    'res_model': 'farmaoffers.prescription',
+                    'res_id': prescription.id,
+                    'res_field': 'file',
+                    'mimetype': 'application/x-pdf'
+                })
+
+            render_values = {
+                'title':'Gracias!', 
+                'body': prescription.name +' estaremos contáctandole muy pronto', 
+                'back_button_text': 'Volver al inicio', 
+                'back_url': '/'
+            }
+            return http.request.render('farmaoffers_design.thanks_page', render_values)
+
         return http.request.render('farmaoffers_design.prescription')
+
+class AllOffers(http.Controller):
+    @http.route('/all-offers', auth='public', type='http', methods=['GET'], website=True, sitemap=False)
+    def allOffers(self, **kw):
+        return http.request.render('farmaoffers_design.all_offers')

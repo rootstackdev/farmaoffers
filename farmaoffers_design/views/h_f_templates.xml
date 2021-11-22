@@ -218,7 +218,7 @@
                 </li>
               </t>
               <li class="nav-item">
-                <a class="nav-link" href="#" title="Ofertas">
+                <a class="nav-link" href="/all-offers" title="Ofertas">
                   Ofertas
                 </a>
               </li>
@@ -323,13 +323,13 @@
                 <div class="title-follow-us text-center text-secondary">Síguenos</div>
                 <div class="d-flex justify-content-center">
                   <a t-if="res_company.social_facebook" class="mx-1" t-att-href="res_company.social_facebook" title="Facebook">
-                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="Facebook"/>
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-helper.png" alt="Facebook"/>
                   </a>
                   <a t-if="res_company.social_twitter" class="mx-1" t-att-href="res_company.social_twitter" title="Twitter">
-                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="Twitter"/>
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/twitter-helper.png" alt="Twitter"/>
                   </a>
                   <a t-if="res_company.social_linkedin" class="mx-1" t-att-href="res_company.social_linkedin" title="LinkedIn">
-                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/facebook-brands.svg" alt="LinkedIn"/>
+                    <img class="social-media-icons" src="/farmaoffers_design/static/src/img/linkedin-helper.png" alt="LinkedIn"/>
                   </a>
                   <!-- <img class="social-media-icons mx-1" src="/farmaoffers_design/static/src/img/twitter-helper.png"/>
                   <img class="social-media-icons mx-1" src="/farmaoffers_design/static/src/img/linkedin-helper.png"/> -->
