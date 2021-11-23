@@ -1035,19 +1035,6 @@
 
         <!-- <record id="homepage_slider_form_view_customize" model="ir.ui.view">
             <field name="name">homepage_slider_form_view_customize</field>
-            <field name="inherit_id" search="[('key', '=', 'theme_grocery.homepage_slider_form_view')]"/>
-            <field name="type">qweb</field>
-            <field name="key">farmaoffers_design.homepage_slider_form_view_customize</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='link']" position="after">
-                    <field name="title"/>
-                    <field name="description"/>
-                </xpath>
-            </field>
-        </record> -->
-
-        <record id="homepage_slider_form_view_customize" model="ir.ui.view">
-            <field name="name">homepage_slider_form_view_customize</field>
             <field name="model">homepage.slider</field>
             <field name="inherit_id" ref="theme_grocery.homepage_slider_form_view"/>
             <field name="arch" type="xml">
@@ -1056,7 +1043,7 @@
                     <field name="description"/>
                 </xpath>
             </field>
-        </record>
+        </record> -->
 
         <!-- Backend modifications -->
         <record id="ws_product_template_form_view_customize" model="ir.ui.view">
