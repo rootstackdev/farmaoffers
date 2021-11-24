@@ -81,7 +81,7 @@ odoo.define('farmaoffers_design.script', function (require) {
 
     $("#show-more-with-same-compound").on("click", function (e) {
         e.preventDefault();
-        var compound = $("#current_product_compound").text();
+        var compound = $("#current_product_compound").text().trim();
         var product_id = $(".product_template_id").val();
         var limit = undefined;
         var text = "Desplegar menos";
@@ -90,7 +90,7 @@ odoo.define('farmaoffers_design.script', function (require) {
             limit = 3;
             text = "Desplegar más";
         }
-
+        
         rpc.query({
 
             route: "/products/same-compounds",
@@ -101,6 +101,7 @@ odoo.define('farmaoffers_design.script', function (require) {
             },
 
         }).then(function (products) {
+            console.log(products)
             $("#ul-same-compound li").remove();
             var showAll = '';
             products.forEach(element => {

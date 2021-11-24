@@ -4,22 +4,99 @@ from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.payment.controllers.portal import PaymentProcessing
 from werkzeug.exceptions import Forbidden, NotFound
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
+from odoo.addons.auth_signup.models.res_users import SignupError
 from odoo.osv import expression
 import base64
 import logging
-import PyPDF2
+import re
+import werkzeug
+ 
+# Make a regular expression
+# for validating an Email
+regexEmail = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+#regexName =r'/^[\w\s]+$/'
 
 _logger = logging.getLogger(__name__)
-
-# FO: Farma Offers
-
-# Editing the sign up controller ""
 class SignUpFO(AuthSignupHome):
-    
+
+    @http.route('/web/signup', type='http', auth='public', website=True, sitemap=False)
+    def web_auth_signup(self, *args, **kw):
+        qcontext = self.get_auth_signup_qcontext()
+
+        if not qcontext.get('token') and not qcontext.get('signup_enabled'):
+            raise werkzeug.exceptions.NotFound()
+
+        errors = validator(qcontext)
+        if len(errors) > 0:
+            qcontext["error"] = [qcontext["error"]] + errors if 'error' in qcontext else errors
+
+        if 'error' not in qcontext and request.httprequest.method == 'POST':
+            try:
+                self.do_signup(qcontext)
+                # Send an account creation confirmation email
+                if qcontext.get('token'):
+                    User = request.env['res.users']
+                    user_sudo = User.sudo().search(
+                        User._get_login_domain(qcontext.get('login')), order=User._get_login_order(), limit=1
+                    )
+                    template = request.env.ref('auth_signup.mail_template_user_signup_account_created', raise_if_not_found=False)
+                    if user_sudo and template:
+                        template.sudo().send_mail(user_sudo.id, force_send=True)
+                return self.web_login(*args, **kw)
+            except UserError as e:
+                qcontext['error'] = e.args[0]
+            except (SignupError, AssertionError) as e:
+                if request.env["res.users"].sudo().search([("login", "=", qcontext.get("login"))]):
+                    qcontext["error"] = _("Another user is already registered using this email address.")
+                else:
+                    _logger.error("%s", e)
+                    qcontext['error'] = _("Could not create a new account.")
+
+        response = request.render('auth_signup.signup', qcontext)
+        response.headers['X-Frame-Options'] = 'DENY'
+        return response
+
+    @http.route('/web/reset_password', type='http', auth='public', website=True, sitemap=False)
+    def web_auth_reset_password(self, *args, **kw):
+        qcontext = self.get_auth_signup_qcontext()
+
+        if not qcontext.get('token') and not qcontext.get('reset_password_enabled'):
+            raise werkzeug.exceptions.NotFound()
+
+        errors = validator(qcontext, qcontext.get('token'))
+        if len(errors) > 0:
+            qcontext["error2"] = errors
+
+        if 'error' not in qcontext and 'error2' not in qcontext and request.httprequest.method == 'POST':
+            try:
+                if qcontext.get('token'):
+                    self.do_signup(qcontext)
+                    return self.web_login(*args, **kw)
+                else:
+                    login = qcontext.get('login')
+                    assert login, _("No login provided.")
+                    _logger.info(
+                        "Password reset attempt for <%s> by user <%s> from %s",
+                        login, request.env.user.login, request.httprequest.remote_addr)
+                    request.env['res.users'].sudo().reset_password(login)
+                    qcontext['message'] = _("An email has been sent with credentials to reset your password")
+            except UserError as e:
+                qcontext['error'] = e.args[0]
+            except SignupError:
+                qcontext['error'] = _("Could not reset your password")
+                _logger.exception('error when resetting password')
+            except Exception as e:
+                qcontext['error'] = str(e)
+
+        response = request.render('auth_signup.reset_password', qcontext)
+        response.headers['X-Frame-Options'] = 'DENY'
+        return response
+
     def _signup_with_values(self, token, values):
         context = self.get_auth_signup_qcontext()
         values.update({'street': context.get('address')})
@@ -451,6 +528,16 @@ class website_sale_extend(WebsiteSale):
 
         return request.render("website_sale.products", values)
 
+class CustomerPortalFO(CustomerPortal):
+
+    def details_form_validate(self, data):
+        error, error_message = super(CustomerPortalFO, self).details_form_validate(data)
+
+        # phone validation
+        if data.get('phone') and not data.get('phone').isdigit() and not (len(data.get('phone')) == 7 or len(data.get('phone')) == 8):
+            error["phone"] = 'error'
+            error_message.append(_('Teléfono no válido. Por favor proporcione un teléfono válido.'))
+        return error, error_message
 class Quote(http.Controller):
     @http.route('/quote', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def quote(self, **kw):
@@ -459,8 +546,13 @@ class Quote(http.Controller):
             filename = upload.filename if upload else False
             file = upload.read() if upload else False
 
+            errors = validator(kw)
+
             if upload and not file.startswith(b'%PDF-'):
-                kw["error"] = "Ingrese un archivo PDF válido."
+                errors.append({'field': 'upload', 'error': 'Ingrese un archivo PDF válido.'})
+
+            if len(errors) > 0:
+                kw['error'] = errors
                 return http.request.render('farmaoffers_design.quote', kw)
 
             quote = request.env['farmaoffers.quote'].create({
@@ -498,8 +590,12 @@ class FarmaOffersContact(http.Controller):
     @http.route('/farmaoffers-contact', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def contactus(self, **kw):
         if request.httprequest.method == 'POST':
-            _logger.warning("Data %s", kw)
 
+            errors = validator(kw)
+
+            if len(errors) > 0:
+                kw['error'] = errors
+                return http.request.render('farmaoffers_design.contact_us', kw)
 
             try:
                 contact = request.env['farmaoffers.contactus'].create({
@@ -531,9 +627,15 @@ class Prescription(http.Controller):
             filename = upload.filename if upload else False
             file = upload.read() if upload else False
 
+            errors = validator(kw)
+
             if upload and not file.startswith(b'%PDF-'):
-                kw["error"] = "Ingrese un archivo PDF válido."
+                errors.append({'field': 'upload', 'error': 'Ingrese un archivo PDF válido.'})
+
+            if len(errors) > 0:
+                kw['error'] = errors
                 return http.request.render('farmaoffers_design.prescription', kw)
+            
 
             prescription = request.env['farmaoffers.prescription'].create({
                 'name': kw.get('name'),
@@ -570,3 +672,46 @@ class AllOffers(http.Controller):
     @http.route('/all-offers', auth='public', type='http', methods=['GET'], website=True, sitemap=False)
     def allOffers(self, **kw):
         return http.request.render('farmaoffers_design.all_offers')
+
+def validator(data, onlypaswords=False):
+    errors = []
+    for key in data.keys():
+        if not onlypaswords and (key == 'name' or key == 'lastname'):
+            if len(data[key]) < 5:
+                errors.append({'field': key, 'error': f'El campo {key} debe tener más de 4 caracteres.'})
+            if not data[key].isalpha():
+                errors.append({'field': key, 'error': f'El campo {key} debe contener solo letras.'})
+
+        if not onlypaswords and (key == 'email' or key == 'login'):
+            if not (re.fullmatch(regexEmail, data[key])):
+                errors.append({'field': key, 'error': f'El campo {key} debe ser un correo válido.'})
+
+        if not onlypaswords and (key == 'phone'):
+            if not data[key].isdigit():
+                errors.append({'field': key, 'error': f'El campo {key} debe ser śolo numéros.'})
+
+            if len(data[key]) != 8 and len(data[key]) != 7:
+                errors.append({'field': key, 'error': f'El campo {key} debe tener 7 u 8 dígitos.'})
+
+        if key == 'password':
+            SpecialSym =['$', '@', '#', '%']
+            val = True
+            
+            if len(data[key]) < 6:
+                val = False
+                
+            if not any(char.isdigit() for char in data[key]):
+                val = False
+                
+            if not any(char.isupper() for char in data[key]):
+                val = False
+                
+            if not any(char.islower() for char in data[key]):
+                val = False
+                
+            if not any(char in SpecialSym for char in data[key]):
+                val = False
+            if not val:
+                errors.append({'field': key, 'error': f'La contraseña debe contener 6 o más dígitos, debe contener al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo ($, @, #, %).'})
+
+    return errors
