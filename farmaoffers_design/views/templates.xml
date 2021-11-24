@@ -403,10 +403,12 @@
                   <div class="container">
                     <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
-                        <i class="fa fa-exclamation" aria-hidden="false"></i>
-                        <t t-esc="error"/>
-                      </div>
+                      <t t-if="error and len(error) > 0">
+                        <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
+                          <i class="fa fa-exclamation" aria-hidden="false"></i>
+                          <t t-esc="err['error']"/>
+                        </div>
+                      </t>
                       <div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="nameQuote">
@@ -439,23 +441,21 @@
                             <span>Teléfono</span>
                             <span>     *</span>
                           </label>
-                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="" id="phoneQuote"/>
+                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="1234567 o 12345678" id="phoneQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="emailQuote">
                             <span>Correo Electrónico</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="emailQuote"/>
+                          <input type="email" class="form-control" name="email" t-att-value="email" required="true" placeholder="micorreo@email.com" id="emailQuote"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="descriptionQuote">
                             <span>Descripción de la solicitud</span>
                             <span>     *</span>
                           </label>
-                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3">
-                            <t t-if="description" t-esc="description"/>
-                          </textarea>
+                          <textarea class="form-control" name="description" required="1" placeholder="" id="descriptionQuote" rows="3"><t t-if="description" t-esc="description"/></textarea>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="uploadQuote">
@@ -497,10 +497,12 @@
                   <div class="container">
                     <form action="/farmaoffers-contact/" method="post" class="login-form-custom">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
-                        <i class="fa fa-exclamation" aria-hidden="false"></i>
-                        <t t-esc="error"/>
-                      </div>
+                      <t t-if="error and len(error) > 0">
+                        <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
+                          <i class="fa fa-exclamation" aria-hidden="false"></i>
+                          <t t-esc="err['error']"/>
+                        </div>
+                      </t>
                       <div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="name">
@@ -527,7 +529,7 @@
                             <span>Correo Electrónico</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="email"/>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="micorreo@email.com" id="email"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="message">
@@ -572,10 +574,12 @@
                   <div class="container">
                     <form action="/prescription/" method="post" enctype="multipart/form-data" class="login-form-custom">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                      <div t-if="error" class="form-group col-12 alert alert-danger font-montserrat font-8-5" role="alert">
-                        <i class="fa fa-exclamation" aria-hidden="false"></i>
-                        <t t-esc="error"/>
-                      </div>
+                      <t t-if="error and len(error) > 0">
+                        <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
+                          <i class="fa fa-exclamation" aria-hidden="false"></i>
+                          <t t-esc="err['error']"/>
+                        </div>
+                      </t>
                       <div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0" style="width: 200px" for="name">
@@ -608,14 +612,14 @@
                             <span>Teléfono</span>
                             <span>     *</span>
                           </label>
-                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="" id="phone"/>
+                          <input type="tel" class="form-control" name="phone" t-att-value="phone" required="1" placeholder="1234567 o 12345678" id="phone"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="email">
                             <span>Correo Electrónico</span>
                             <span>       *</span>
                           </label>
-                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="" id="email"/>
+                          <input type="text" class="form-control" name="email" t-att-value="email" required="true" placeholder="micorreo@email.com" id="email"/>
                         </div>
                         <div class="form-group col-12">
                           <label class="text-dark-fo mb-0 " style="width: 200px" for="message">
