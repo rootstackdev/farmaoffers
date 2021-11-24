@@ -828,7 +828,7 @@
                     <attribute name="class" add="border-0" separator=" " />
                 </xpath>
                 <xpath expr="//table[hasclass('table')]" position="after">
-                    <div class="mt-3">
+                    <div class="mt-3 mb-5">
                         <t t-call="farmaoffers_design.filters_shop_list"/>
                     </div>
                 </xpath>

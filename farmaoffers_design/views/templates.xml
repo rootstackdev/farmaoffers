@@ -305,7 +305,7 @@
             <div class="col-md-12">
               <ol class="breadcrumb bg-white px-0 mb-1">
                 <li class="breadcrumb-item">
-                  <a class="text-blue" href="/">Home</a>
+                  <a class="text-blue" t-attf-href="#{back_url if back_url else '/'}">Home</a>
                 </li>
                 <t t-if="breadcrumb_definition">
                   <li class="breadcrumb-item active">

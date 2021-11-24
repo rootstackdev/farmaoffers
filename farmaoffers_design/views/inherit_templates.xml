@@ -6,9 +6,9 @@
                 <div class="container-fo mx-auto my-0 basic-bg basic-bg-login">
                     <div class="container mx-auto my-0 row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
-                            <div class="text-white">
+                            <div class="text-white text-left font-montserrat font-weight-bold">
                             LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
-                                <span class="text-secondary">CADA DÍA</span>
+                                <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
@@ -56,7 +56,7 @@
                                 </p>
 
                                 <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
-                                    <button type="submit" class="btn btn-secondary text-uppercase login-button-custom">Ingresar</button>
+                                    <button type="submit" class="btn btn-secondary text-uppercase font-montserrat font-weight-bold login-button-custom font-8-5">Ingresar</button>
                                     <t t-if="debug">
                                         <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
                                     </t>
@@ -73,7 +73,7 @@
 
         <template id="farmaoffers_design.fields" inherit_id="auth_signup.fields" name="Custom Fields Sign Up">
             <xpath expr="//div[hasclass('field-login')]" position="replace">
-                
+
                 <div class="form-group field-login">
                     <label class="text-dark-fo mb-0" for="login">Correo electrónico</label>
                     <input type="text" name="login" t-att-value="login" id="login" class="form-control form-control-sm" autofocus="autofocus" placeholder="micorreo@email.com" autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
@@ -117,9 +117,9 @@
                 <div class="container-fo mx-auto my-0">
                     <div class="basic-bg basic-bg-signup row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
-                            <div class="text-white">
+                            <div class="text-white text-left font-montserrat font-weight-bold">
                             LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
-                                <span class="text-secondary">CADA DÍA</span>
+                                <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
@@ -169,9 +169,9 @@
                     <div class="container-fo mx-auto my-0">
                         <div class="basic-bg basic-bg-reset row">
                             <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
-                                <div class="text-white">
+                                <div class="text-white text-left font-montserrat font-weight-bold">
                                 LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
-                                    <span class="text-secondary">CADA DÍA</span>
+                                    <span class="text-green2">CADA DÍA</span>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
@@ -219,7 +219,7 @@
 
                                     <t t-if="not token">
                                         <div class="form-group field-login">
-                                            <label for="login" class="col-form-label reset-password-label">Recuperar contraseña</label>
+                                            <label for="login" class="col-form-label reset-password-label text-dar-fo font-montserrat">Recuperar contraseña</label>
                                             <input type="text" name="login" t-att-value="login" id="login" class="form-control mb-4" autofocus="autofocus" required="required" autocapitalize="off" placeholder="Ingrese su correo"/>
                                         </div>
                                     </t>
@@ -230,7 +230,7 @@
                                     <input type="hidden" name="redirect" t-att-value="redirect"/>
                                     <input type="hidden" name="token" t-att-value="token"/>
                                     <div class="clearfix oe_login_buttons text-center">
-                                        <button type="submit" class="btn btn-secondary">Recuperar</button>
+                                        <button type="submit" class="btn btn-secondary text-uppercase font-montserrat font-weight-bold font-8-5">Recuperar</button>
                                         <div class="helper-links d-flex justify-content-center align-items-center small mt-2">
                                             <a t-if="not token" t-attf-href="/web/login?{{ keep_query() }}">Regresar</a>
                                             <a t-if="invalid_token" href="/web/login">Regresar</a>
@@ -351,19 +351,19 @@
                 </h4>
             </xpath>
             <xpath expr="//div[@itemprop='offers']" position="after">
-                <div class="share-with d-flex justify-content-left align-items-center font-montserrat">
-                    <label class="text-uppercase m-0 mr-4 text-primary">Compartir</label>
-                    <div>
-                        <a t-if="res_company.social_facebook" class="mx-1 font-size-cards" t-att-href="res_company.social_facebook" title="Facebook">
+                <div class="share-with d-flex justify-content-between align-items-center font-montserrat">
+                    <label class="text-uppercase m-0 mr-4 text-primary font-8-5">Compartir</label>
+                    <div class="d-flex justify-content-between">
+                        <a t-if="res_company.social_facebook" class="mx-4 font-size-cards" t-att-href="res_company.social_facebook" title="Facebook">
                             <i class="fa fa-facebook-square" aria-hidden="false"></i>
                         </a>
-                        <a t-if="res_company.social_twitter" class="mx-1 font-size-cards" t-att-href="res_company.social_twitter" title="Twitter">
+                        <a t-if="res_company.social_twitter" class="mx-4 font-size-cards" t-att-href="res_company.social_twitter" title="Twitter">
                             <i class="fa fa-twitter-square" aria-hidden="false"></i>
                         </a>
-                        <a t-if="res_company.social_linkedin" class="mx-1 font-size-cards" t-att-href="res_company.social_linkedin" title="LinkedIn">
+                        <a t-if="res_company.social_linkedin" class="mx-4 font-size-cards" t-att-href="res_company.social_linkedin" title="LinkedIn">
                             <i class="fa fa-linkedin" aria-hidden="false"></i>
                         </a>
-                        <a t-if="res_company.social_instagram" class="mx-1 font-size-cards" t-att-href="res_company.social_instagram" title="Instagram">
+                        <a t-if="res_company.social_instagram" class="mx-4 font-size-cards" t-att-href="res_company.social_instagram" title="Instagram">
                             <i class="fa fa-instagram" aria-hidden="false"></i>
                         </a>
                     </div>
@@ -1126,21 +1126,22 @@
             </xpath>
         </template>
 
-        <template id='portal_my_quotations_fo' inherit_id="sale.portal_my_quotations" name="My Quotations FO">
+        <template id='portal_my_invoices_fo' inherit_id="account.portal_my_invoices" name="My Invoices and Payments FO">
             <xpath expr="//t[@t-call='portal.portal_searchbar']" position="before">
                 <t t-call="farmaoffers_design.breadcrumb_fo">
-                    <t t-set="bg_title" t-value="'Listado de ordenes'"/>
+                    <t t-set="bg_title" t-value="'Listado de facturas'"/>
                     <t t-set="classes" t-value="'p-0 mt-3'"/>
-                    <t t-set="breadcrumb_definition" t-value="'Listado de ordenes'"/>
+                    <t t-set="back_url" t-value="'/my'"/>
+                    <t t-set="breadcrumb_definition" t-value="'Listado de facturas'"/>
                 </t>
                 <div class="col-12 p-0">
                     <div class="d-flex justify-content-between">
                         <div>
                             <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
                                 <span class="text-secondary">Listado </span>
-                                <span class="text-primary">de ordenes</span>
+                                <span class="text-primary">facturas</span>
                             </h2>
-                            <p>Historial de ordenes compradas
+                            <p class="font-montserrat font-8-5">Historial de facturas
                             </p>
                         </div>
                         <div id="o_portal_navbar_content">
@@ -1168,6 +1169,105 @@
 
             <xpath expr="//t[@t-call='portal.portal_searchbar']" position="replace">
             </xpath>
+            <xpath expr="//t[@t-call='portal.portal_layout']/t[3]/p" position="attributes">
+                <attribute name="class" add="font-size-cards font-montserrat text-center" separator=" " />
+            </xpath>
+        </template>
+
+        <template id='portal_my_orders_fo' inherit_id="sale.portal_my_orders" name="My Sales Orders FO">
+            <xpath expr="//t[@t-call='portal.portal_searchbar']" position="before">
+                <t t-call="farmaoffers_design.breadcrumb_fo">
+                    <t t-set="bg_title" t-value="'Listado de pedidos de venta'"/>
+                    <t t-set="classes" t-value="'p-0 mt-3'"/>
+                    <t t-set="back_url" t-value="'/my'"/>
+                    <t t-set="breadcrumb_definition" t-value="'Listado de pedidos de venta'"/>
+                </t>
+                <div class="col-12 p-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Listado </span>
+                                <span class="text-primary">pedidos de venta</span>
+                            </h2>
+                            <p class="font-montserrat font-8-5">Historial de pedidos de venta
+                            </p>
+                        </div>
+                        <div id="o_portal_navbar_content">
+                            <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
+                                <div t-if="searchbar_sortings" class="form-inline">
+                                    <span class="mr-3 navbar-text text-uppercase font-montserrat font-8-5 text-primary font-weight-bold">Ordenar por</span>
+                                    <div class="btn-group">
+                                        <button id="portal_searchbar_sortby" data-toggle="dropdown" class="btn btn-outline-dark dropdown-toggle">
+                                            <t t-esc="searchbar_sortings[sortby].get('label', 'Newest')"/>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="portal_searchbar_sortby">
+                                            <t t-foreach="searchbar_sortings" t-as="option">
+                                                <a t-att-href="request.httprequest.path + '?' + keep_query('*', sortby=option)" t-attf-class="dropdown-item#{sortby == option and ' active' or ''}">
+                                                    <span t-esc="searchbar_sortings[option].get('label')"/>
+                                                </a>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//t[@t-call='portal.portal_searchbar']" position="replace">
+            </xpath>
+            <xpath expr="//t[@t-call='portal.portal_layout']/t[3]/p" position="attributes">
+                <attribute name="class" add="font-size-cards font-montserrat text-center" separator=" " />
+            </xpath>
+        </template>
+
+        <template id='portal_my_quotations_fo' inherit_id="sale.portal_my_quotations" name="My Quotations FO">
+            <xpath expr="//t[@t-call='portal.portal_searchbar']" position="before">
+                <t t-call="farmaoffers_design.breadcrumb_fo">
+                    <t t-set="bg_title" t-value="'Listado de ordenes'"/>
+                    <t t-set="classes" t-value="'p-0 mt-3'"/>
+                    <t t-set="back_url" t-value="'/my'"/>
+                    <t t-set="breadcrumb_definition" t-value="'Listado de ordenes'"/>
+                </t>
+                <div class="col-12 p-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Listado </span>
+                                <span class="text-primary">de ordenes</span>
+                            </h2>
+                            <p class="font-montserrat font-8-5">Historial de ordenes compradas
+                            </p>
+                        </div>
+                        <div id="o_portal_navbar_content">
+                            <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
+                                <div t-if="searchbar_sortings" class="form-inline">
+                                    <span class="mr-3 navbar-text text-uppercase font-montserrat font-8-5 text-primary font-weight-bold">Ordenar por</span>
+                                    <div class="btn-group">
+                                        <button id="portal_searchbar_sortby" data-toggle="dropdown" class="btn btn-outline-dark dropdown-toggle">
+                                            <t t-esc="searchbar_sortings[sortby].get('label', 'Newest')"/>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="portal_searchbar_sortby">
+                                            <t t-foreach="searchbar_sortings" t-as="option">
+                                                <a t-att-href="request.httprequest.path + '?' + keep_query('*', sortby=option)" t-attf-class="dropdown-item#{sortby == option and ' active' or ''}">
+                                                    <span t-esc="searchbar_sortings[option].get('label')"/>
+                                                </a>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//t[@t-call='portal.portal_searchbar']" position="replace">
+            </xpath>
+            <xpath expr="//t[@t-call='portal.portal_layout']/t[3]/p" position="attributes">
+                <attribute name="class" add="font-size-cards font-montserrat text-center" separator=" " />
+            </xpath>
         </template>
 
         <template id='portal_table_fo' inherit_id="portal.portal_table" name="My Portal Table FO">
@@ -1183,6 +1283,32 @@
                 <div t-if="pager" class="o_portal_pager text-center d-flex justify-content-center mt-3">
                     <t t-call="portal.pager"/>
                 </div>
+            </xpath>
+        </template>
+
+        <template id='portal_layout_fo' inherit_id="portal.portal_layout" name="Portal Layout FO">
+            <xpath expr="//div[hasclass('o_portal_my_security')]/a" position="replace">
+                <a href="/my/security">
+                    <i class="fa fa-pencil mx-1"/>Editar configuración de seguridad
+                </a>
+            </xpath>
+            <xpath expr="//div[hasclass('o_portal_wrap')]/div[hasclass('container')]" position="attributes">
+                <attribute name="class" add="font-montserrat" separator=" " />
+            </xpath>
+        </template>
+
+        <template id='portal_my_security_fo' inherit_id="portal.portal_my_security">
+            <xpath expr="//div[hasclass('form-group')]/label[@for='current']" position="replace">
+                <label for="current">Contraseña actual:</label>
+            </xpath>
+
+            <xpath expr="//div[hasclass('form-group')]/label[@for='new2']" position="replace">
+                <label for="new2">Confirma la nueva contraseña:</label>
+            </xpath>
+        </template>
+
+        <template id='totp_portal_hook_fo' inherit_id="auth_totp_portal.totp_portal_hook">
+            <xpath expr="//section[2]" position="replace">
             </xpath>
         </template>
 

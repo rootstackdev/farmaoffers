@@ -57,6 +57,9 @@ main {
 .text-blue {
     color: #358fd8;
 }
+.text-green2 {
+    color: #7ccd56 !important;
+}
 .bg-gray {
     background-color: #f2f4f5 !important;
 }
@@ -171,7 +174,7 @@ main {
 .shopping-icon {
     i {
         padding: 10px 10px;
-        font-size: 1.5rem;
+        font-size: 1rem;
         border-radius: 28px;
     }
 }
@@ -361,19 +364,19 @@ main {
 }
 .login-message div {
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     width: 100%;
     font-weight: bold;
     padding: 1rem;
     line-height: 1.4;
     @media (min-width: 768px) {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     @media (min-width: 992px) {
-        width: 75%;
+        width: 100%;
     }
     @media (min-width: 1400px) and (max-width: 2000px) {
-        width: 50%;
+        width: 80%;
     }
     @media (min-width: 2000px) {
         width: 75%;
@@ -1126,6 +1129,39 @@ body #wrapwrap.o_portal {
     max-height: 260px;
     min-height: 260px;
 }
+.breadcrumb {
+    font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
+}
+.breadcrumb .breadcrumb-item a {
+    color: #358fd8;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    color: #358fd8;
+    content: ">";
+}
+.share-with div {
+
+    a {
+        text-decoration: none;
+        color:#858080;
+        i {
+            font-size: 1.1rem;
+        }
+    }
+    a:hover {
+        color: #1c9edc;
+    }
+}
+.add_plus_quantity .css_quantity .js_add_cart_json:active, .add_plus_quantity .css_quantity .js_add_cart_json:focus {
+    border: none !important;
+}
+.add_plus_quantity .css_quantity .button-wrapper a.js_add_cart_json:hover, .add_plus_quantity .button-wrapper a.js_add_cart_json:focus {
+    color: #0083c1;
+}
+#faqsAccordion .card-body {
+    color: #555555;
+}
 // FOOTER
 .border-top-footer {
     border-top: 0.75rem solid black;
@@ -1166,10 +1202,10 @@ body #wrapwrap.o_portal {
 .title-follow-us {
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 .social-media-icons {
-    width: 30px;
+    width: 35px;
     //filter: $svg-color;
 }
 .footer_copyright {
@@ -1182,4 +1218,7 @@ body #wrapwrap.o_portal {
     @media (min-width: 768px) {
         font-size: 1rem;
     }
+}
+div .o_footer a:not(.btn) {
+    color: #666666;
 }

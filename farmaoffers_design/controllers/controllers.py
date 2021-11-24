@@ -4,11 +4,13 @@ from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
+from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.payment.controllers.portal import PaymentProcessing
 from werkzeug.exceptions import Forbidden, NotFound
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.auth_signup.models.res_users import SignupError
+from odoo.osv import expression
 import base64
 import logging
 import re
@@ -526,6 +528,16 @@ class website_sale_extend(WebsiteSale):
 
         return request.render("website_sale.products", values)
 
+class CustomerPortalFO(CustomerPortal):
+
+    def details_form_validate(self, data):
+        error, error_message = super(CustomerPortalFO, self).details_form_validate(data)
+
+        # phone validation
+        if data.get('phone') and not data.get('phone').isdigit() and not (len(data.get('phone')) == 7 or len(data.get('phone')) == 8):
+            error["phone"] = 'error'
+            error_message.append(_('Teléfono no válido. Por favor proporcione un teléfono válido.'))
+        return error, error_message
 class Quote(http.Controller):
     @http.route('/quote', auth='public', type='http', methods=['GET', 'POST'], website=True, sitemap=False)
     def quote(self, **kw):
@@ -667,8 +679,8 @@ def validator(data, onlypaswords=False):
         if not onlypaswords and (key == 'name' or key == 'lastname'):
             if len(data[key]) < 5:
                 errors.append({'field': key, 'error': f'El campo {key} debe tener más de 4 caracteres.'})
-            #if not (re.fullmatch(regexName, data[key])):
-            #    errors.append({'field': key, 'error': f'El campo {key} debe tener letras números o espacios.'})
+            if not data[key].isalpha():
+                errors.append({'field': key, 'error': f'El campo {key} debe contener solo letras.'})
 
         if not onlypaswords and (key == 'email' or key == 'login'):
             if not (re.fullmatch(regexEmail, data[key])):
