@@ -196,7 +196,7 @@
                 </h2>
               </div>
 
-              <div t-attf-id="collapse-#{item.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="heading-#{item.id}" data-parent="#faqsAccordion">
+              <div t-attf-id="collapse-#{item.id}" t-attf-class="collapse mb-2 #{ 'show' if item_first else '' }" t-attf-aria-labelledby="heading-#{item.id}" data-parent="#faqsAccordion">
                 <div class="card-body font-8-5">
                   <t t-esc="item.description" />
                 </div>
@@ -902,7 +902,7 @@
 
     <template id="card_top_offers" name="Card Top Offers">
       <div>
-        <div class="img-offer">
+        <div class="img-offer d-flex align-items-center">
           <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title"/>
         </div>
         <div class="title-offer">
