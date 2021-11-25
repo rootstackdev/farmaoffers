@@ -129,7 +129,11 @@
             <div class="col-lg-4 col-12 search-header p-0">
               <div class="searchbox-header">
                 <div class="search-wrapper">
-                  <form method="get" action="/shop" class="pagination form-inline o_website_sale_search justify-content-center">
+                  <form 
+                  method="get" 
+                  action="/shop"
+                  t-att-data-snippet="'s_products_searchbar_input'"
+                  class="o_wsale_products_searchbar_form o_wait_lazy_js s_wsale_products_searchbar_input pagination form-inline justify-content-center">
                     <div class="input-group justify-content-center w-100"> 
                       <div class="oe_search w-100">
                         <!-- <select class="form-control" name="category">
@@ -140,7 +144,18 @@
                             </option>
                           </t>
                         </select> -->
-                        <input type="text" name="search" class="search-query form-control oe_search_box w-100" placeholder="Encuentre su medicamento..." t-att-value="search"/>
+                        <!-- <t>$0</t> -->
+                        <input name="order" type="hidden" class="o_wsale_search_order_by" value=""/>
+                        <input 
+                        type="text" 
+                        name="search"
+                        data-limit="5"
+                        data-display-description="true"
+                        data-display-price="true"
+                        data-display-image="true"
+                        class="search-query form-control oe_search_box w-100" 
+                        placeholder="Encuentre su medicamento..." 
+                        t-att-value="search"/>
                       </div>
                       <span class="input-group-btn">
                         <button type="submit" class="btn btn-default oe_search_button text-white">
