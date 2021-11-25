@@ -815,11 +815,19 @@ section {
 .bought-together .owl-nav, 
 .client_reviews .owl-nav,
 .top_offers .owl-nav,
-.our_tips .owl-nav,
-.top_products .owl-nav {
+.our_tips .owl-nav {
     position: absolute;
     right: 0;
     top: -55px;
+    button:focus {
+        outline: none;
+    }
+}
+
+.top_products .owl-nav {
+    position: absolute;
+    right: 0;
+    top: -100px;
     button:focus {
         outline: none;
     }
