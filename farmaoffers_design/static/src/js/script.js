@@ -155,12 +155,18 @@ odoo.define('farmaoffers_design.script', function (require) {
         $(".top_products .medicine_carousel").addClass('d-block');
         $(".top_products .health_carousel").addClass('d-none');
         $(".top_products .health_carousel").removeClass('d-block');
+
+        $('.btn_medicine').removeClass('btn-gray-fo').addClass('btn-secondary');
+        $('.btn_health').removeClass('btn-secondary').addClass('btn-gray-fo');
     });
     $('.btn_health').on('click', function (e) {
         e.preventDefault();
         $(".top_products .medicine_carousel").addClass('d-none');
         $(".top_products .medicine_carousel").removeClass('d-block');
         $(".top_products .health_carousel").addClass('d-block');
+
+        $('.btn_health').removeClass('btn-gray-fo').addClass('btn-secondary');
+        $('.btn_medicine').removeClass('btn-secondary').addClass('btn-gray-fo');
     });
 
     //Functions
@@ -400,6 +406,5 @@ odoo.define('farmaoffers_design.script', function (require) {
             }
         },
     });
-
 
 });
