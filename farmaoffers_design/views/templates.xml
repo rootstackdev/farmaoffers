@@ -387,7 +387,7 @@
 
     <template id="quote">
       <t t-call="website.layout">
-        <div id="wrap" class="oe_structure oe_empty">
+        <div id="wrap">
           <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
             <section class="pt8 pb0" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
@@ -475,13 +475,15 @@
               </div>
             </section>
           </div>
+          <div class="clearfix"/>
+          <div class="oe_structure"/>
         </div>
       </t>
     </template>
 
     <template id="contact_us">
       <t t-call="website.layout">
-        <div id="wrap" class="oe_structure oe_empty">
+        <div id="wrap">
           <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
             <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
@@ -552,13 +554,15 @@
               </div>
             </section>
           </div>
+          <div class="clearfix"/>
+          <div class="oe_structure"/>
         </div>
       </t>
     </template>
 
     <template id="prescription">
       <t t-call="website.layout">
-        <div id="wrap" class="oe_structure oe_empty">
+        <div id="wrap">
           <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
             <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
@@ -648,13 +652,15 @@
               </div>
             </section>
           </div>
+          <div class="clearfix"/>
+          <div class="oe_structure"/>
         </div>
       </t>
     </template>
 
     <template id="thanks_page">
       <t t-call="website.layout">
-        <div id="wrap" class="oe_structure oe_empty">
+        <div id="wrap">
           <div class="container-fo mx-auto my-0 basic-bg basic-bg-thanks">
             <section class="pt8 pb0" data-vcss="001" data-snippet="s_title" data-name="Title">
               <div class="o_container_small font-montserrat text-uppercase">
@@ -678,13 +684,15 @@
               </div>
             </section>
           </div>
+          <div class="clearfix"/>
+          <div class="oe_structure"/>
         </div>
       </t>
     </template>
 
     <template id="all_offers">
       <t t-call="website.layout">
-        <div id="wrap" class="oe_structure oe_empty">
+        <div id="wrap">
           <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
             <section class="pt8 pb0 mt-4" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
@@ -716,6 +724,8 @@
               </div>
             </section>
           </div>
+          <div class="clearfix"/>
+          <div class="oe_structure"/>
         </div>
       </t>
     </template>
