@@ -747,7 +747,7 @@ def validator(data, onlypaswords=False):
         if not onlypaswords and (key == 'name' or key == 'lastname'):
             if len(data[key]) < 5:
                 errors.append({'field': key, 'error': f'El campo {key} debe tener más de 4 caracteres.'})
-            if not data[key].isalpha():
+            if not re.match(r'[a-zA-Z +\s]+$', data[key]):
                 errors.append({'field': key, 'error': f'El campo {key} debe contener solo letras.'})
 
         if not onlypaswords and (key == 'email' or key == 'login'):

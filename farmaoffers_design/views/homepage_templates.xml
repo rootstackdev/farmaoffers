@@ -8,7 +8,6 @@
       <field name="arch" type="xml">
         <t name="Home" t-name="website.farmaoffers_homepage">
           <t t-call="website.layout">
-            <t t-set="pageName" t-value="'homepage'"/>
             <div id="wrap" class="oe_structure">
               <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', lang)]).direction"/>
               <section class="mt32">
@@ -32,11 +31,17 @@
                 </div>
               </section>
 
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
+
               <section class="mt16 mb16">
                 <div class="container">
                   <t t-call="farmaoffers_design.s_top_offers"/>
                 </div>
               </section>
+
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
 
               <section class="mt16 mb16">
                 <div class="container">
@@ -44,11 +49,17 @@
                 </div>
               </section>
 
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
+
               <section class="mt16 mb16">
                 <div class="container">
                   <t t-call="farmaoffers_design.s_our_tips"/>
                 </div>
               </section>
+
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
               
               <section class="mt16 mb16">
                 <div class="container">
@@ -56,7 +67,10 @@
                 </div>
               </section>
 
-              <section class="mt16 mb32">
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
+
+              <section class="mt16">
                 <div class="container">
                   <t t-call="farmaoffers_design.section_faqs">
                     <t t-set="title_p1" t-value="'Tips'"/>
@@ -66,6 +80,8 @@
                 </div>
               </section>
 
+              <div class="clearfix"/>
+              <div class="oe_structure"/>
             </div>
           </t>
         </t>
