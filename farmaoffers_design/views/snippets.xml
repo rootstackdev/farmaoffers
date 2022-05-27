@@ -2,16 +2,65 @@
 <odoo>
     <template id="farmaoffers_design_snippet_options" inherit_id="website.snippet_options">
         <xpath expr="//we-select[@data-variable='header-template']/we-button[last()]" position="after">
-            <we-button title="FarmaOffers Header"
-                data-customize-website-views="farmaoffers_design.farmaoffers_header"
-                data-customize-website-variable="'wgh_header_style_2'"
-                data-img="/farmaoffers_design/static/src/img/header.png"/>
+            <we-button title="FarmaOffers Header" data-customize-website-views="farmaoffers_design.farmaoffers_header" data-customize-website-variable="'wgh_header_style_2'" data-img="/farmaoffers_design/static/src/img/header.png"/>
         </xpath>
         <xpath expr="//we-select[@data-variable='footer-template']/we-button[last()]" position="after">
-            <we-button title="FarmaOffers Footer"
-                data-customize-website-views="farmaoffers_design.farmaoffers_footer"
-                data-customize-website-variable="'wgh_footer_style_2'"
-                data-img="/farmaoffers_design/static/src/img/footer.png"/>
+            <we-button title="FarmaOffers Footer" data-customize-website-views="farmaoffers_design.farmaoffers_footer" data-customize-website-variable="'wgh_footer_style_2'" data-img="/farmaoffers_design/static/src/img/footer.png"/>
         </xpath>
     </template>
+
+    <template id="place_into_bar" inherit_id="website.snippets" name="Place into bar">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+            <t t-snippet="farmaoffers_design.s_reviews" t-thumbnail="/website/static/src/img/snippets_thumbs/s_quotes_carousel.svg"/>
+            <t t-snippet="farmaoffers_design.s_top_offers"/>
+        </xpath>
+    </template>
+
+    <template id="s_reviews" name="Client reviews">
+        <t t-set="reviews" t-value="request.env['fo.client.review'].search([('active', '=', True)])"/>
+
+        <t t-call="farmaoffers_design.t_owl_carousel">
+            <t t-set="items" t-value="reviews"/>
+            <t t-set="carousel_class" t-value="'client_reviews'"/>
+            <t t-set="title_p1" t-value="'Reviews'"/>
+            <t t-set="title_p2" t-value="'De nuestros clientes'"/>
+            <t t-set="need_bottom_hr" t-value="true"/>
+            <t t-set="client_review" t-value="True"/>
+            <t t-set="mb_class" t-value="'mb-4 pt-5'"/>
+        </t>
+    </template>
+
+    <template id="s_top_offers" name="Top Offers">
+        <t t-set="offers" t-value="request.env['product.offers'].search([('top', '=', True)])"/>
+        <t t-call="farmaoffers_design.t_owl_carousel">
+            <t t-set="items" t-value="offers"/>
+            <t t-set="carousel_class" t-value="'top_offers'"/>
+            <t t-set="title_p1" t-value="'Ofertas'"/>
+            <t t-set="title_p2" t-value="'Destacadas'"/>
+            <t t-set="need_bottom_hr" t-value="false"/>
+            <t t-set="top_offers" t-value="True"/>
+            <t t-set="mb_class" t-value="'mb-0'"/>
+        </t>
+        <section>
+            <section>
+                <a class="float-right text-uppercase font-montserrat text-blue font-weight-bold mb-4" href="/all-offers">Ver todas las ofertas</a>
+            </section>
+        </section>
+        <t t-call="farmaoffers_design.stripe_info"/>
+    </template>
+
+    <template id="s_our_tips" name="Our tips">
+        <t t-set="tips" t-value="request.env['fo.our.tips'].search([('active', '=', True)])"/>
+
+        <t t-call="farmaoffers_design.t_owl_carousel">
+            <t t-set="items" t-value="tips"/>
+            <t t-set="carousel_class" t-value="'our_tips'"/>
+            <t t-set="title_p1" t-value="'Nuestros'"/>
+            <t t-set="title_p2" t-value="'Tips'"/>
+            <t t-set="need_bottom_hr" t-value="False"/>
+            <t t-set="our_tips" t-value="True"/>
+            <t t-set="mb_class" t-value="'mb-4'"/>
+        </t>
+    </template>
+
 </odoo>

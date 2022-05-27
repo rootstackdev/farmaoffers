@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'theme_grocery'],
+    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery'],
 
     # always loaded
     'data': [
@@ -30,6 +30,7 @@
         'views/h_f_templates.xml',
         'views/snippets.xml',
         'views/inherit_templates.xml',
+        'views/homepage_templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

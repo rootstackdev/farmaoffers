@@ -161,6 +161,7 @@
                             <group>
                                 <field name="title"/>
                                 <field name="description"/>
+                                <field name="top"/>
                                 <field name="image" widget='image' class="oe_avatar"/>
                             </group>
                         </group>
@@ -300,18 +301,309 @@
             </field>
         </record>
 
-        <!-- <record id="menu_product_ribbon_action" model="ir.actions.act_window">
-            <field name="name">Product ribbons</field>
+        <!-- Quotes -->
+        <record id="quote_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.quote.form</field>
+            <field name="model">farmaoffers.quote</field>
+            <field name="arch" type="xml">
+                <form string="Quotes">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="city"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="description"/>
+                                <field name="file" widget="pdf_viewer"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="quote_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.quote.tree</field>
+            <field name="model">farmaoffers.quote</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Quotes">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_quote_action" model="ir.actions.act_window">
+            <field name="name">Quotes</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">product.ribbon</field>
+            <field name="res_model">farmaoffers.quote</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Click to add a ribbon.
+                    Click to add a Quote.
                 </p><p>
                 </p>
             </field>
-        </record> -->
+        </record>
+
+        <!-- Contact Us -->
+        <record id="contactus_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.contactus.form</field>
+            <field name="model">farmaoffers.contactus</field>
+            <field name="arch" type="xml">
+                <form string="Contact us">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="lastname"/>
+                            <field name="company"/>
+                            <field name="email"/>
+                            <field name="message"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="contactus_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.contactus.tree</field>
+            <field name="model">farmaoffers.contactus</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Contactus">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="message"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_contactus_action" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">farmaoffers.contactus</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a contact.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Prescription -->
+        <record id="prescription_form_view" model="ir.ui.view">
+            <field name="name">farmaoffers.prescription.form</field>
+            <field name="model">farmaoffers.prescription</field>
+            <field name="arch" type="xml">
+                <form string="Contact us">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="lastname"/>
+                                <field name="city"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="message"/>
+                                <field name="file" widget="pdf_viewer"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="prescription_tree_view" model="ir.ui.view">
+            <field name="name">farmaoffers.prescription.tree</field>
+            <field name="model">farmaoffers.prescription</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="prescription">
+                    <field name="name"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="message"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_prescription_action" model="ir.actions.act_window">
+            <field name="name">Prescriptions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">farmaoffers.prescription</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a prescription.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Client Reviews -->
+        <record id="client_review_form_view" model="ir.ui.view">
+            <field name="name">fo.client.review.form</field>
+            <field name="model">fo.client.review</field>
+            <field name="arch" type="xml">
+                <form string="Contact us">
+                    <sheet>
+                        <group>
+                            <field name="title"/>
+                            <field name="review"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="client_review_tree_view" model="ir.ui.view">
+            <field name="name">fo.client.review.tree</field>
+            <field name="model">fo.client.review</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Client reviews">
+                    <field name="title"/>
+                    <field name="review"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_client_review_action" model="ir.actions.act_window">
+            <field name="name">Client reviews</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fo.client.review</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a client review.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Nuestros Tips -->
+        <record id="our_tips_form_view" model="ir.ui.view">
+            <field name="name">fo.our.tips.form</field>
+            <field name="model">fo.our.tips</field>
+            <field name="arch" type="xml">
+                <form string="Nuestros tips">
+                    <sheet>
+                        <group>
+                            <field name="text"/>
+                            <field name="image" widget='image' class="oe_avatar"/>
+                            <field name="active" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="our_tips_tree_view" model="ir.ui.view">
+            <field name="name">fo.our.tips.tree</field>
+            <field name="model">fo.our.tips</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Nuestros tips">
+                    <field name="text"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_our_tips_action" model="ir.actions.act_window">
+            <field name="name">Nuestros tips</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fo.our.tips</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para agregar un nuevo tip
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Tips frecuentes -->
+        <record id="frequent_tips_form_view" model="ir.ui.view">
+            <field name="name">fo.frequent.tips.form</field>
+            <field name="model">fo.frequent.tips</field>
+            <field name="arch" type="xml">
+                <form string="Tips frecuentes">
+                    <sheet>
+                        <group>
+                            <field name="title"/>
+                            <field name="description"/>
+                            <field name="active" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="frequent_tips_tree_view" model="ir.ui.view">
+            <field name="name">fo.frequent.tips.tree</field>
+            <field name="model">fo.frequent.tips</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Tips frecuentes">
+                    <field name="title"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_frequent_tips_action" model="ir.actions.act_window">
+            <field name="name">Tips frecuentes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fo.frequent.tips</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para agregar un nuevo tip
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <!-- Productos top -->
+        <record id="top_product_tree_view" model="ir.ui.view">
+            <field name="name">fo.top.product.tree</field>
+            <field name="model">fo.top.product</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Featured Product" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="product_tmpl_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="menu_top_product_action" model="ir.actions.act_window">
+            <field name="name">Productos top</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fo.top.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click para agregar un nuevo producto
+                </p><p>
+                </p>
+            </field>
+        </record>
 
         <!-- Menus -->
         <menuitem id="menu_price_filter"
@@ -330,6 +622,34 @@
             action="menu_branch_office_action"
             parent="menu_farma_offers" sequence="4"/>
 
+        <menuitem id="menu_quote"
+            action="menu_quote_action"
+            parent="menu_farma_offers" sequence="5"/>
+        
+        <menuitem id="menu_contactus"
+            action="menu_contactus_action"
+            parent="menu_farma_offers" sequence="6"/>
+
+        <menuitem id="menu_prescription"
+            action="menu_prescription_action"
+            parent="menu_farma_offers" sequence="7"/>
+        
+        <menuitem id="menu_client_review"
+            action="menu_client_review_action"
+            parent="menu_farma_offers" sequence="8"/>
+
+        <menuitem id="menu_our_tips"
+            action="menu_our_tips_action"
+            parent="menu_farma_offers" sequence="9"/>
+        
+        <menuitem id="menu_frequent_tips"
+            action="menu_frequent_tips_action"
+            parent="menu_farma_offers" sequence="10"/>
+
+        <menuitem id="menu_top_product"
+            action="menu_top_product_action"
+            parent="menu_farma_offers" sequence="11"/>
+
         <!-- Default values -->
         <record id="default_price_filter" model="price.filter">
 			<field name="price_under">10</field>
@@ -337,6 +657,22 @@
             <field name="price_range">100</field>
 		</record>
 
+        <record id="default_frequent_tips_1" model="fo.frequent.tips">
+			<field name="title">Comprar medicinas online es seguro?</field>
+            <field name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
+            </field>
+		</record>
+
+        <record id="default_frequent_tips_2" model="fo.frequent.tips">
+			<field name="title">Comprar medicinas online es seguro?</field>
+            <field name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
+            </field>
+		</record>
+        
         <!-- Inheriting from the theme -->
 
         <record id="products_categories_extended" model="ir.ui.view">
@@ -359,6 +695,7 @@
                 <xpath expr="//div[hasclass('tp-filter-attribute')]" position="replace">
                 </xpath>
                 <xpath expr="//div[@id='wsale_products_attributes_collapse']/form/ul" position="after">
+                    <t t-call="farmaoffers_design.list_filters_fo"/>
                     <!-- Price -->
                     <div class="nav-item tp-filter-attribute tp-hook-filter-price fo-side-price mb-4">
                         <t t-set="tp_is_attribute_filtered" t-value="bool(request.httprequest.args.get('min_price') or request.httprequest.args.get('max_price') or request.httprequest.args.get('under_10') or request.httprequest.args.get('over_20') or request.httprequest.args.get('ten_to_tweenty'))"/>
@@ -498,6 +835,17 @@
                 <xpath expr="//td[@t-attf-class='oe_product']" position="attributes">
                     <attribute name="class" add="border-0" separator=" " />
                 </xpath>
+                <xpath expr="//table[hasclass('table')]" position="after">
+                    <div class="mt-3 mb-5">
+                        <t t-call="farmaoffers_design.filters_shop_list"/>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('pull-left')]" position="before">
+                    <t t-call="farmaoffers_design.filters_shop_list"/>
+                </xpath>
+                <xpath expr="//div[hasclass('pull-right')]" position="attributes">
+                    <attribute name="class" add="d-none" separator=" " />
+                </xpath>
             </field>
         </record>
 
@@ -602,7 +950,11 @@
                         <t t-call="farmaoffers_design.section_same_compound"></t>
                         <t t-call="farmaoffers_design.section_bought_together"></t>
                         <t t-call="farmaoffers_design.section_general_info"></t>
-                        <t t-call="farmaoffers_design.section_faqs"></t>
+                        <t t-call="farmaoffers_design.section_faqs">
+                            <t t-set="title_p1" t-value="'Preguntas'"/>
+                            <t t-set="title_p2" t-value="'Frecuentes'"/>
+                            <t t-set="faqs" t-value="website.get_general_info_by_type(product.id, 'faq')"/>
+                        </t>
                         <t t-call="farmaoffers_design.section_product_resume"></t>
                     </section>
                 </xpath>
@@ -620,6 +972,30 @@
                 </xpath>
             </field>
         </record>
+
+        <record id="sort_inherit_customize" model="ir.ui.view">
+            <field name="name">sort_inherit_customize</field>
+            <field name="inherit_id" search="[('key', '=', 'theme_grocery.sort_inherit')]"/>
+            <field name="type">qweb</field>
+            <field name="key">farmaoffers_design.sort_inherit_customize</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('o_wsale_apply_layout')]" position="attributes">
+                    <attribute name="class" add="d-none" separator=" " />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- <record id="homepage_slider_form_view_customize" model="ir.ui.view">
+            <field name="name">homepage_slider_form_view_customize</field>
+            <field name="model">homepage.slider</field>
+            <field name="inherit_id" ref="theme_grocery.homepage_slider_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='link']" position="after">
+                    <field name="title"/>
+                    <field name="description"/>
+                </xpath>
+            </field>
+        </record> -->
 
         <!-- Backend modifications -->
         <record id="ws_product_template_form_view_customize" model="ir.ui.view">

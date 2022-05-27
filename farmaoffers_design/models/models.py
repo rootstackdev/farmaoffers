@@ -3,6 +3,10 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 # class farmaoffers_design(models.Model):
 #     _name = 'farmaoffers_design.farmaoffers_design'
@@ -46,6 +50,20 @@ class website(models.Model):
     def get_branch_offices(self):
         offices = self.env['branch.office'].sudo().search([])
         return offices
+
+    def get_top_products(self, category_name):
+        category = self.env['product.public.category'].sudo().search([('name','=', category_name)])
+        products = self.env['fo.top.product'].sudo().search([], order='sequence')
+        product_templates = products.mapped('product_tmpl_id')
+        response = []
+
+        for product in product_templates:
+            if category.id in product.public_categ_ids.ids:
+                response.append(product)
+
+        return response
+
+
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
@@ -114,10 +132,12 @@ class ProductOffers(models.Model):
     title = fields.Char(string="title", size=60)
     description = fields.Text(string="Description")
     image = fields.Binary('Image', help='Image size must be 256px x 256px.')
+    top = fields.Boolean(default=True)
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    branch_office_id = fields.Many2one("branch.office", string="Branch Office")
     website_order_saving = fields.Float(
         compute='_compute_website_order_saving',
         string='Order Saving displayed on Website',
@@ -139,3 +159,73 @@ class BranchOffice(models.Model):
     name = fields.Char(string="Name", size=60)
     description = fields.Text(string="Description")
     address = fields.Text(string="Address")
+
+class Quote(models.Model):
+    _name = 'farmaoffers.quote'
+    _description = "Quotes."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    city = fields.Char(string="City", size=60)
+    address = fields.Char(string="Address", size=60)
+    phone = fields.Char(string="Phone", size=60)
+    email = fields.Char(string="Email", size=60)
+    description = fields.Text(string="Description")
+    file = fields.Binary('File', help='Only PDF\'s', attachment=True)
+
+class FarmaOffersContactUs(models.Model):
+    _name = 'farmaoffers.contactus'
+    _description = "Contacts."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    company = fields.Char(string="Company", size=60)
+    email = fields.Char(string="Email", size=60)
+    message = fields.Text(string="Message")
+
+class Prescription(models.Model):
+    _name = 'farmaoffers.prescription'
+    _description = "Prescriptions."
+
+    name = fields.Char(string="Name", size=60)
+    lastname = fields.Char(string="Lastname", size=60)
+    city = fields.Char(string="City", size=60)
+    address = fields.Char(string="Address", size=60)
+    phone = fields.Char(string="Phone", size=60)
+    email = fields.Char(string="Email", size=60)
+    message = fields.Text(string="Message")
+    file = fields.Binary('File', help='Only PDF\'s', attachment=True)
+
+class ProductReviews(models.Model):
+    _name = 'fo.client.review'
+    _description = "Reseñas de los clientes."
+
+    title = fields.Char(string="Title", size=60)
+    review = fields.Text(string="Review")
+    active = fields.Boolean(default=True)
+    #Se deberia agregar relacion para saber de quien es el comentario
+
+
+class OurTips(models.Model):
+    _name = 'fo.our.tips'
+    _description = "Tips del Website."
+
+    text = fields.Char(string="Texto", size=60)
+    image = fields.Binary('Image', help='Image size must be 256px x 256px.')
+    active = fields.Boolean(default=True)
+
+class FrequentTips(models.Model):
+    _name = 'fo.frequent.tips'
+    _description = "Tips frecuentes del Website."
+
+    title = fields.Char(string="Texto", size=60)
+    description = fields.Text(string="Description")
+    active = fields.Boolean(default=True)
+
+class TopProduct(models.Model):
+    _name = 'fo.top.product'
+    _description = "shows top product in store."
+    _order = 'sequence'
+
+    product_tmpl_id = fields.Many2one('product.template', string='Product')
+    sequence = fields.Integer('Sequence', default=10)

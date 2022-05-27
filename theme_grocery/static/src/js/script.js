@@ -8,23 +8,10 @@ odoo.define('theme_grocery.script', function (require) {
     var sAnimations = require('website.content.snippets.animation');
     var core = require('web.core');
     var _t = core._t;
-    //theme Modify
-    // New
-    $(".bought-together .owl-carousel").owlCarousel({
-        loop: false,
-        nav: true,
-        dots: false,
-        autoplay: false,
-        autoplayHoverPause: true,
-        margin: 30,
-        navText : ["<i class='fa fa-angle-double-left h3 text-primary mr-2' aria-hidden='false'></i>","<i class='fa fa-angle-double-right h3 text-secondary' aria-hidden='false'></i>"],
-        responsive: {0: {items: 1}, 480: {items: 2}, 768: {items: 3}, 991: {items: 3}, 1200: {items: 3}}
-    });
-    // End new
 
     $(".home-slider .owl-carousel").owlCarousel({
         items:1,
-        autoplay: true,
+        autoplay: false,
         loop: true,
         nav : true, 
         dots: true,
