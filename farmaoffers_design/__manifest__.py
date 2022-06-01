@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery'],
+    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale'],
 
     # always loaded
     'data': [
@@ -35,6 +35,9 @@
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+    ],
+    'qweb': [
+        'static/src/xml/*.xml',
     ],
     'installable': True,
     'application': True,

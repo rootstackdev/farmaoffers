@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="farmaoffers.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[@class='orderlines']" position="replace">
+            <div class="orderlines">
+                <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+                    <t t-if="isSimple(line)">
+                        <div class="responsive-price">
+                            <t t-esc="line.product_name_wrapped[0]" />
+                            <span t-esc="env.pos.format_currency_no_symbol(line.price_display)" class="price_display pos-receipt-right-align"/>
+                        </div>
+                        <WrappedProductNameLines line="line" />
+                    </t>
+                    <t t-else="">
+                        <div t-esc="line.product_name_wrapped[0]" />
+                        <WrappedProductNameLines line="line" />
+                        <t t-if="line.display_discount_policy == 'without_discount' and line.price != line.price_lst">
+                            <div class="pos-receipt-left-padding">
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price_lst)" />
+                                ->
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price)" />
+                            </div>
+                        </t>
+                        <div class="pos-receipt-left-padding">
+                            <t t-esc="Math.round(line.quantity * Math.pow(10, env.pos.dp['Product Unit of Measure'])) / Math.pow(10, env.pos.dp['Product Unit of Measure'])"/>
+                            <t t-if="!line.is_in_unit" t-esc="line.unit_name" />
+                            x
+                            <t t-esc="env.pos.format_currency_no_symbol(line.price)" />
+                            <span class="price_display pos-receipt-right-align">
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price*line.quantity)" />
+                            </span>
+                        </div>
+                        <t t-if="line.discount !== 0">
+                            <div class="pos-receipt-left-padding">
+                                Discount: <t t-esc="line.discount" />%
+                                <span class="price_display pos-receipt-right-align">
+                                - <t t-esc="env.pos.format_currency_no_symbol((line.discount/100)*(line.price*line.quantity))"/>
+                                </span>
+                            </div>
+                        </t>
+                    </t>
+                    <t t-if="line.pack_lot_lines">
+                        <div class="pos-receipt-left-padding">
+                            <ul>
+                                <t t-foreach="line.pack_lot_lines" t-as="lot" t-key="lot.cid">
+                                    <li>
+                                        SN <t t-esc="lot.attributes['lot_name']"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </t>
+</templates>
