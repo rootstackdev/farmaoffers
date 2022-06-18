@@ -395,7 +395,11 @@ class website_sale_extend(WebsiteSale):
             PaymentProcessing.remove_payment_transaction(last_tx)
         PaymentProcessing.add_payment_transaction(transaction)
         request.session['__website_sale_last_tx_id'] = transaction.id
-        return transaction.render_sale_button(order)
+        return transaction.render_sale_button(order, render_values={
+            "amount_tax": order.amount_tax, 
+            "amount_delivery": order.amount_delivery,
+            "amount_untaxed": order.amount_untaxed
+            })
 
 
     @http.route([
