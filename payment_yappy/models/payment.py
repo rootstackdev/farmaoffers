@@ -41,6 +41,7 @@ class AcquirerPaypal(models.Model):
                 'tel': form_data['partner_phone'],
             }
         }
+        _logger.info("DATA PARA GENERAR EL LINK DE YAPPY", json.dumps(data))
         content = check_output(['node', dirname(__file__)+'/node_sdk/dist/index.js', json.dumps(data)])
         encoding = chardet.detect(content)['encoding'].lower()
         content = content.decode(encoding).encode('utf-8')
