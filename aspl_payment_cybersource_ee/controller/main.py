@@ -150,7 +150,7 @@ class CyberSourceController(http.Controller):
         kwargs = {}
         payment_acquire = request.env['payment.acquirer'].sudo().search([('id', '=', post.get('acquirer_id'))])
         if payment_acquire.state == 'enabled':
-            wsdl = 'https://ics2wstesta.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl' 
+            wsdl = 'https://ics2wsa.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl' 
         else:
             wsdl = 'https://ics2wstesta.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.141.wsdl'
         transaction_security_key = payment_acquire.cybersource_key
