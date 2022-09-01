@@ -38,7 +38,9 @@ class AcquirerPaypal(models.Model):
                 'taxes': form_data['amount_tax'],
                 'orderId': form_data['reference'],
                 'successUrl': urls.url_join(self.get_base_url(), '/shop/confirmation'),
+                'failUrl': urls.url_join(self.get_base_url(), '/shop/fail'),
                 'tel': form_data['partner_phone'],
+                'domain': self.get_base_url()
             }
         }
         _logger.info("DATA PARA GENERAR EL LINK DE YAPPY", json.dumps(data))

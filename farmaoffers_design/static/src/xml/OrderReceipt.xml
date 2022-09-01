@@ -34,7 +34,7 @@
                             <div class="pos-receipt-left-padding">
                                 Discount: <t t-esc="line.discount" />%
                                 <span class="price_display pos-receipt-right-align">
-                                - <t t-esc="env.pos.format_currency_no_symbol((line.discount/100)*(line.price*line.quantity))"/>
+                                - <t t-esc="env.pos.format_currency_no_symbol(line.discount_amount)"/>
                                 </span>
                             </div>
                         </t>
