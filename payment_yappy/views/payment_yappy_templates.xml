@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <template id="yappy_form">
             <div>
                 <input type="hidden" name="data_set" t-att-data-action-url="tx_url" data-remove-me=""/>
