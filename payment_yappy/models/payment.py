@@ -3,8 +3,8 @@
 import logging
 import json
 import chardet
+import os
 from werkzeug import urls
-from os.path import dirname
 from cryptography.fernet import Fernet
 
 from odoo import api, fields, models, _
@@ -53,7 +53,7 @@ class AcquirerPaypal(models.Model):
         _logger.info("DATA PARA GENERAR EL LINK DE YAPPY: %s" %
                      json.dumps(data))
         content = check_output(
-            ['node', dirname(__file__)+'/node_sdk/dist/index.js', json.dumps(data)])
+            ['node', os.path.expanduser('~')+'/node_sdk/dist/index.js', json.dumps(data)])
         encoding = chardet.detect(content)['encoding'].lower()
         content = content.decode(encoding).encode('utf-8')
         response = json.loads(to_text(content))
