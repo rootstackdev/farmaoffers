@@ -17,4 +17,7 @@
     'application': True,
     'post_init_hook': '_post_init_hook',
     'uninstall_hook': 'uninstall_hook',
+    'external_dependencies': {
+        'python': ['pynpm'],
+    }
 }
