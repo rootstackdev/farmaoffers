@@ -7,10 +7,15 @@ from odoo.addons.payment import reset_payment_provider
 
 
 def _post_init_hook(cr, registry):
+    import shutil
+    import os
     from pynpm import NPMPackage
     from os.path import dirname
+    source_dir = dirname(__file__) + '/node_sdk'
+    destination_dir = os.path.expanduser('~') + '/node_sdk'
+    shutil.copytree(source_dir, destination_dir)
     create_missing_journal_for_acquirers(cr, registry)
-    pkg = NPMPackage(dirname(__file__) + '/models/node_sdk/package.json')
+    pkg = NPMPackage(destination_dir + '/package.json')
     pkg.install()
     pkg.run_script('build')
 
