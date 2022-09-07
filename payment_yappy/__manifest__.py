@@ -15,6 +15,9 @@
     ],
     'installable': True,
     'application': True,
-    'post_init_hook': 'create_missing_journal_for_acquirers',
+    'post_init_hook': '_post_init_hook',
     'uninstall_hook': 'uninstall_hook',
+    'external_dependencies': {
+        'python': ['pynpm'],
+    }
 }
