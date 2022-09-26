@@ -242,6 +242,11 @@
                   Cotizar
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/shop" title="Productos">
+                  Productos
+                </a>
+              </li>
             </ul>
           </div>
           <div class="navbar-brand toplinks mr-0">
