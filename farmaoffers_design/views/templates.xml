@@ -710,7 +710,7 @@
                       <t t-foreach="product_offers" t-as="offer">
                         <div class="col-6 col-md-3 py-3 offer-card">
                           <a class="card" t-att-href="offer.link">
-                            <img class="w-49 my-4 mx-auto" t-attf-src="/website/image/product.offers/{{offer.id}}/image" t-att-alt="offer.title"/>
+                            <img class="w-49 mx-auto" t-attf-src="/website/image/product.offers/{{offer.id}}/image" t-att-alt="offer.title"/>
                             <div class="card-body">
                               <h5 class="card-title"><t t-esc="offer.title"/></h5>
                               <p class="card-text"><t t-esc="offer.description"/></p>
