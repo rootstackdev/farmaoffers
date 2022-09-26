@@ -161,6 +161,7 @@
                             <group>
                                 <field name="title"/>
                                 <field name="description"/>
+                                <field name="link"/>
                                 <field name="top"/>
                                 <field name="image" widget='image' class="oe_avatar"/>
                             </group>

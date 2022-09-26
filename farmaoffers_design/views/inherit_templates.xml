@@ -499,7 +499,7 @@
                                     </div>
                                     <div t-if="line.product_id.product_tmpl_id" class="text-primary small font-montserrat">
                                         <t t-set="comb_info" t-value="line.product_id.product_tmpl_id._get_combination_info(combination, pricelist=website_sale_order.pricelist_id)"/>
-                                        <t t-set="saving" t-value="100 - (comb_info['price'] * 100) /comb_info['list_price']"/>
+                                        <t t-set="saving" t-value="line.discount"/>
                                         <span t-if="saving > 0" class="font-weight-bold">Ahorro <t t-esc="saving"/>
 %</span>
                                     </div>
