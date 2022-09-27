@@ -1349,11 +1349,9 @@
             </xpath>
         </template>
 
-
-
-
-
-
-
+        <!-- Remove field to add cuopon-->
+        <template id="remove_cuopon" inherit_id="website_sale.reduction_code">
+            <xpath expr="//a[@class='show_coupon']" position="replace"/>
+        </template>
     </data>
 </odoo>
