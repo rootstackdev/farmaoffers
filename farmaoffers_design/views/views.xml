@@ -893,11 +893,11 @@
                                 </button> -->
                                 <t t-set="product_variant_id" t-value="product._get_first_possible_variant_id()"/>
                                 <input name="product_id" t-att-value="product_variant_id" type="hidden"/>
-                                <t t-if="product_variant_id">
+                                <!-- <t t-if="product_variant_id">
                                     <a href="#" role="button" class="btn btn-secondary a-submit" aria-label="Shopping cart" title="Shopping cart">
                                         <span class="fa fa-shopping-cart"/>
                                     </a>
-                                </t>
+                                </t> -->
                                 <a href="#" role="button" class="a-submit add-shopcart-indicator">
                                     <div>
                                         <span class="text-uppercase">Agregar al carrito</span>
