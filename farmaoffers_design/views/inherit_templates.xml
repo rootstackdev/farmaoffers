@@ -541,15 +541,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center td-total text-primary font-montserrat font-weight-bold font-8-5">
-                                    <t t-set="qty_for_total" t-value="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"/>
-                                    <span t-att-data-total-taxexcl-line-id="line.id" groups="account.group_show_line_subtotals_tax_excluded">
-                                        <t t-esc="website.currency_id.symbol"/>
-                                        <t t-esc="line.price_reduce_taxexcl * qty_for_total" />
-                                    </span>
-                                    <span t-att-data-total-taxinc-line-id="line.id" groups="account.group_show_line_subtotals_tax_included">
-                                        <t t-esc="website.currency_id.symbol"/>
-                                        <t t-esc="line.price_reduce_taxinc * qty_for_total" />
-                                    </span>
+                                    <span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_included"/>
                                 </td>
 
                             </tr>
