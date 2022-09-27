@@ -285,7 +285,9 @@
 
               <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
                 <div class="card-body card-body-offers">
-                  <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title"/>
+                  <a t-att-href="product_offer.link">
+                    <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title"/>
+                  </a>
                   <p class="m-0" t-esc="product_offer.description" />
                 </div>
               </div>
