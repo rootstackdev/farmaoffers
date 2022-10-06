@@ -117,11 +117,11 @@ odoo.define('farmaoffers_design.script', function (require) {
 
     toggleRadioOptions($('input:radio[name="radioSelect"]:checked'));
 
-    $('input:radio[name="radioSelect"]').change(
+    /* $('input:radio[name="radioSelect"]').change(
         function () {
             toggleRadioOptions($(this));
         }
-    );
+    ); */
 
     $('#branch_office_select').on('change', function () {
         if ($(this).val() !== "") {
@@ -407,4 +407,56 @@ odoo.define('farmaoffers_design.script', function (require) {
         },
     });
 
+    publicWidget.registry.websiteSaleDelivery.include({
+        events: _.extend({}, publicWidget.registry.websiteSaleDelivery.prototype.events || {}, {
+            'change #radioBranchOffice': 'onChangeShippingMode',
+            'change #radioAddress': 'onChangeShippingMode',
+            'change select[name="state_id"]': '_onChangeState',
+        }),
+        _onChangeState: function (event){
+            const state_id = event.target.value;
+            if (!state_id) {
+                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                selectZones.html('');
+                selectZones.append($('<option>').text('Zonas...').attr('value', ''));
+                return;
+            }
+            this._rpc({
+                route: "/shop/state_infos/" + state_id
+            }).then(function (data) {
+                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                selectZones.html('');
+                selectZones.append($('<option>').text('Zonas...').attr('value', ''));
+                _.each(data, function (x) {
+                    var opt = $('<option>').text(x.name)
+                        .attr('value', x.id);
+                    selectZones.append(opt);
+                });
+            })
+        },
+        _changeShippingMode: function (mode){
+            if(mode === 'branch')
+                return window.location.href = '/shop/payment?is_branch_office=True';
+            window.location.href = '/shop/payment';
+            /* this._rpc({
+                route: "/shop/update_shipping_mode",
+                params: {
+                    'mode': mode
+                },
+            }).then(function (data){
+                self._handleCarrierUpdateResult.call(self,data);
+                if(mode === 'branch')
+                    return $('#delivery_carrier').hide();
+                $('#delivery_carrier').show();
+            }); */
+        },
+        onChangeShippingMode: function (event){
+            $('input#radioBranchOffice').prop('disabled', true);
+            $('input#radioAddress').prop('disabled', true);
+            $('button#o_payment_form_pay').prop('disabled', true);
+            if (event.target.id === 'radioBranchOffice')
+                return this._changeShippingMode('branch')
+            return this._changeShippingMode('address')
+        }
+    });
 });

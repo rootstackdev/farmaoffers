@@ -31,6 +31,10 @@
         'views/snippets.xml',
         'views/inherit_templates.xml',
         'views/homepage_templates.xml',
+        'views/delivery_carrier.xml',
+        'views/address_template.xml',
+        'views/sale_order.xml',
+        'views/res_country_state.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

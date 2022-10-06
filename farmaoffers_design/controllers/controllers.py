@@ -187,9 +187,9 @@ class website_sale_extend(WebsiteSale):
         return domains
 
     @http.route(['/shop/cart/update_json'], type='json', auth="public", methods=['POST'], website=True, csrf=False)
-    def cart_update_json(self, product_id, line_id=None, add_qty=None, set_qty=None, display=True):
+    def cart_update_json(self, product_id=None, line_id=None, add_qty=None, set_qty=None, display=True):
         res = super(website_sale_extend, self).cart_update_json(
-            product_id=product_id, line_id=None, add_qty=add_qty, set_qty=set_qty, display=display)
+            product_id=product_id, line_id=line_id, add_qty=add_qty, set_qty=set_qty, display=display)
 
         order = request.website.sale_get_order()
 
@@ -275,6 +275,8 @@ class website_sale_extend(WebsiteSale):
             'error': errors,
             'callback': kw.get('callback'),
             'only_services': order and order.only_services,
+            'delivery_zones': (values and values.state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',values.state_id.id)],['name'])) or [],
+            'delivery_zone_id': (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
         }
         render_values.update(self._get_country_related_render_values(kw, render_values))
         return request.render("website_sale.address", render_values)
@@ -309,31 +311,39 @@ class website_sale_extend(WebsiteSale):
            did go to a payment.acquirer website but closed the tab without
            paying / canceling
         """
-
+        shipping_mode = 'address'
         order = request.website.sale_get_order()
         carrier_id = post.get('carrier_id')
         if carrier_id:
             carrier_id = int(carrier_id)
-        if order:
+        if order and not post.get('is_branch_office'):
             order._check_carrier_quotation(force_carrier_id=carrier_id)
             if carrier_id:
                 return request.redirect("/shop/payment")
 
-        order = request.website.sale_get_order()
         redirection = self.checkout_redirection(order) or self.checkout_check_address(order)
         if redirection:
             return redirection
 
         render_values = self._get_shop_payment_values(order, **post)
         render_values['only_services'] = order and order.only_services or False
+        if post.get('is_branch_office') == "True":
+            order._remove_delivery_line()
+            shipping_mode = 'branch'
+            render_values['is_branch_office'] = True
 
         if render_values['errors']:
             render_values.pop('acquirers', '')
             render_values.pop('tokens', '')
-        if post.get('is_branch_office') == "True":
-            render_values['is_branch_office'] = True
+        order.shipping_mode = shipping_mode
 
         return request.render("website_sale.payment", render_values)
+
+    def _get_shop_payment_values(self, order, **kwargs):
+        values = super(website_sale_extend, self)._get_shop_payment_values(order, **kwargs)
+        if kwargs.get('is_branch_office'):
+            values['errors'] = [item for item in values['errors'] if item[0] != 'Sorry, we are unable to ship your order']
+        return values
 
     @http.route(['/shop/payment/transaction/',
         '/shop/payment/transaction/<int:so_id>',
@@ -599,6 +609,22 @@ class website_sale_extend(WebsiteSale):
                 res_product['price'] = FieldMonetary.value_to_html(res_product['price'], monetary_options)
 
         return res
+
+    @http.route(['/shop/update_shipping_mode'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
+    def update_eshop_shipping_mode(self, **post):
+        mode = post.get('mode')
+        order = request.website.sale_get_order()
+        order.shipping_mode = mode
+        if mode == 'branch':
+            order._remove_delivery_line()
+        if mode == 'address':
+            order._check_carrier_quotation()
+        post['carrier_id'] = 0
+        return self._update_website_sale_delivery_return(order, **post)
+
+    @http.route(['/shop/state_infos/<int:state_id>'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
+    def state_infos(self, state_id):
+        return request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',state_id)],['name'])
 
 class CustomerPortalFO(CustomerPortal):
 
