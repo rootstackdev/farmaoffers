@@ -153,6 +153,10 @@ class ProductOffers(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    shipping_mode = fields.Selection([
+        ('branch', 'Retirar en tienda'),
+        ('address', 'Enviar a domicilio')
+    ], string="Modo de entrega")
     branch_office_id = fields.Many2one("branch.office", string="Branch Office")
     website_order_saving = fields.Float(
         compute='_compute_website_order_saving',
@@ -168,6 +172,13 @@ class SaleOrder(models.Model):
                 full_price += line.price_unit * line.product_uom_qty
             order.website_order_saving = full_price - order.amount_total
 
+    """ def _get_delivery_methods(self):
+        is_selected_branch = self.env.context.get('is_selected_branch')
+        if is_selected_branch:
+            return True
+        delivery_methods = super(SaleOrder, self)._get_delivery_methods()
+        return delivery_methods
+ """
 
 class BranchOffice(models.Model):
     _name = 'branch.office'

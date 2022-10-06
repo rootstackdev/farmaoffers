@@ -653,11 +653,11 @@
                     </p>
                     <div class="select_pickup mb-3">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="'checked' if not is_branch_office else ''" class="custom-control-input" value="pickAddress"/>
+                            <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="not is_branch_office" class="custom-control-input" value="pickAddress"/>
                             <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="'checked' if is_branch_office else ''" class="custom-control-input" value="pickBranch"/>
+                            <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="is_branch_office" class="custom-control-input" value="pickBranch"/>
                             <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
                         </div>
                     </div>
@@ -927,8 +927,8 @@
                     <h2 class="o_page_header mt8 d-flex align-items-center font-montserrat font-8-5 font-weight-bold text-uppercase">Su dirección
                         <small class="mx-3"> o </small>
                         <a role="button" href='/web/login?redirect=/shop/checkout' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'> Iniciar sesión</a>
-                        <small class="mx-3"> o </small>
-                        <a id="byBranchOffice" role="button" href='#' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'>Seleccionar sucursal</a>
+                        <!-- <small class="mx-3"> o </small>
+                        <a id="byBranchOffice" role="button" href='#' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'>Seleccionar sucursal</a> -->
                     </h2>
                 </t>
             </xpath>
