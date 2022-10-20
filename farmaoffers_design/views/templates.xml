@@ -273,10 +273,11 @@
         <hr class="m-0 mb-3"/>
         <div class="offers-for-you">
           <div class="accordion" id="accordionOffers">
+            <t t-set="offer_number" t-value="1"/>
             <div t-foreach="product_offers" t-as="product_offer" class="card">
               <div class="card-header p-0 d-flex align-items-center" t-attf-id="headingOffer-#{product_offer.id}">
                 <h2 class="mb-0 w-100">
-                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center">1</div>
+                  <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center"><t t-esc="offer_number"/></div>
                   <button class="btn btn-block text-left rounded-0" type="button" data-toggle="collapse" t-attf-data-target="#collapseOffer-#{product_offer.id}" aria-expanded="true" t-attf-aria-controls="collapseOffer-#{product_offer.id}">
                     <t t-esc="product_offer.title"/>
                   </button>
@@ -285,12 +286,13 @@
 
               <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
                 <div class="card-body card-body-offers">
-                  <a t-att-href="product_offer.link">
-                    <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title"/>
+                  <a t-att-href="product_offer.link" class="mr-2">
+                    <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
                   </a>
-                  <p class="m-0" t-esc="product_offer.description" />
+                  <p class="m-0 text-center" t-esc="product_offer.description" />
                 </div>
               </div>
+              <t t-set="offer_number" t-value="offer_number+1"/>
             </div>
           </div>
         </div>
@@ -711,12 +713,8 @@
                     <div class="row">
                       <t t-foreach="product_offers" t-as="offer">
                         <div class="col-6 col-md-3 py-3 offer-card">
-                          <a class="card" t-att-href="offer.link">
-                            <img class="w-49 mx-auto" t-attf-src="/website/image/product.offers/{{offer.id}}/image" t-att-alt="offer.title"/>
-                            <div class="card-body">
-                              <h5 class="card-title"><t t-esc="offer.title"/></h5>
-                              <p class="card-text"><t t-esc="offer.description"/></p>
-                            </div>
+                          <a t-att-href="offer.link">
+                            <img class="w-49 mx-auto" t-attf-src="/website/image/product.offers/{{offer.id}}/image" t-att-alt="offer.title" style="width: 100%;object-fit:cover;"/>
                           </a>
                         </div>
                       </t>
@@ -913,9 +911,9 @@
     </template>
 
     <template id="card_top_offers" name="Card Top Offers">
-      <div>
+      <div class="w-100">
         <div class="img-offer d-flex align-items-center">
-          <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title"/>
+          <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title" style="object-fit: contain;"/>
         </div>
         <div class="title-offer">
           <t t-esc="item.title" />

@@ -101,7 +101,6 @@ odoo.define('farmaoffers_design.script', function (require) {
             },
 
         }).then(function (products) {
-            console.log(products)
             $("#ul-same-compound li").remove();
             var showAll = '';
             products.forEach(element => {
@@ -125,7 +124,6 @@ odoo.define('farmaoffers_design.script', function (require) {
 
     $('#branch_office_select').on('change', function () {
         if ($(this).val() !== "") {
-            console.log($(this).val())
             $("#branch_office_id").val($(this).val());
         }
     });
@@ -388,7 +386,6 @@ odoo.define('farmaoffers_design.script', function (require) {
                 ev.preventDefault();
                 var show = $('.show_items_current').first().text().trim();
                 var order = $('.order_items_current').first().text().trim();
-                console.log(show, order)
 
                 var form = $(ev.currentTarget).closest("form");
 
