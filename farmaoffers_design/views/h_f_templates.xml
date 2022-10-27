@@ -193,12 +193,12 @@
                           <i class="fa fa-shopping-cart bg-primary" aria-hidden="false"></i>
                         </div>
                         <span class="counter qty empty">
-                          <span id="my_cart" class="counter-number my_cart_quantity d-block">
+                          <span id="my_cart" class="counter-number my_cart_quantity">
                             <t t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
-                            ítem
                           </span>
+                          <span>ítem</span>
                           <hr class="hr-price"/>
-                          <span class="price-minicart">
+                          <span class="price-minicart font-weight-bold">
                             <span class="price">
                               <t t-if="website_sale_order.amount_total > 0">
                                 <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
