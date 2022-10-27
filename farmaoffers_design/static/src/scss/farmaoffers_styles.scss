@@ -750,6 +750,9 @@ section {
             border-right: none;
         }
     }
+    .disabled {
+        pointer-events: none;
+    }
 }
 .button-wrapper {
     padding: 0 0.15rem;

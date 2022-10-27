@@ -230,9 +230,8 @@
                   <th scope="row">Su ahorro</th>
                   <td class="text-right">
                     <span class="text-secondary">
-                      <t t-esc="website.currency_id.symbol"/>
-                      <t t-esc="combination_info['list_price'] - combination_info['price']"/>
- -                      <t t-esc="100 - (combination_info['price'] * 100) /combination_info['list_price']"/>
+                      <t t-esc="combination_info['list_price'] - combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+ -                      <t t-esc="100 - (combination_info['price'] * 100) /combination_info['list_price']" t-options="{'widget': 'float', 'precision': 0}"/>
 % OFF 
                     </span>
                   </td>

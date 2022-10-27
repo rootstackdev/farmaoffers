@@ -583,8 +583,8 @@
             <xpath expr="//tr[@id='order_total_untaxed']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Sub-total</td>
             </xpath>
-            <xpath expr="//tr[@id='order_total_untaxed']/td[2]/span" position="attributes">
-                <attribute name="class" add="font-montserrat font-8-5 font-weight-bold" separator=" " />
+            <xpath expr="//tr[@id='order_total_untaxed']/td[2]/span" position="replace">
+                <span t-esc="website_sale_order.amount_undiscounted" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
             </xpath>
             <xpath expr="//tr[@id='order_total_taxes']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Impuesto</td>
@@ -596,7 +596,7 @@
                 <tr t-if="website_sale_order.website_order_saving &gt; 0" id="order_total_saving">
                     <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Ahorro</td>
                     <td class="text-xl-right border-0 text-secondary">
-                    -                        <span t-field="website_sale_order.website_order_saving" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+                    -                        <span t-esc="website_sale_order.amount_undiscounted-website_sale_order.amount_untaxed" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
                     </td>
                 </tr>
             </xpath>
