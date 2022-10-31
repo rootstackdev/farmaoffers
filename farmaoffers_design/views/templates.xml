@@ -266,7 +266,7 @@
           </li>
         </ul>
       </div>
-      <t t-set="product_offers" t-value="website.get_product_offers()"/>
+      <t t-set="product_offers" t-value="website.get_product_offers('product')"/>
       <div t-if="len(product_offers) &gt; 0" class="d-none d-md-block">
         <h3 class="text-uppercase text-primary font-montserrat font-weight-bold font-size-cards">Ofertas para tí</h3>
         <hr class="m-0 mb-3"/>
@@ -274,6 +274,8 @@
           <div class="accordion" id="accordionOffers">
             <t t-set="offer_number" t-value="1"/>
             <div t-foreach="product_offers" t-as="product_offer" class="card">
+              <t t-set="combination_info" t-value="product_offer.product_id._get_combination_info(only_template=True, add_qty=1, pricelist=pricelist)"/>
+              <t t-set="product_href" t-value="product_offer.product_id.website_url" />
               <div class="card-header p-0 d-flex align-items-center" t-attf-id="headingOffer-#{product_offer.id}">
                 <h2 class="mb-0 w-100">
                   <div class="bg-secondary h6 font-weight-bold m-0 p-3 d-flex justify-content-center align-items-center"><t t-esc="offer_number"/></div>
@@ -283,12 +285,23 @@
                 </h2>
               </div>
 
-              <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers">
-                <div class="card-body card-body-offers">
-                  <a t-att-href="product_offer.link" class="mr-2">
-                    <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
-                  </a>
-                  <p class="m-0 text-center" t-esc="product_offer.description" />
+              <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers" style="border-radius: 0 0 0.2rem 0.2rem;border-color: #0000000f;">
+                <div class="card-body card-body-offers p-1">
+                  <div class="border" style="border: 2px solid #DEE2E6 !important;border-radius: .2rem;">
+                    <t t-if="product_offer.image">
+                      <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
+                    </t>
+                    <t t-else="">
+                      <img t-attf-src="/website/image/product.template/{{product_offer.product_id.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
+                    </t>
+                  </div>
+                  <div class="d-flex flex-column w-100 ml-1">
+                    <del t-attf-class="font-montserrat oe_default_price text-black-50 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                    <span class="font-montserrat font-weight-bold text-primary" t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <a t-att-href="product_href" class="btn bg-secondary btn-sm mt-1">
+                      Detalle
+                    </a>
+                  </div>
                 </div>
               </div>
               <t t-set="offer_number" t-value="offer_number+1"/>

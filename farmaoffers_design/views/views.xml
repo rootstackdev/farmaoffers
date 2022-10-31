@@ -159,7 +159,9 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="type"/>
                                 <field name="title"/>
+                                <field name="product_id"/>
                                 <field name="description"/>
                                 <field name="link"/>
                                 <field name="top"/>
