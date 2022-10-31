@@ -46,8 +46,8 @@ class website(models.Model):
             return products
         return []
 
-    def get_product_offers(self):
-        products = self.env['product.offers'].sudo().search([])
+    def get_product_offers(self, type='banner'):
+        products = self.env['product.offers'].sudo().search([('type', '=', type)])
         return products
 
     def get_branch_offices(self):
@@ -148,6 +148,9 @@ class ProductOffers(models.Model):
     link = fields.Char(string="Link")
     image = fields.Binary('Image', help='Image size must be 256px x 256px.')
     top = fields.Boolean(default=True)
+    type = fields.Selection(
+        [('product', 'Producto'), ('banner', 'Banner')], string='Tipo')
+    product_id = fields.Many2one('product.template', string='Producto')
 
 
 class SaleOrder(models.Model):
@@ -179,6 +182,7 @@ class SaleOrder(models.Model):
         delivery_methods = super(SaleOrder, self)._get_delivery_methods()
         return delivery_methods
  """
+
 
 class BranchOffice(models.Model):
     _name = 'branch.office'
