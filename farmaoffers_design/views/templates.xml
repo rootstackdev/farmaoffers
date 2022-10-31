@@ -287,15 +287,15 @@
 
               <div t-attf-id="collapseOffer-#{product_offer.id}" t-attf-class="collapse #{ 'show' if item_first else '' }" t-attf-aria-labelledby="headingOffer-#{product_offer.id}" data-parent="#accordionOffers" style="border-radius: 0 0 0.2rem 0.2rem;border-color: #0000000f;">
                 <div class="card-body card-body-offers p-1">
-                  <div class="border" style="border: 2px solid #DEE2E6 !important;border-radius: .2rem;">
+                  <div class="border d-flex p-1" style="border: 2px solid #DEE2E6 !important;border-radius: .2rem;flex: 1;min-height: 110px;max-height: 120px;">
                     <t t-if="product_offer.image">
                       <img t-attf-src="/website/image/product.offers/{{product_offer.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
                     </t>
                     <t t-else="">
-                      <img t-attf-src="/website/image/product.template/{{product_offer.product_id.id}}/image" t-att-alt="product_offer.title" style="width: 100%;object-fit: cover;"/>
+                      <img t-attf-src="/web/image?model=product.template&amp;id={{product_offer.product_id.id}}&amp;field=image_128" t-att-alt="product_offer.title" style="width: 100%;object-fit: contain;"/>
                     </t>
                   </div>
-                  <div class="d-flex flex-column w-100 ml-1">
+                  <div class="d-flex flex-column w-100 ml-1" style="flex: 1;">
                     <del t-attf-class="font-montserrat oe_default_price text-black-50 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
                     <span class="font-montserrat font-weight-bold text-primary" t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
                     <a t-att-href="product_href" class="btn bg-secondary btn-sm mt-1">
