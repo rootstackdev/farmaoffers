@@ -333,6 +333,11 @@
                     </a>
                 </div>
             </xpath>
+            <xpath expr="//div[@id='product_option_block']" position="inside">
+                <a href="/quote" class="btn btn-link mt16">
+                    <i class="fa fa-file-text"/> Solicitar producto
+                </a>
+            </xpath>
             <!-- <xpath expr="//section[@id='product_detail']/div[hasclass('row')][1]/div[hasclass('col-md-6')][1]" position="attributes">
             <attribute name="class">col-md-12 col-lg-7</attribute>
         </xpath>
