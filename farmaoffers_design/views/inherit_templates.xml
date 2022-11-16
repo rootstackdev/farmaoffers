@@ -334,7 +334,7 @@
                 </div>
             </xpath>
             <xpath expr="//div[@id='product_option_block']" position="inside">
-                <a href="/quote" class="btn btn-link mt16">
+                <a href="/quote" class="btn btn-link mt16" style="font-size: 16px;">
                     <i class="fa fa-file-text"/> Solicitar producto
                 </a>
             </xpath>
