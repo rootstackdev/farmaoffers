@@ -128,7 +128,8 @@ class website_sale_extend(WebsiteSale):
                 subdomains = [
                     [('name', 'ilike', srch)],
                     [('product_variant_ids.default_code', 'ilike', srch)],
-                    [('active_compound', 'ilike', srch)]
+                    [('active_compound', 'ilike', srch)],
+                    [('laboratory', 'ilike', srch)]
                 ]
                 if search_in_description:
                     subdomains.append([('description', 'ilike', srch)])
