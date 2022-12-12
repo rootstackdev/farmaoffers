@@ -35,6 +35,8 @@
         'views/address_template.xml',
         'views/sale_order.xml',
         'views/res_country_state.xml',
+        'views/website_form_templates_inherit.xml',
+        'views/website_data_inherit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

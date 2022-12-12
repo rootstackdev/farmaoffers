@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="contactus_form_inherit" inherit_id="website_form.contactus_form" customize_show="True">
+        <xpath expr="//div[hasclass('s_website_form_rows')]" position="replace">
+            <div class="login-form-custom row p-0 ml-n3 mr-n3">
+                <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact1">
+                            <span>Your Name</span>
+                            <span> *</span>
+                        </label>
+                        <input id="contact1" type="text" class="form-control s_website_form_input" name="Name" required="" />
+                    </div>
+                </div>
+                <div class="form-group col-12 col-xl-6 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact2">
+                            <span class="s_website_form_label_content">Phone Number</span>
+                        </label>
+                        <input id="contact2" type="tel" class="form-control s_website_form_input" name="Phone" />
+                    </div>
+                </div>
+                <div class="form-group col-12 col-xl-6 s_website_form_field s_website_form_required" data-type="email" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact3">
+                            <span>Email</span>
+                            <span> *</span>
+                        </label>
+                        <input id="contact3" type="email" class="form-control s_website_form_input" name="email_from" required="" />
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_custom" data-type="char" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact4">
+                            <span class="s_website_form_label_content">Your Company</span>
+                        </label>
+                        <input id="contact4" type="text" class="form-control s_website_form_input" name="Partner Name" />
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact5">
+                            <span class="s_website_form_label_content">Subject</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <input id="contact5" type="text" class="form-control s_website_form_input" name="subject" required="" />
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="text" data-name="Field">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact6">
+                            <span class="s_website_form_label_content">Your Question</span>
+                            <span class="s_website_form_mark"> *</span>
+                        </label>
+                        <textarea id="contact6" class="form-control s_website_form_input" name="Description" required=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_field s_website_form_dnone">
+                    <div class="s_col_no_resize s_col_no_bgcolor">
+                        <label class="col-form-label s_website_form_label text-dark-fo" style="width: 200px" for="contact7">
+                            <span class="s_website_form_label_content">Email To</span>
+                        </label>
+                        <input id="contact7" type="hidden" class="form-control s_website_form_input" name="email_to" />
+                    </div>
+                </div>
+                <div class="form-group col-12 s_website_form_submit text-center" data-name="Submit Button">
+                    <a href="#" role="button" class="btn btn-secondary s_website_form_send">Submit</a>
+                    <div>
+                        <span id="s_website_form_result"></span>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
