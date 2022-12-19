@@ -16,3 +16,6 @@ class CountryState(models.Model):
 
     zone_ids = fields.One2many(
         "l10n.pa.delivery.zone", "state_id", string="Zonas")
+
+    def get_website_sale_zones(self):
+        return self.sudo().zone_ids

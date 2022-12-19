@@ -267,6 +267,14 @@ class website_sale_extend(WebsiteSale):
                 order.message_partner_ids = [(4, partner_id), (3, request.website.partner_id.id)]
                 if not errors:
                     return request.redirect(kw.get('callback') or '/shop/confirm_order?is_branch_office='+kw.get('is_branch_office'))
+        
+        if type(values) is dict:
+            state_id = values.get("state_id", False)
+            delivery_zone_id = values.get("l10n_pa_delivery_zone_id", False)
+        else:
+            state_id = values and values.state_id.id
+            delivery_zone_id = (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
+        delivery_zones = state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id', '=', state_id)], ['name']) or []
 
         render_values = {
             'website_sale_order': order,
@@ -277,8 +285,10 @@ class website_sale_extend(WebsiteSale):
             'error': errors,
             'callback': kw.get('callback'),
             'only_services': order and order.only_services,
-            'delivery_zones': (values and values.state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',values.state_id.id)],['name'])) or [],
-            'delivery_zone_id': (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
+            #'delivery_zones': (values and values.state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',values.state_id.id)],['name'])) or [],
+            #'delivery_zone_id': (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
+            'delivery_zones': delivery_zones,
+            'delivery_zone_id': delivery_zone_id
         }
         render_values.update(self._get_country_related_render_values(kw, render_values))
         return request.render("website_sale.address", render_values)
@@ -627,6 +637,15 @@ class website_sale_extend(WebsiteSale):
     @http.route(['/shop/state_infos/<int:state_id>'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
     def state_infos(self, state_id):
         return request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',state_id)],['name'])
+
+    @http.route(['/shop/country_infos/<model("res.country"):country>'], type='json', auth="public", methods=['POST'], website=True)
+    def country_infos(self, country, mode, **kw):
+        country_infos = super(website_sale_extend, self).country_infos(country=country, mode=mode, **kw)
+        zones = []
+        if len(country_infos['states']) > 0:
+            zones = [(zone.id, zone.name) for zone in request.env['res.country.state'].browse(country_infos['states'][0][0]).get_website_sale_zones()]
+        country_infos['zones'] = zones
+        return country_infos
 
 class CustomerPortalFO(CustomerPortal):
 
