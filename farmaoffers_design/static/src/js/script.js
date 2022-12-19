@@ -437,16 +437,20 @@ odoo.define('farmaoffers_design.script', function (require) {
                 }
 
                 // add zones options
-                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
-                selectZones.html('');
-                selectZones.append($('<option value="">Zonas...</option>'));
-                if (data.zones.length > 0) {
-                    _.each(data.zones, function (item) {
-                        var opt = $('<option>').text(item[1])
-                            .attr('value', item[0]);
-                        selectZones.append(opt);
-                    });
-                }
+                /* var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                if (selectZones.data('init') === 0 || selectZones.find('option').length === 1) {
+                    selectZones.html('');
+                    selectZones.append($('<option value="">Zonas...</option>'));
+                    if (data.zones.length > 0) {
+                        _.each(data.zones, function (item) {
+                            var opt = $('<option>').text(item[1])
+                                .attr('value', item[0]);
+                            selectZones.append(opt);
+                        });
+                    } else {
+                        selectZones.data('init', 0);
+                    }
+                } */
 
                 // manage fields order / visibility
                 if (data.fields) {

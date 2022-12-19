@@ -267,14 +267,6 @@ class website_sale_extend(WebsiteSale):
                 order.message_partner_ids = [(4, partner_id), (3, request.website.partner_id.id)]
                 if not errors:
                     return request.redirect(kw.get('callback') or '/shop/confirm_order?is_branch_office='+kw.get('is_branch_office'))
-        
-        if type(values) is dict:
-            state_id = values.get("state_id", False)
-            delivery_zone_id = values.get("l10n_pa_delivery_zone_id", False)
-        else:
-            state_id = values and values.state_id.id
-            delivery_zone_id = (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
-        delivery_zones = state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id', '=', state_id)], ['name']) or []
 
         render_values = {
             'website_sale_order': order,
@@ -284,14 +276,23 @@ class website_sale_extend(WebsiteSale):
             'can_edit_vat': can_edit_vat,
             'error': errors,
             'callback': kw.get('callback'),
-            'only_services': order and order.only_services,
-            #'delivery_zones': (values and values.state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',values.state_id.id)],['name'])) or [],
-            #'delivery_zone_id': (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
-            'delivery_zones': delivery_zones,
-            'delivery_zone_id': delivery_zone_id
+            'only_services': order and order.only_services
         }
         render_values.update(self._get_country_related_render_values(kw, render_values))
         return request.render("website_sale.address", render_values)
+
+    """ Inherit function to add zones field if country code is PA """
+    def _get_country_related_render_values(self, kw, render_values):
+        res = super()._get_country_related_render_values(kw, render_values)
+        if request.website.sudo().company_id.country_id.code == "PA":
+            country = res["country"]
+            if country and country.code == "PA":
+                states = res.get("country_states", False)
+                if states and len(states) == 1:
+                    res.update({
+                        "zones": states[0].get_website_sale_zones()
+                    })
+        return res
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True, sitemap=False)
     def confirm_order(self, **post):
