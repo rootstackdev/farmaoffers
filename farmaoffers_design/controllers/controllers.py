@@ -276,12 +276,23 @@ class website_sale_extend(WebsiteSale):
             'can_edit_vat': can_edit_vat,
             'error': errors,
             'callback': kw.get('callback'),
-            'only_services': order and order.only_services,
-            'delivery_zones': (values and values.state_id and request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',values.state_id.id)],['name'])) or [],
-            'delivery_zone_id': (partner_id != -1 and request.env['res.partner'].browse(partner_id).l10n_pa_delivery_zone_id) or Partner
+            'only_services': order and order.only_services
         }
         render_values.update(self._get_country_related_render_values(kw, render_values))
         return request.render("website_sale.address", render_values)
+
+    """ Inherit function to add zones field if country code is PA """
+    def _get_country_related_render_values(self, kw, render_values):
+        res = super()._get_country_related_render_values(kw, render_values)
+        if request.website.sudo().company_id.country_id.code == "PA":
+            country = res["country"]
+            if country and country.code == "PA":
+                states = res.get("country_states", False)
+                if states and len(states) == 1:
+                    res.update({
+                        "zones": states[0].get_website_sale_zones()
+                    })
+        return res
 
     @http.route(['/shop/confirm_order'], type='http', auth="public", website=True, sitemap=False)
     def confirm_order(self, **post):
@@ -627,6 +638,15 @@ class website_sale_extend(WebsiteSale):
     @http.route(['/shop/state_infos/<int:state_id>'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
     def state_infos(self, state_id):
         return request.env['l10n.pa.delivery.zone'].search_read([('state_id','=',state_id)],['name'])
+
+    @http.route(['/shop/country_infos/<model("res.country"):country>'], type='json', auth="public", methods=['POST'], website=True)
+    def country_infos(self, country, mode, **kw):
+        country_infos = super(website_sale_extend, self).country_infos(country=country, mode=mode, **kw)
+        zones = []
+        if len(country_infos['states']) > 0:
+            zones = [(zone.id, zone.name) for zone in request.env['res.country.state'].browse(country_infos['states'][0][0]).get_website_sale_zones()]
+        country_infos['zones'] = zones
+        return country_infos
 
 class CustomerPortalFO(CustomerPortal):
 

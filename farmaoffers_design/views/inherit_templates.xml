@@ -606,8 +606,8 @@
                 </tr>
             </xpath>
             <!-- <xpath expr="//tr[@id='order_total']" position="attributes">
-            <attribute name="class"><t t-esc="'order_total_f2' if show_format_2 else ''"/></attribute>
-        </xpath> -->
+                <attribute name="class"><t t-esc="'order_total_f2' if show_format_2 else ''"/></attribute>
+            </xpath> -->
             <xpath expr="//tr[@id='order_total']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Total</td>
             </xpath>
@@ -1356,7 +1356,7 @@
 
         <!-- Remove field to add cuopon-->
         <template id="remove_cuopon" inherit_id="website_sale.reduction_code">
-            <xpath expr="//a[@class='show_coupon']" position="replace"/>
+            <xpath expr="//tr[@t-if='not hide_coupon']" position="replace"/>
         </template>
     </data>
 </odoo>
