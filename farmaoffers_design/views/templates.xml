@@ -412,12 +412,12 @@
                 </h1>
               </div>
             </section>
-            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+            <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
               <div class="s_allow_columns o_container_small">
                 <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
                 <section>
                   <div class="container">
-                    <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom">
+                    <form action="/quote/" method="post" enctype="multipart/form-data" class="login-form-custom p-2 p-md-3 p-lg-5">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                       <t t-if="error and len(error) > 0">
                         <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
@@ -508,12 +508,12 @@
                 </h1>
               </div>
             </section>
-            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+            <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
               <div class="s_allow_columns o_container_small">
                 <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
                 <section>
                   <div class="container">
-                    <form action="/farmaoffers-contact/" method="post" class="login-form-custom">
+                    <form action="/farmaoffers-contact/" method="post" class="login-form-custom p-2 p-md-3 p-lg-5">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                       <t t-if="error and len(error) > 0">
                         <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
@@ -587,12 +587,12 @@
                 </h1>
               </div>
             </section>
-            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+            <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
               <div class="s_allow_columns o_container_small">
                 <p class=" text-white font-montserrat m-0">Great stories have a <b class="o_default_snippet_text">personality</b>. Consider telling a great story that provides personality. Writing a story with personality for potential clients will assist with making a relationship connection. </p>
                 <section>
                   <div class="container">
-                    <form action="/prescription/" method="post" enctype="multipart/form-data" class="login-form-custom">
+                    <form action="/prescription/" method="post" enctype="multipart/form-data" class="login-form-custom p-2 p-md-3 p-lg-5">
                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                       <t t-if="error and len(error) > 0">
                         <div t-foreach="error" t-as="err" class="form-group col-12 alert alert-danger font-montserrat font-8-5 mb-1" role="alert">
@@ -717,7 +717,7 @@
                 </h1>
               </div>
             </section>
-            <section class="s_text_block o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
+            <section class="o_colored_level pb0 pt0" data-snippet="s_text_block" data-name="Text" style="">
               <div class="container">
                 <section>
                   <div class="container">
@@ -983,7 +983,7 @@
             <li t-foreach="products[step:step+1]" t-as="product" class="d-flex flex-column align-items-center">
               <div class="medicine_items">
                 <span class="img w-100 m-0">
-                  <img class="img-thumbnail" t-attf-src="/website/image/product.template/{{product.id}}/image_512" t-att-title="product.name"/>
+                  <img class="img-thumbnail" t-attf-src="/website/image/product.template/{{product.id}}/image_512" t-att-title="product.name" style="object-fit: contain;"/>
                 </span>
                 <div class="d-flex flex-column justify-content-between product m-0 font-montserrat w-100 p-2">
                   <span class="name mb-1 d-inline-block text-uppercase font-montserrat w-100 font-weight-bold font-8-5">
