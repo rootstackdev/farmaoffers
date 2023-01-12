@@ -182,6 +182,13 @@
                   </div>
                 </a>
               </div>
+              <div id="my_wish" class="o_wsale_my_wish position-relative">
+                <t t-set='wishcount' t-value="len(request.env['product.wishlist'].current())"/>
+                <a href="/shop/wishlist" class="shopping-icon">
+                  <i class="fa fa-heart bg-primary"></i>
+                  <sup t-attf-class="my_wish_quantity o_animate_blink label label-primary count-float-badge rounded-circle"><t t-esc='wishcount'/></sup>
+                </a>
+              </div>
               <div class="minicart-header">
                 <div class="minicart-content">
                   <div class="cart-wrapper">
