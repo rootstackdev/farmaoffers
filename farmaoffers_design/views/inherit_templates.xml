@@ -465,9 +465,9 @@
 
         <template id="cart_lines_fo" inherit_id="website_sale.cart_lines" name="Shopping Cart Lines FO">
             <xpath expr="//div[1]" position="replace">
-                <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="js_cart_lines alert alert-info">
+                <!-- <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="js_cart_lines alert alert-info">
                 Tu carrito esta vacío!
-                </div>
+                </div> -->
             </xpath>
             <xpath expr="//table[@id='cart_products']" position="replace">
                 <table class="mb16 table table-sm js_cart_lines" id="cart_products" t-if="website_sale_order and website_sale_order.website_order_line">
@@ -494,9 +494,6 @@
                                             <strong t-field="line.name_short" />
                                         </t>
                                     </div>
-                                    <!-- <t t-call="website_sale.cart_line_description_following_lines">
-                                    <t t-set="div_class" t-value="'d-none d-md-block'"/>
-                                </t> -->
                                     <div t-if="line.product_id.product_tmpl_id" class="text-muted small font-montserrat">
                                         <span>
                                             <t t-esc="line.product_id.product_tmpl_id.laboratory"/>
@@ -649,31 +646,47 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
-                <div class="col-12 col-xl-8">
-                    <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
-                        <span class="text-secondary">Checkout </span>
-                        <span class="text-primary">revisar orden</span>
-                    </h2>
-                    <p class="font-montserrat font-8-5">Verificar su carrito de compra
-                    </p>
-                    <div class="select_pickup mb-3">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="not is_branch_office" class="custom-control-input" value="pickAddress"/>
-                            <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="is_branch_office" class="custom-control-input" value="pickBranch"/>
-                            <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h5 class="text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Checkout </span>
+                                <span class="text-primary">revisar orden</span>
+                            </h5>
+                            <p class="font-montserrat font-8-5">Verificar su carrito de compra</p>
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                            <hr class="mt-1"/>
                         </div>
                     </div>
-                    <!-- <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Su dirección</p>
-                <hr/> -->
-
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h5 class="text-uppercase font-montserrat mb-0 font-weight-bold mt-5">
+                                <span class="text-secondary">
+                                Delivery
+                                </span>
+                                <span class="text-primary">
+                                Productos
+                                </span>
+                            </h5>
+                            <hr class="mx-0 mt-1 mb-4" />
+                            <div class="select_pickup mb-3 mt-3">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="not is_branch_office" class="custom-control-input" value="pickAddress"/>
+                                    <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="is_branch_office" class="custom-control-input" value="pickBranch"/>
+                                    <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -683,7 +696,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div[hasclass('card')]" position="before">
@@ -805,25 +818,35 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
-                <div class="col-12 col-xl-8">
-                    <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
-                        <span class="text-secondary">Checkout </span>
-                        <span class="text-primary">revisar orden</span>
-                    </h2>
-                    <p class="font-montserrat font-8-5">Verificar su carrito de compra
-                    </p>
-                    <!-- <div class="select_pickup mb-3">
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline1">Retirar en tienda</label>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Checkout </span>
+                                <span class="text-primary">revisar orden</span>
+                            </h2>
+                            <p class="font-montserrat font-8-5">Verificar su carrito de compra</p>
+                            <!-- <div class="select_pickup mb-3">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"/>
+                                <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline1">Retirar en tienda</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline2" name="customRadioInline1" checked="checked" class="custom-control-input"/>
+                                <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline2">Dirección</label>
+                            </div>
+                        </div> -->
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                            <hr class="mt-1"/>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline2" name="customRadioInline1" checked="checked" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline2">Dirección</label>
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                    <div class="row mt-5">
+                        <div class="col-12 col-xl-8">
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">su dirección</span>
+                            <hr class="mt-1"/>
+                        </div>
                     </div>
-                </div> -->
-                    <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</p>
-                    <hr/>
                     <!-- <div t-attf-class="form-group col-8 col-lg-4 p-0 div_branch_office">
                     <t t-set="offices" t-value="website.get_branch_offices()"/>
                     <select id="branch_office_id" name="branch_office_id" class="px-2 w-1">
@@ -839,7 +862,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4 order-xl-2">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -849,7 +872,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]" position="attributes">
@@ -922,8 +945,15 @@
                     </h2>
                     <p class="font-montserrat font-8-5">Verificar su carrito de compra
                     </p>
-                    <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</p>
-                    <hr/>
+                    <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                    <hr class="mt-1"/>
+                </div>
+                <div class="col-12">
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                </div>
+                <div class="col-12 col-xl-8 mt-5">
+                    <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">su dirección</span>
+                    <hr class="mt-1"/>
                 </div>
             </xpath>
 
@@ -961,7 +991,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4 order-xl-2">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -971,12 +1001,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]" position="attributes">
-                <attribute name="class" add="col-xl-8 cart-box" separator=" " />
-                <attribute name="class" remove="col-xl" separator=" " />
+                <attribute name="class" add="col-xl-8" separator=" " />
+                <!-- <attribute name="class" remove="col-xl" separator=" " /> -->
+            </xpath>
+
+            <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div" position="attributes">
+                <attribute name="class" add="card cart-box p-2 p-md-4" separator=" " />
             </xpath>
 
             <xpath expr="//form/div[hasclass('justify-content-between')]" position="replace">
