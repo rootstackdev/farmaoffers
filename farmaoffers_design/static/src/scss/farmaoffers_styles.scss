@@ -1578,3 +1578,23 @@ div#product_option_block {
         left: 0;
     }
 }
+
+.s_top_offers_banner {
+    .small-image {
+        height: auto;            
+    }
+
+    .main-image {
+        height: auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    .small-image {
+        height: 250px !important;
+    }
+
+    .main-image {
+        height: 100% !important;
+    }
+}

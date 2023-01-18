@@ -81,23 +81,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-lg-3 d-block d-lg-block d-md-flex justify-content-around">
-                        <a href="/" class="d-block mr-0 mr-lg-0 mr-md-3" style="height: 250px;">
+                    <div class="col-12 col-xl-3 d-block d-xl-block d-md-flex justify-content-around">
+                        <a href="/" class="d-block mr-0 mr-xl-0 mr-md-3 small-image">
                             <img src="/farmaoffers_design/static/src/img/bg-basic.png" 
                             class="w-100 h-100" 
                             style="object-fit: cover;"/>
                         </a>
-                        <a href="/" class="d-block mt-3 mt-lg-3 mt-md-0" style="height: 250px;">
+                        <a href="/" class="d-block mt-3 mt-xl-3 mt-md-0 small-image">
                             <img src="/farmaoffers_design/static/src/img/bg-basic.png" 
                             class="w-100 h-100" 
                             style="object-fit: cover;"/>
                         </a>
                     </div>
-                    <div class="col-12 col-lg-9 mt-3 mt-lg-0 pl-lg-0">
-                        <a href="/" class="d-block">
+                    <div class="col-12 col-xl-9 mt-3 mt-xl-0 pl-xl-0">
+                        <a href="/" class="d-block main-image">
                             <img src="/farmaoffers_design/static/src/img/bg-basic.png" 
-                            class="w-100" 
-                            style="object-fit: cover; height: 516px;"/>
+                            class="w-100 h-100" 
+                            style="object-fit: cover;"/>
                         </a>
                     </div>
                 </div>

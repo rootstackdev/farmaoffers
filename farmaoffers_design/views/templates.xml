@@ -1084,7 +1084,7 @@
       <div class="w-100">
         <div class="img-offer d-flex align-items-center">
           <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title"
-            style="object-fit: contain;" />
+            style="object-fit: contain;" class="p-1"/>
         </div>
         <div class="title-offer">
           <t t-esc="item.title" />
@@ -1105,9 +1105,10 @@
 
 
     <template id="t_top_products" name="Top products">
-      <t t-set="medicine_products" t-value="website.get_top_products('Medicamentos')" />
-      <t t-set="health_products" t-value="website.get_top_products('Cuidado de la salud')" />
-      <section t-if="len(medicine_products) &gt; 0 or len(health_products) &gt; 0" class="mb-4 pt-5">
+      <!-- <t t-set="medicine_products" t-value="website.get_top_products('Medicamentos')" />
+      <t t-set="health_products" t-value="website.get_top_products('Cuidado de la salud')" /> -->
+      <t t-set="top_products" t-value="website.get_top_products()" />
+      <section t-if="len(top_products) &gt; 0" class="mb-4 pt-5">
         <section class="list-slider top_products">
           <!-- <div class="block-title"><span>Best Sellers</span></div> -->
           <h3 class="text-uppercase font-montserrat font-size-cards mb-0 font-weight-bold">
@@ -1115,23 +1116,23 @@
             <span class="text-primary">Top</span>
           </h3>
           <hr class="mx-0 mt-1 mb-3" />
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <button class="btn btn-secondary btn_medicine br-10 py-1 mr-2"
               style="
                 border-radius: 10px;
             ">Medicamentos</button>
             <button class="btn btn-gray-fo btn_health br-10 py-1">Cuidado de la salud</button>
-          </div>
+          </div> -->
           <div class="owl-carousel medicine_carousel">
             <t t-call="farmaoffers_design.t_body_categories">
-              <t t-set="products" t-value="medicine_products" />
+              <t t-set="products" t-value="top_products" />
             </t>
           </div>
-          <div class="owl-carousel health_carousel">
+          <!-- <div class="owl-carousel health_carousel">
             <t t-call="farmaoffers_design.t_body_categories">
               <t t-set="products" t-value="health_products" />
             </t>
-          </div>
+          </div> -->
         </section>
       </section>
     </template>

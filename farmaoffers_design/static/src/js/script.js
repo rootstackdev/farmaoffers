@@ -65,7 +65,7 @@ odoo.define('farmaoffers_design.script', function (require) {
         autoplayHoverPause: true,
         margin: 0,
         navText: ["<i class='fa fa-angle-double-left h3 text-primary mr-2' aria-hidden='false'></i>", "<i class='fa fa-angle-double-right h3 text-secondary' aria-hidden='false'></i>"],
-        responsive: { 0: { items: 1 }, 480: { items: 3 }, 768: { items: 5 }, 991: { items: 5 }, 1200: { items: 5 } }
+        responsive: { 0: { items: 2 }, 480: { items: 2 }, 768: { items: 4 }, 991: { items: 5 }, 1200: { items: 5 } }
     });
     // End new
 

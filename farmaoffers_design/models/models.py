@@ -54,20 +54,15 @@ class website(models.Model):
         offices = self.env['branch.office'].sudo().search([])
         return offices
 
-    def get_top_products(self, category_name):
-        category = self.env['product.public.category'].sudo().search(
-            [('name', '=', category_name)])
+    def get_top_products(self, category=False):
+        # category = self.env['product.public.category'].sudo().search(
+        #     [('name', '=', category_name)])
+        # products = self.env['fo.top.product'].sudo().search(
+        #     [], order='sequence')
         products = self.env['fo.top.product'].sudo().search(
             [], order='sequence')
-        product_templates = products.mapped('product_tmpl_id')
-        response = []
-
-        for product in product_templates:
-            if category.id in product.public_categ_ids.ids:
-                response.append(product)
-
-        return response
-
+        return products.mapped('product_tmpl_id')
+        
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
