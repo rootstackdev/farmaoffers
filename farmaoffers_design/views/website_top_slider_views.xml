@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <!-- Formulario -->
+        <record id="fo_top_slider_form_view" model="ir.ui.view">
+            <field name="name">fo.top.slider.form</field>
+            <field name="model">fo.top.slider</field>
+            <field name="arch" type="xml">
+                <form string="Top Slider">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="image" widget='image' class="oe_avatar"/>
+                            <field name="active" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Lista -->
+        <record id="fo_top_slider_tree_view" model="ir.ui.view">
+            <field name="name">fo.top.slider.tree</field>
+            <field name="model">fo.top.slider</field>
+            <field name="field_parent" eval="False"/>
+            <field name="arch" type="xml">
+                <tree string="Top Slider">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <record id="menu_fo_top_slider_action" model="ir.actions.act_window">
+            <field name="name">Top Slider</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fo.top.slider</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Add new slider
+                    </p><p>
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_fo_top_slider"
+            action="menu_fo_top_slider_action"
+            parent="menu_farma_offers" sequence="12"/>
+    </data>
+</odoo>
