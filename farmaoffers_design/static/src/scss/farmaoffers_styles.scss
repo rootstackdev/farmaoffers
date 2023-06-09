@@ -1584,7 +1584,7 @@ div#product_option_block {
 
 .s_top_offers_banner {
     .small-image {
-        height: auto;            
+        height: auto;
     }
 
     .main-image {
@@ -1601,6 +1601,20 @@ div#product_option_block {
         height: 100% !important;
     }
 }
+
+
+.splide__pagination {
+    display: none;
+  }
+
+  .splide__arrow {
+    display: none;
+  }
+
+  .splide__slide img {
+      width: 100%;
+      height: 4vh;
+  }
 
 .o_wsale_product_grid_wrapper_1_1{
     padding: 10vh;

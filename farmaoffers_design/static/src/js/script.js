@@ -69,6 +69,18 @@ odoo.define('farmaoffers_design.script', function (require) {
     });
     // End new
 
+    let topSliderCarousel = document.getElementById('top-slider-carousel')
+    if (topSliderCarousel != null) {
+        new Splide('#top-slider-carousel', {
+            type: 'slide',
+            height: '4vh',
+            direction: 'ttb',
+            type: 'loop',
+            perPage : 1,
+            autoplay: true,
+        }).mount();
+    }
+
     $(".product-grid-sidebar .fo-side-list ul li a").on("click", function (e) {
         // 1
         e.preventDefault();
