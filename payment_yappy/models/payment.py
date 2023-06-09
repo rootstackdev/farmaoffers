@@ -42,7 +42,7 @@ class AcquirerPaypal(models.Model):
                 'subtotal': form_data['amount_untaxed'],
                 'shipping': form_data['amount_delivery'],
                 'discount': 0.00,
-                'taxes': form_data['amount_tax'],
+                'taxes': form_data['amount_tax'] or '0.00',
                 'orderId': form_data['reference'],
                 'successUrl': urls.url_join(self.get_base_url(), f'/payment/yappy/return?reference={encripted_reference}'),
                 'failUrl': urls.url_join(self.get_base_url(), f'/payment/yappy/fail?fail=true&reference={encripted_reference}'),

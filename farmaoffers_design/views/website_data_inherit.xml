@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="contactus_inherit" inherit_id="website.contactus">
+        <!-- Replace adress section with banners -->
+        <xpath expr="//div[@id='wrap']/div[hasclass('container')]/div/div[2]" position="replace">
+            <div class="d-none d-lg-block col-lg-5 col-xl-4 mb-5">
+                <img class="bg-200 border h-75 rounded w-100"></img>
+                <img class="bg-200 border h-25 mt-2 rounded w-100"></img>
+            </div>
+        </xpath>
+
+        <!-- Add title "CONTACTENOS HOY" to contactus page -->
+        <xpath expr="//section[@class='s_text_block']//div[@class='col-lg-12']" position="before">
+            <div class="col-12">
+                <h3 class="text-uppercase font-montserrat font-size-cards font-weight-bold">
+                    <span class="text-secondary">CONTÁCTENOS</span>
+                    <span class="text-primary">HOY</span>
+                </h3>
+            </div>
+        </xpath>
+    </template>
+</odoo>

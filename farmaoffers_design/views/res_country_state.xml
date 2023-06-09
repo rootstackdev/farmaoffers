@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="action_l10n_pa_delivery_zone" model="ir.actions.act_window">
+            <field name="name">Zonas</field>
+            <field name="res_model">l10n.pa.delivery.zone</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_zones" name="Zonas" parent="contacts.menu_localisation" sequence="3" action="action_l10n_pa_delivery_zone" />
+    </data>
+</odoo>

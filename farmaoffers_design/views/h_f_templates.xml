@@ -12,6 +12,7 @@
 
   <template id="farmaoffers_customize_options" inherit_id="web._assets_primary_variables">
     <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
     </xpath>
@@ -20,6 +21,7 @@
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
     <xpath expr="//script[last()]" position="after">
       <script src="/farmaoffers_design/static/src/js/script.js"></script>
+      <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
     </xpath>
   </template>
 
@@ -84,6 +86,22 @@
           </div>
         </div>
       </div> -->
+      <t t-set="top_sliders" t-value="website.get_top_sliders()" />
+
+      <div class="container" t-if="top_sliders">
+        <section id="top-slider-carousel" class="splide" aria-label="Top Slider">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <t t-foreach="top_sliders" t-as="top_slider">
+                  <li class="splide__slide">
+                    <img t-att-src="image_data_uri(top_slider.image)" style="object-fit: cover;"/>
+                  </li>
+                </t>
+              </ul>
+            </div>
+        </section>
+      </div>
+
       <div class="top-links-header">
         <div class="container">
           <div class="container--content">
@@ -129,12 +147,12 @@
             <div class="col-lg-4 col-12 search-header p-0">
               <div class="searchbox-header">
                 <div class="search-wrapper">
-                  <form 
-                  method="get" 
+                  <form
+                  method="get"
                   action="/shop"
                   t-att-data-snippet="'s_products_searchbar_input'"
                   class="o_wsale_products_searchbar_form o_wait_lazy_js s_wsale_products_searchbar_input pagination form-inline justify-content-center">
-                    <div class="input-group justify-content-center w-100"> 
+                    <div class="input-group justify-content-center w-100">
                       <div class="oe_search w-100">
                         <!-- <select class="form-control" name="category">
                           <option value="" t-att-selected="not search">All Products</option>
@@ -146,19 +164,19 @@
                         </select> -->
                         <!-- <t>$0</t> -->
                         <input name="order" type="hidden" class="o_wsale_search_order_by" value=""/>
-                        <input 
-                        type="text" 
+                        <input
+                        type="text"
                         name="search"
                         data-limit="5"
                         data-display-description="true"
                         data-display-price="true"
                         data-display-image="true"
-                        class="search-query form-control oe_search_box w-100" 
-                        placeholder="Encuentre su medicamento..." 
+                        class="search-query form-control oe_search_box w-100"
+                        placeholder="Encuentre su medicamento..."
                         t-att-value="search"/>
                       </div>
                       <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default oe_search_button text-white">
+                        <button type="submit" class="btn btn-default oe_search_button text-white" style="font-size: 1.2rem;">
                           <i class="fa fa-search" aria-hidden="false"></i>
                           <!-- <span class="label_text" t-if='not (search and search_count)'>Search</span>
                           <span t-if='search and search_count' class='label_text'> (<t t-esc="search_count"/> found)</span> -->
@@ -182,6 +200,13 @@
                   </div>
                 </a>
               </div>
+              <div id="my_wish" class="o_wsale_my_wish position-relative">
+                <t t-set='wishcount' t-value="len(request.env['product.wishlist'].current())"/>
+                <a href="/shop/wishlist" class="shopping-icon">
+                  <i class="fa fa-heart bg-primary"></i>
+                  <sup t-attf-class="my_wish_quantity o_animate_blink label label-primary count-float-badge rounded-circle"><t t-esc='wishcount'/></sup>
+                </a>
+              </div>
               <div class="minicart-header">
                 <div class="minicart-content">
                   <div class="cart-wrapper">
@@ -193,12 +218,12 @@
                           <i class="fa fa-shopping-cart bg-primary" aria-hidden="false"></i>
                         </div>
                         <span class="counter qty empty">
-                          <span id="my_cart" class="counter-number my_cart_quantity d-block">
+                          <span id="my_cart" class="counter-number my_cart_quantity">
                             <t t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
-                            ítem
                           </span>
+                          <span>ítem</span>
                           <hr class="hr-price"/>
-                          <span class="price-minicart">
+                          <span class="price-minicart font-weight-bold">
                             <span class="price">
                               <t t-if="website_sale_order.amount_total > 0">
                                 <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
@@ -242,6 +267,11 @@
                   Cotizar
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/shop" title="Productos">
+                  Productos
+                </a>
+              </li>
             </ul>
           </div>
           <div class="navbar-brand toplinks mr-0">
@@ -270,7 +300,7 @@
       </header>
     </xpath>
   </template>
-  
+
   <template id="farmaoffers_footer" inherit_id="website.layout" name="FarmaOffers - Footer" active="True">
     <xpath expr="//div[@id='footer']" position="replace">
       <div class="container-fluid position-relative border-top-footer">
