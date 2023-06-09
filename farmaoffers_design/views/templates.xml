@@ -942,7 +942,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div class="overflow-auto">
             <t t-call="farmaoffers_design.pager_product_list" />
           </div>
         </div>
