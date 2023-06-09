@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function model="ir.model.fields" name="formbuilder_whitelist">
+        <value>res.partner</value>
+        <value eval="[
+            'l10n_pa_delivery_zone_id'
+        ]"/>
+    </function>
+    <template id="address_inherit" inherit_id="website_sale.address">
+        <!-- Add zone field to address contact form-->
+        <xpath expr="//form/div/div[last()-1]" position="after">
+            <div t-attf-class="form-group #{error.get('l10n_pa_delivery_zone_id') and 'o_has_error' or ''} col-lg-6 div_zone">
+                <label class="col-form-label" for="l10n_pa_delivery_zone_id">Zona</label>
+                <select 
+                    name="l10n_pa_delivery_zone_id" 
+                    t-attf-class="form-control #{error.get('l10n_pa_delivery_zone_id') and 'is-invalid' or ''}" 
+                    data-init="1">
+                    <option value="">Zonas...</option>
+                    <t t-foreach="zones" t-as="z">
+                        <option t-att-value="z.id" t-att-selected="z.id == ('l10n_pa_delivery_zone_id' in checkout and country and checkout['l10n_pa_delivery_zone_id'] != '' and int(checkout['l10n_pa_delivery_zone_id']))">
+                            <t t-esc="z.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>

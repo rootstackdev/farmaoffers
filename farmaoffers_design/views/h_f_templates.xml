@@ -158,7 +158,7 @@
                         t-att-value="search"/>
                       </div>
                       <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default oe_search_button text-white">
+                        <button type="submit" class="btn btn-default oe_search_button text-white" style="font-size: 1.2rem;">
                           <i class="fa fa-search" aria-hidden="false"></i>
                           <!-- <span class="label_text" t-if='not (search and search_count)'>Search</span>
                           <span t-if='search and search_count' class='label_text'> (<t t-esc="search_count"/> found)</span> -->
@@ -182,6 +182,13 @@
                   </div>
                 </a>
               </div>
+              <div id="my_wish" class="o_wsale_my_wish position-relative">
+                <t t-set='wishcount' t-value="len(request.env['product.wishlist'].current())"/>
+                <a href="/shop/wishlist" class="shopping-icon">
+                  <i class="fa fa-heart bg-primary"></i>
+                  <sup t-attf-class="my_wish_quantity o_animate_blink label label-primary count-float-badge rounded-circle"><t t-esc='wishcount'/></sup>
+                </a>
+              </div>
               <div class="minicart-header">
                 <div class="minicart-content">
                   <div class="cart-wrapper">
@@ -193,12 +200,12 @@
                           <i class="fa fa-shopping-cart bg-primary" aria-hidden="false"></i>
                         </div>
                         <span class="counter qty empty">
-                          <span id="my_cart" class="counter-number my_cart_quantity d-block">
+                          <span id="my_cart" class="counter-number my_cart_quantity">
                             <t t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
-                            ítem
                           </span>
+                          <span>ítem</span>
                           <hr class="hr-price"/>
-                          <span class="price-minicart">
+                          <span class="price-minicart font-weight-bold">
                             <span class="price">
                               <t t-if="website_sale_order.amount_total > 0">
                                 <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
@@ -240,6 +247,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="/quote#top_quote" title="Cotizar">
                   Cotizar
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/shop" title="Productos">
+                  Productos
                 </a>
               </li>
             </ul>

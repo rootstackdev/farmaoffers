@@ -51,7 +51,7 @@ odoo.define('farmaoffers_design.script', function (require) {
         dots: false,
         autoplay: false,
         autoplayHoverPause: true,
-        autoWidth:true,
+        autoWidth: true,
         margin: 10,
         navText: ["<i class='fa fa-angle-double-left h3 text-primary mr-2' aria-hidden='false'></i>", "<i class='fa fa-angle-double-right h3 text-secondary' aria-hidden='false'></i>"],
         responsive: { 0: { items: 2 }, 480: { items: 3 }, 768: { items: 4 }, 991: { items: 4 }, 1200: { items: 4 } }
@@ -65,7 +65,7 @@ odoo.define('farmaoffers_design.script', function (require) {
         autoplayHoverPause: true,
         margin: 0,
         navText: ["<i class='fa fa-angle-double-left h3 text-primary mr-2' aria-hidden='false'></i>", "<i class='fa fa-angle-double-right h3 text-secondary' aria-hidden='false'></i>"],
-        responsive: { 0: { items: 1 }, 480: { items: 3 }, 768: { items: 5 }, 991: { items: 5 }, 1200: { items: 5 } }
+        responsive: { 0: { items: 2 }, 480: { items: 2 }, 768: { items: 4 }, 991: { items: 5 }, 1200: { items: 5 } }
     });
     // End new
 
@@ -90,7 +90,7 @@ odoo.define('farmaoffers_design.script', function (require) {
             limit = 3;
             text = "Desplegar más";
         }
-        
+
         rpc.query({
 
             route: "/products/same-compounds",
@@ -101,7 +101,6 @@ odoo.define('farmaoffers_design.script', function (require) {
             },
 
         }).then(function (products) {
-            console.log(products)
             $("#ul-same-compound li").remove();
             var showAll = '';
             products.forEach(element => {
@@ -117,15 +116,14 @@ odoo.define('farmaoffers_design.script', function (require) {
 
     toggleRadioOptions($('input:radio[name="radioSelect"]:checked'));
 
-    $('input:radio[name="radioSelect"]').change(
+    /* $('input:radio[name="radioSelect"]').change(
         function () {
             toggleRadioOptions($(this));
         }
-    );
+    ); */
 
     $('#branch_office_select').on('change', function () {
         if ($(this).val() !== "") {
-            console.log($(this).val())
             $("#branch_office_id").val($(this).val());
         }
     });
@@ -388,7 +386,6 @@ odoo.define('farmaoffers_design.script', function (require) {
                 ev.preventDefault();
                 var show = $('.show_items_current').first().text().trim();
                 var order = $('.order_items_current').first().text().trim();
-                console.log(show, order)
 
                 var form = $(ev.currentTarget).closest("form");
 
@@ -405,6 +402,131 @@ odoo.define('farmaoffers_design.script', function (require) {
                 form.submit();
             }
         },
+        _changeCountry: function () {
+            if (!$("#country_id").val()) {
+                return;
+            }
+            this._rpc({
+                route: "/shop/country_infos/" + $("#country_id").val(),
+                params: {
+                    mode: $("#country_id").attr('mode'),
+                },
+            }).then(function (data) {
+                // placeholder phone_code
+                $("input[name='phone']").attr('placeholder', data.phone_code !== 0 ? '+' + data.phone_code : '');
+
+                // populate states and display
+                var selectStates = $("select[name='state_id']");
+                // dont reload state at first loading (done in qweb)
+                if (selectStates.data('init') === 0 || selectStates.find('option').length === 1) {
+                    if (data.states.length || data.state_required) {
+                        selectStates.html('');
+                        _.each(data.states, function (x) {
+                            var opt = $('<option>').text(x[1])
+                                .attr('value', x[0])
+                                .attr('data-code', x[2]);
+                            selectStates.append(opt);
+                        });
+                        selectStates.parent('div').show();
+                    } else {
+                        selectStates.val('').parent('div').hide();
+                    }
+                    selectStates.data('init', 0);
+                } else {
+                    selectStates.data('init', 0);
+                }
+
+                // add zones options
+                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                if (selectZones.data('init') === 0 || selectZones.find('option').length === 1) {
+                    selectZones.html('');
+                    selectZones.append($('<option value="">Zonas...</option>'));
+                    if (data.zones.length > 0) {
+                        _.each(data.zones, function (item) {
+                            var opt = $('<option>').text(item[1])
+                                .attr('value', item[0]);
+                            selectZones.append(opt);
+                        });
+                    } else {
+                        selectZones.data('init', 0);
+                    }
+                }
+
+                // manage fields order / visibility
+                if (data.fields) {
+                    if ($.inArray('zip', data.fields) > $.inArray('city', data.fields)) {
+                        $(".div_zip").before($(".div_city"));
+                    } else {
+                        $(".div_zip").after($(".div_city"));
+                    }
+                    var all_fields = ["street", "zip", "city", "country_name"]; // "state_code"];
+                    _.each(all_fields, function (field) {
+                        $(".checkout_autoformat .div_" + field.split('_')[0]).toggle($.inArray(field, data.fields) >= 0);
+                    });
+                }
+
+                if ($("label[for='zip']").length) {
+                    $("label[for='zip']").toggleClass('label-optional', !data.zip_required);
+                    $("label[for='zip']").get(0).toggleAttribute('required', !!data.zip_required);
+                }
+                if ($("label[for='zip']").length) {
+                    $("label[for='state_id']").toggleClass('label-optional', !data.state_required);
+                    $("label[for='state_id']").get(0).toggleAttribute('required', !!data.state_required);
+                }
+            });
+        },
     });
 
+    publicWidget.registry.websiteSaleDelivery.include({
+        events: _.extend({}, publicWidget.registry.websiteSaleDelivery.prototype.events || {}, {
+            'change #radioBranchOffice': 'onChangeShippingMode',
+            'change #radioAddress': 'onChangeShippingMode',
+            'change select[name="state_id"]': '_onChangeState',
+        }),
+        _onChangeState: function (event) {
+            const state_id = event.target.value;
+            if (!state_id) {
+                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                selectZones.html('');
+                selectZones.append($('<option>').text('Zonas...').attr('value', ''));
+                return;
+            }
+            this._rpc({
+                route: "/shop/state_infos/" + state_id
+            }).then(function (data) {
+                var selectZones = $("select[name='l10n_pa_delivery_zone_id']");
+                selectZones.html('');
+                selectZones.append($('<option>').text('Zonas...').attr('value', ''));
+                _.each(data, function (x) {
+                    var opt = $('<option>').text(x.name)
+                        .attr('value', x.id);
+                    selectZones.append(opt);
+                });
+            })
+        },
+        _changeShippingMode: function (mode) {
+            if (mode === 'branch')
+                return window.location.href = '/shop/payment?is_branch_office=True';
+            window.location.href = '/shop/payment';
+            /* this._rpc({
+                route: "/shop/update_shipping_mode",
+                params: {
+                    'mode': mode
+                },
+            }).then(function (data){
+                self._handleCarrierUpdateResult.call(self,data);
+                if(mode === 'branch')
+                    return $('#delivery_carrier').hide();
+                $('#delivery_carrier').show();
+            }); */
+        },
+        onChangeShippingMode: function (event) {
+            $('input#radioBranchOffice').prop('disabled', true);
+            $('input#radioAddress').prop('disabled', true);
+            $('button#o_payment_form_pay').prop('disabled', true);
+            if (event.target.id === 'radioBranchOffice')
+                return this._changeShippingMode('branch')
+            return this._changeShippingMode('address')
+        }
+    });
 });

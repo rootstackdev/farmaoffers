@@ -333,6 +333,11 @@
                     </a>
                 </div>
             </xpath>
+            <xpath expr="//div[@id='product_option_block']" position="inside">
+                <a href="/quote" class="btn btn-link mt16" style="font-size: 16px;">
+                    <i class="fa fa-file-text"/> Solicitar producto
+                </a>
+            </xpath>
             <!-- <xpath expr="//section[@id='product_detail']/div[hasclass('row')][1]/div[hasclass('col-md-6')][1]" position="attributes">
             <attribute name="class">col-md-12 col-lg-7</attribute>
         </xpath>
@@ -460,9 +465,9 @@
 
         <template id="cart_lines_fo" inherit_id="website_sale.cart_lines" name="Shopping Cart Lines FO">
             <xpath expr="//div[1]" position="replace">
-                <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="js_cart_lines alert alert-info">
+                <!-- <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="js_cart_lines alert alert-info">
                 Tu carrito esta vacío!
-                </div>
+                </div> -->
             </xpath>
             <xpath expr="//table[@id='cart_products']" position="replace">
                 <table class="mb16 table table-sm js_cart_lines" id="cart_products" t-if="website_sale_order and website_sale_order.website_order_line">
@@ -489,9 +494,6 @@
                                             <strong t-field="line.name_short" />
                                         </t>
                                     </div>
-                                    <!-- <t t-call="website_sale.cart_line_description_following_lines">
-                                    <t t-set="div_class" t-value="'d-none d-md-block'"/>
-                                </t> -->
                                     <div t-if="line.product_id.product_tmpl_id" class="text-muted small font-montserrat">
                                         <span>
                                             <t t-esc="line.product_id.product_tmpl_id.laboratory"/>
@@ -499,7 +501,7 @@
                                     </div>
                                     <div t-if="line.product_id.product_tmpl_id" class="text-primary small font-montserrat">
                                         <t t-set="comb_info" t-value="line.product_id.product_tmpl_id._get_combination_info(combination, pricelist=website_sale_order.pricelist_id)"/>
-                                        <t t-set="saving" t-value="100 - (comb_info['price'] * 100) /comb_info['list_price']"/>
+                                        <t t-set="saving" t-value="line.discount"/>
                                         <span t-if="saving > 0" class="font-weight-bold">Ahorro <t t-esc="saving"/>
 %</span>
                                     </div>
@@ -541,15 +543,8 @@
                                     </div>
                                 </td>
                                 <td class="text-center td-total text-primary font-montserrat font-weight-bold font-8-5">
-                                    <t t-set="qty_for_total" t-value="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty"/>
-                                    <span t-att-data-total-taxexcl-line-id="line.id" groups="account.group_show_line_subtotals_tax_excluded">
-                                        <t t-esc="website.currency_id.symbol"/>
-                                        <t t-esc="line.price_reduce_taxexcl * qty_for_total" />
-                                    </span>
-                                    <span t-att-data-total-taxinc-line-id="line.id" groups="account.group_show_line_subtotals_tax_included">
-                                        <t t-esc="website.currency_id.symbol"/>
-                                        <t t-esc="line.price_reduce_taxinc * qty_for_total" />
-                                    </span>
+                                    <span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_included"/>
                                 </td>
 
                             </tr>
@@ -590,8 +585,8 @@
             <xpath expr="//tr[@id='order_total_untaxed']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Sub-total</td>
             </xpath>
-            <xpath expr="//tr[@id='order_total_untaxed']/td[2]/span" position="attributes">
-                <attribute name="class" add="font-montserrat font-8-5 font-weight-bold" separator=" " />
+            <xpath expr="//tr[@id='order_total_untaxed']/td[2]/span" position="replace">
+                <span t-esc="website_sale_order.amount_undiscounted" class="monetary_field font-montserrat font-8-5 font-weight-bold" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
             </xpath>
             <xpath expr="//tr[@id='order_total_taxes']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Impuesto</td>
@@ -603,13 +598,13 @@
                 <tr t-if="website_sale_order.website_order_saving &gt; 0" id="order_total_saving">
                     <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Ahorro</td>
                     <td class="text-xl-right border-0 text-secondary">
-                    -                        <span t-field="website_sale_order.website_order_saving" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
+                    -                        <span t-esc="website_sale_order.amount_undiscounted-website_sale_order.amount_untaxed" class="monetary_field font-montserrat font-weight-bold font-8-5" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" />
                     </td>
                 </tr>
             </xpath>
             <!-- <xpath expr="//tr[@id='order_total']" position="attributes">
-            <attribute name="class"><t t-esc="'order_total_f2' if show_format_2 else ''"/></attribute>
-        </xpath> -->
+                <attribute name="class"><t t-esc="'order_total_f2' if show_format_2 else ''"/></attribute>
+            </xpath> -->
             <xpath expr="//tr[@id='order_total']/td[1]" position="replace">
                 <td class="text-left border-0 font-montserrat text-uppercase text-primary font-weight-bold font-8-5">Total</td>
             </xpath>
@@ -651,31 +646,47 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
-                <div class="col-12 col-xl-8">
-                    <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
-                        <span class="text-secondary">Checkout </span>
-                        <span class="text-primary">revisar orden</span>
-                    </h2>
-                    <p class="font-montserrat font-8-5">Verificar su carrito de compra
-                    </p>
-                    <div class="select_pickup mb-3">
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="'checked' if not is_branch_office else ''" class="custom-control-input" value="pickAddress"/>
-                            <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="'checked' if is_branch_office else ''" class="custom-control-input" value="pickBranch"/>
-                            <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h5 class="text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Checkout </span>
+                                <span class="text-primary">revisar orden</span>
+                            </h5>
+                            <p class="font-montserrat font-8-5">Verificar su carrito de compra</p>
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                            <hr class="mt-1"/>
                         </div>
                     </div>
-                    <!-- <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Su dirección</p>
-                <hr/> -->
-
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h5 class="text-uppercase font-montserrat mb-0 font-weight-bold mt-5">
+                                <span class="text-secondary">
+                                Delivery
+                                </span>
+                                <span class="text-primary">
+                                Productos
+                                </span>
+                            </h5>
+                            <hr class="mx-0 mt-1 mb-4" />
+                            <div class="select_pickup mb-3 mt-3">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioAddress" name="radioSelect" t-att-checked="not is_branch_office" class="custom-control-input" value="pickAddress"/>
+                                    <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioAddress">Dirección</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="radioBranchOffice" name="radioSelect" t-att-checked="is_branch_office" class="custom-control-input" value="pickBranch"/>
+                                    <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="radioBranchOffice">Retirar en tienda</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -685,7 +696,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div[hasclass('card')]" position="before">
@@ -807,25 +818,35 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
-                <div class="col-12 col-xl-8">
-                    <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
-                        <span class="text-secondary">Checkout </span>
-                        <span class="text-primary">revisar orden</span>
-                    </h2>
-                    <p class="font-montserrat font-8-5">Verificar su carrito de compra
-                    </p>
-                    <!-- <div class="select_pickup mb-3">
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline1">Retirar en tienda</label>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-xl-8">
+                            <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
+                                <span class="text-secondary">Checkout </span>
+                                <span class="text-primary">revisar orden</span>
+                            </h2>
+                            <p class="font-montserrat font-8-5">Verificar su carrito de compra</p>
+                            <!-- <div class="select_pickup mb-3">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"/>
+                                <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline1">Retirar en tienda</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline2" name="customRadioInline1" checked="checked" class="custom-control-input"/>
+                                <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline2">Dirección</label>
+                            </div>
+                        </div> -->
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                            <hr class="mt-1"/>
+                        </div>
                     </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="customRadioInline2" name="customRadioInline1" checked="checked" class="custom-control-input"/>
-                        <label class="font-size-cards font-weight-bold custom-control-label font-montserrat text-uppercase" style="color: #333333;" for="customRadioInline2">Dirección</label>
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                    <div class="row mt-5">
+                        <div class="col-12 col-xl-8">
+                            <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">su dirección</span>
+                            <hr class="mt-1"/>
+                        </div>
                     </div>
-                </div> -->
-                    <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</p>
-                    <hr/>
                     <!-- <div t-attf-class="form-group col-8 col-lg-4 p-0 div_branch_office">
                     <t t-set="offices" t-value="website.get_branch_offices()"/>
                     <select id="branch_office_id" name="branch_office_id" class="px-2 w-1">
@@ -841,7 +862,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4 order-xl-2">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -851,7 +872,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]" position="attributes">
@@ -924,8 +945,15 @@
                     </h2>
                     <p class="font-montserrat font-8-5">Verificar su carrito de compra
                     </p>
-                    <p class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</p>
-                    <hr/>
+                    <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">Ítems</span>
+                    <hr class="mt-1"/>
+                </div>
+                <div class="col-12">
+                    <t t-call="farmaoffers_design.fo_summary_cart"/>
+                </div>
+                <div class="col-12 col-xl-8 mt-5">
+                    <span class="address_title font-size-cards text-uppercase font-weight-bold font-montserrat" style="color:#333333;">su dirección</span>
+                    <hr class="mt-1"/>
                 </div>
             </xpath>
 
@@ -934,8 +962,8 @@
                     <h2 class="o_page_header mt8 d-flex align-items-center font-montserrat font-8-5 font-weight-bold text-uppercase">Su dirección
                         <small class="mx-3"> o </small>
                         <a role="button" href='/web/login?redirect=/shop/checkout' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'> Iniciar sesión</a>
-                        <small class="mx-3"> o </small>
-                        <a id="byBranchOffice" role="button" href='#' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'>Seleccionar sucursal</a>
+                        <!-- <small class="mx-3"> o </small>
+                        <a id="byBranchOffice" role="button" href='#' class='btn btn-secondary br-10 text-uppercase font-montserrat font-8-5 font-weight-bold'>Seleccionar sucursal</a> -->
                     </h2>
                 </t>
             </xpath>
@@ -963,7 +991,7 @@
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('order-xl-2')]" position="replace">
-                <div class="col-12 col-xl-4 order-xl-2">
+                <!-- <div class="col-12 col-xl-4 order-xl-2">
                     <div class="card cart-box p-4">
                         <div class="card-body p-xl-0">
                             <div class="toggle_summary_div d-none d-xl-block">
@@ -973,12 +1001,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </xpath>
 
             <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]" position="attributes">
-                <attribute name="class" add="col-xl-8 cart-box" separator=" " />
-                <attribute name="class" remove="col-xl" separator=" " />
+                <attribute name="class" add="col-xl-8" separator=" " />
+                <!-- <attribute name="class" remove="col-xl" separator=" " /> -->
+            </xpath>
+
+            <xpath expr="//div[hasclass('row')]/div[hasclass('oe_cart')]/div" position="attributes">
+                <attribute name="class" add="card cart-box p-2 p-md-4" separator=" " />
             </xpath>
 
             <xpath expr="//form/div[hasclass('justify-content-between')]" position="replace">
@@ -1356,11 +1388,9 @@
             </xpath>
         </template>
 
-
-
-
-
-
-
+        <!-- Remove field to add cuopon-->
+        <template id="remove_cuopon" inherit_id="website_sale.reduction_code">
+            <xpath expr="//tr[@t-if='not hide_coupon']" position="replace"/>
+        </template>
     </data>
 </odoo>
