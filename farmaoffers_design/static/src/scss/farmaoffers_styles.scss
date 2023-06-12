@@ -1581,7 +1581,7 @@ div#product_option_block {
 
 .s_top_offers_banner {
     .small-image {
-        height: auto;            
+        height: auto;
     }
 
     .main-image {
@@ -1597,4 +1597,15 @@ div#product_option_block {
     .main-image {
         height: 100% !important;
     }
+}
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.2rem !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-right: 0.2rem !important;
+  }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
 }
