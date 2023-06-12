@@ -92,7 +92,7 @@
         </h3>
         <hr class="mx-0 mt-1 mb-4" />
         <div class="content-section same-compound">
-          <ul class="inner-img">
+          <ul class="inner-img p-0">
             <img src="/farmaoffers_design/static/src/img/icon-medicine.png" alt="Icon medicine" />
           </ul>
           <ul id="ul-same-compound" class="inner-list">
