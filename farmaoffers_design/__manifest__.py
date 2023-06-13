@@ -37,6 +37,7 @@
         'views/res_country_state.xml',
         'views/website_form_templates_inherit.xml',
         'views/website_data_inherit.xml',
+        'views/res_config_settings_views.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
