@@ -20,6 +20,9 @@
   </template>
 
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
+    <xpath expr="//link[last()]" position="after">
+      <link rel="stylesheet" type="text/css" href="/farmaoffers_design/static/src/css/website_sale.css" />
+    </xpath>
     <xpath expr="//script[last()]" position="after">
       <script src="/farmaoffers_design/static/src/js/script.js"></script>
       <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
@@ -320,6 +323,19 @@
           </div>
         </div>
       </div>
+      <div id="mobile-categ-menu" style="overflow-x:hidden;display:none;position:fixed;top:0;left:0;background-color:white;min-height:100vh;width:99vw;z-index:50000;">
+        <div style="height:100vh;" class="position-relative">
+          <h3 class="categ-title d-flex justify-content-between align-items-center px-3 my-3 w-100">
+            <span>Categorias</span>
+            <span style="cursor:pointer; font-size:0.7em;" class="mobile-categ-menu-close">X</span>
+          </h3>
+          <ul class="category-nav category-nav-mobile nav nav-pills" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:100vh;">
+            <t t-foreach="categories" t-as="c">
+              <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
+            </t>
+          </ul>
+        </div>
+      </div>
       <header class="container">
         <nav class="navbar navbar-expand-md navbar-light position-relative">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -334,6 +350,16 @@
                   </a>
                 </li>
               </t>
+              <li class="category-main-option-menu position-relative">
+                <a class="nav-link" href="#" title="Categorias">
+                  Categorias
+                </a>
+                <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
+                  <t t-foreach="categories" t-as="c">
+                    <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
+                  </t>
+                </ul>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="/all-offers" title="Ofertas">
                   Ofertas
