@@ -1144,8 +1144,8 @@
             <li t-foreach="products[step:step+1]" t-as="product"
               class="d-flex flex-column align-items-center">
               <div class="medicine_items">
-                <span class="img w-100 m-0">
-                  <img class="img-thumbnail"
+                <span class="w-100 m-0">
+                  <img class="img"
                     t-attf-src="/website/image/product.template/{{product.id}}/image_512"
                     t-att-title="product.name" style="object-fit: contain;" />
                 </span>
