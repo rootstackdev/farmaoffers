@@ -37,6 +37,7 @@
         'views/res_country_state.xml',
         'views/website_form_templates_inherit.xml',
         'views/website_data_inherit.xml',
+        'data/res_country_data.xml',
         'views/res_partner_view.xml',
         'views/portal_templates.xml',
         'views/website_top_slider_views.xml'
