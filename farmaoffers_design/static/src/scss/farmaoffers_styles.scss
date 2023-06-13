@@ -2,6 +2,9 @@ $text-dark: #333333;
 $font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif !important;
 $font-size-cards: 0.9rem !important;
 $font-8-5: 0.85rem !important;
+$farmaoffers-primary: #4CBB17;
+$farmaoffers-gray: #C9D7E2;
+$farmaoffers-light-gray: #C9D7E2;
 
 @mixin filters-border {
     border: 1px solid #e5e5e5;
@@ -719,7 +722,7 @@ span.span-input-tip {
 }
 
 .border-product-item {
-    border: 1px solid #c9d7e2;
+    border: none;
 }
 
 .o_ribbon_wrapper_fo {
@@ -777,7 +780,7 @@ span.span-input-tip {
 
 .oe_product_cart .o_wsale_product_information {
     .o_wsale_product_btn {
-        top: -75px;
+        top: -7vh;
         opacity: 0.8;
     }
 }
@@ -1581,7 +1584,7 @@ div#product_option_block {
 
 .s_top_offers_banner {
     .small-image {
-        height: auto;            
+        height: auto;
     }
 
     .main-image {
@@ -1597,4 +1600,37 @@ div#product_option_block {
     .main-image {
         height: 100% !important;
     }
+}
+
+
+.splide__pagination {
+    display: none;
+  }
+
+  .splide__arrow {
+    display: none;
+  }
+
+  .splide__slide img {
+      width: 100%;
+      height: 4vh;
+  }
+
+.o_wsale_product_grid_wrapper_1_1{
+    padding: 10vh;
+}
+
+#products_grid table {
+    background: #DFE4E6;
+}
+
+.farmaoffers-card {
+    border: 1px solid $farmaoffers-gray !important;
+}
+
+.text-color-green {
+    color: $farmaoffers-primary !important;
+}
+.text-color-light-gray{
+    color: $farmaoffers-light-gray !important;
 }
