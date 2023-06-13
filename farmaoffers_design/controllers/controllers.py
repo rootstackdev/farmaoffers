@@ -10,7 +10,9 @@ from werkzeug.exceptions import Forbidden, NotFound
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.auth_signup.models.res_users import SignupError
+from odoo.addons.website_sale.controllers.main import Website
 from odoo.osv import expression
+from odoo.addons.http_routing.models.ir_http import slug
 import base64
 import logging
 import re
@@ -22,6 +24,23 @@ regexEmail = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 #regexName =r'/^[\w\s]+$/'
 
 _logger = logging.getLogger(__name__)
+
+
+class Website(Website):
+
+    @http.route()
+    def index(self, **kw):
+        Category = request.env['product.public.category'].sudo()
+        website_domain = request.website.website_domain()
+        categs_domain = [('parent_id', '=', False)] + website_domain
+        categs = Category.search(categs_domain)
+        res = super().index(**kw)
+        _logger.error(type(request.httprequest.user_agent.browser))
+        res.qcontext.update({
+            'categories': categs,
+            'slug': slug,
+        })
+        return res
 
 
 class SignUpFO(AuthSignupHome):
