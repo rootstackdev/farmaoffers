@@ -92,7 +92,7 @@
         </h3>
         <hr class="mx-0 mt-1 mb-4" />
         <div class="content-section same-compound">
-          <ul class="inner-img">
+          <ul class="inner-img p-0">
             <img src="/farmaoffers_design/static/src/img/icon-medicine.png" alt="Icon medicine" />
           </ul>
           <ul id="ul-same-compound" class="inner-list">
@@ -284,7 +284,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table>v
         </div>
       </section>
     </template>
@@ -372,15 +372,12 @@
 
     <template id="breadcrumb_fo">
       <div t-attf-class="col-12 #{classes if classes else ''}">
-        <div class="shop-banner m-0">
-          <h2 class="m-0 text-uppercase" t-esc="bg_title" />
-        </div>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
               <ol class="breadcrumb bg-white px-0 mb-1">
                 <li class="breadcrumb-item">
-                  <a class="text-blue" t-attf-href="#{back_url if back_url else '/'}">Home</a>
+                  <a class="text-blue" t-attf-href="#{back_url if back_url else '/'}">Inicio</a>
                 </li>
                 <t t-if="breadcrumb_definition">
                   <li class="breadcrumb-item active">
@@ -391,6 +388,9 @@
               </ol>
             </div>
           </div>
+        </div>
+        <div class="shop-banner m-0">
+          <h2 class="m-0 text-uppercase" t-esc="bg_title" />
         </div>
       </div>
     </template>
@@ -942,7 +942,7 @@
               </div>
             </div>
           </div>
-          <div>
+          <div class="overflow-auto">
             <t t-call="farmaoffers_design.pager_product_list" />
           </div>
         </div>

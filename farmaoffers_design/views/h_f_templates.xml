@@ -12,6 +12,7 @@
 
   <template id="farmaoffers_customize_options" inherit_id="web._assets_primary_variables">
     <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss"/>
@@ -21,6 +22,7 @@
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
     <xpath expr="//script[last()]" position="after">
       <script src="/farmaoffers_design/static/src/js/script.js"></script>
+      <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
     </xpath>
   </template>
 
@@ -86,6 +88,22 @@
         </div>
       </div> -->
 
+      <t t-set="top_sliders" t-value="website.get_top_sliders()" />
+
+      <div class="container" t-if="top_sliders">
+        <section id="top-slider-carousel" class="splide" aria-label="Top Slider">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <t t-foreach="top_sliders" t-as="top_slider">
+                  <li class="splide__slide">
+                    <img t-att-src="image_data_uri(top_slider.image)" style="object-fit: cover;"/>
+                  </li>
+                </t>
+              </ul>
+            </div>
+        </section>
+      </div>
+      
       <div class="header-middle d-none d-sm-block">
         <div class="container">
           <div class="custom_row mt-3 mb-3">
@@ -356,7 +374,7 @@
       </header>
     </xpath>
   </template>
-  
+
   <template id="farmaoffers_footer" inherit_id="website.layout" name="FarmaOffers - Footer" active="True">
     <xpath expr="//div[@id='footer']" position="replace">
       <div class="container-fluid position-relative border-top-footer">
