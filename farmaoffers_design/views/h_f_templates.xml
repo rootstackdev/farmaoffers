@@ -88,6 +88,10 @@
         </div>
       </div> -->
 
+
+      <t t-set="whatsapp" t-value="website.whatsapp_number"/>
+      <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
+      
       <t t-set="top_sliders" t-value="website.get_top_sliders()" />
 
       <div class="container" t-if="top_sliders">
@@ -103,7 +107,6 @@
             </div>
         </section>
       </div>
-      
       <div class="header-middle d-none d-sm-block">
         <div class="container">
           <div class="custom_row mt-3 mb-3">
