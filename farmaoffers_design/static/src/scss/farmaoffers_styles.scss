@@ -1718,5 +1718,11 @@ div#product_option_block {
 
     @media (max-width: $max-size-mobile) {
         padding: 0 0;
+  }
+}
+
+@media (max-width: 425px) {
+    .top_products .widget-products li .name {
+        font-size: 0.65rem !important;
     }
 }
