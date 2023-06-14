@@ -5,6 +5,7 @@ $font-8-5: 0.85rem !important;
 $farmaoffers-primary: #4CBB17;
 $farmaoffers-gray: #C9D7E2;
 $farmaoffers-light-gray: #C9D7E2;
+$max-size-mobile: 425px;
 
 @mixin filters-border {
     border: 1px solid #e5e5e5;
@@ -49,7 +50,7 @@ main {
 }
 
 .text-dark-fo {
-    color: $text-dark;
+    color: $text-dark !important;
 }
 
 .font-montserrat {
@@ -236,6 +237,17 @@ main {
 
 header nav.navbar {
     border-radius: 5px;
+
+    @media (max-width: 425px) {
+        border-radius: 0px;
+    }
+}
+
+header.container {
+    @media (max-width: 425px) {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
 }
 
 header .navbar-dark .navbar-nav .nav-link,
@@ -1676,3 +1688,35 @@ div#product_option_block {
     color: $farmaoffers-light-gray !important;
 }
 
+.only-mobile {
+    display: none;
+
+    @media (max-width: $max-size-mobile) {
+        display: initial;
+    }
+}
+
+.hide-mobile {
+
+    @media (max-width: $max-size-mobile) {
+        display: none;
+    }
+}
+
+.gap-1 {
+    gap: 0.25rem !important
+}
+
+#top-slider-carousel .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+    }
+}
+
+.o_slideshow .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+    }
+}
