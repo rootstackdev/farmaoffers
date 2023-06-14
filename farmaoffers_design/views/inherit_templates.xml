@@ -1429,7 +1429,7 @@
                             </a>
                         </div>
                         <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
-                        <t t-foreach="categories" t-as="c">
+                        <t t-foreach="website.get_main_categories()" t-as="c">
                             <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
                         </t>
                         </ul>

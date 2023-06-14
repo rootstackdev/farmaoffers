@@ -335,7 +335,7 @@
             <span style="cursor:pointer; font-size:0.7em;" class="mobile-categ-menu-close">X</span>
           </h3>
           <ul class="category-nav category-nav-mobile nav nav-pills" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:100vh;">
-            <t t-foreach="categories" t-as="c">
+            <t t-foreach="website.get_main_categories()" t-as="c">
               <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
             </t>
           </ul>
@@ -344,6 +344,17 @@
       <header class="container hide-mobile">
         <t t-call="farmaoffers_design.fo_navbar"/>
       </header>
+      <div class="homepage-categ-mobile container">
+        <ul class="navbar-nav d-flex flex-row flex-nowrap" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
+          <t t-foreach="website.get_homepage_categories()" t-as="category">
+                <li class="nav-item homepage-categ-item-mob">
+                  <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
+                    <small><t t-esc="category.name"/></small>
+                  </a>
+                </li>
+          </t>
+        </ul>
+      </div>
     </xpath>
   </template>
 

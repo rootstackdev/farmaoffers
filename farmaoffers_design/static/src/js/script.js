@@ -632,4 +632,6 @@ odoo.define('farmaoffers_design.script', function (require) {
 
     });
 
+
+
 });
