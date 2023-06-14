@@ -510,3 +510,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,windows,macos,linux,python,node
+.vscode/settings.json

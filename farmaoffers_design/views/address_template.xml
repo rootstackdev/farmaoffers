@@ -25,4 +25,9 @@
             </div>
         </xpath>
     </template>
+   <template id="address_b2b" inherit_id="website_sale.address_b2b">
+        <label for="vat" position="replace">
+            <label>Cédula de identidad</label>
+        </label>
+    </template>
 </odoo>
