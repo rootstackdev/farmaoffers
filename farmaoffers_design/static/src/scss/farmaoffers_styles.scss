@@ -1676,3 +1676,8 @@ div#product_option_block {
     color: $farmaoffers-light-gray !important;
 }
 
+@media (max-width: 425px) {
+    .top_products .widget-products li .name {
+        font-size: 0.65rem !important;
+    }
+}
