@@ -7,7 +7,7 @@
                     <div class="container mx-auto my-0 row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                             <div class="text-white text-left font-montserrat font-weight-bold">
-                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                 <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="basic-bg basic-bg-signup row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                             <div class="text-white text-left font-montserrat font-weight-bold">
-                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                 <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                         <div class="basic-bg basic-bg-reset row">
                             <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                                 <div class="text-white text-left font-montserrat font-weight-bold">
-                                LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                                LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                     <span class="text-green2">CADA DÍA</span>
                                 </div>
                             </div>
@@ -1079,7 +1079,7 @@
                 <div t-if="not order.branch_office_id" class="card-body">
                     <t t-set="same_shipping" t-value="bool(order.partner_shipping_id==order.partner_id or only_services)" />
                     <div>
-                        <b>facturación <t t-if="same_shipping and not only_services"> &amp; Envío</t>: 
+                        <b>facturación <t t-if="same_shipping and not only_services"> &amp; Envío</t>:
                         </b>
                         <span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/>
                     </div>
@@ -1397,7 +1397,12 @@
             <li class="nav-item category-header my-2" style="min-width:280px;">
                 <t t-set="children" t-value="c.child_id"/>
                 <a t-attf-href="/shop/category/#{c.id}" t-attf-class="nav-link nav-link-categ d-flex justify-content-between align-items-center" t-att-data-haschild="'1' if children else '0'">
-                    <span style="color:black;" t-field="c.name"/>
+                    <div class="d-flex flex-row gap-1">
+                        <t t-if="c.image_1920">
+                            <img class="fo-icon-category" t-att-src="image_data_uri(c.image_1920)"/>
+                        </t>
+                        <span style="color:black;" t-field="c.name"/>
+                    </div>
                     <i t-if="children" class="d-md-none text-primary fa fa-chevron-right" role="img"/>
                 </a>
                 <ul t-if="c.child_id" class="nav nav-pills flex-column nav-child" style="background-color:white;display:none;position:absolute;top:0px;left:100%;height:100%;z-index:10000;width:100%;">
@@ -1424,8 +1429,8 @@
                     <ul class="navbar-nav mr-auto">
                     <li class="category-main-option-menu position-relative">
                         <div class="d-flex flex-row gap-1">
-                            <a class="nav-link" href="/prescription" title="Categorias">
-                                <i class="fa fa-user-o only-mobile" aria-hidden="false"></i> Categorias
+                            <a class="nav-link" href="#" title="Categorias">
+                                Categorias
                             </a>
                         </div>
                         <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
@@ -1437,28 +1442,28 @@
                     <li class="nav-item only-mobile">
                         <div class="d-flex flex-row gap-1">
                             <a class="nav-link" href="/prescription" title="Preescripcion">
-                                <i class="fa fa-file-text-o" aria-hidden="false"></i> Tengo una preescripción
+                                Tengo una preescripción
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="d-flex flex-row gap-1">
                             <a class="nav-link" href="/all-offers" title="Ofertas">
-                                <i class="fa fa-user-o only-mobile" aria-hidden="false"></i> Ofertas
+                                Ofertas
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
                          <div class="d-flex flex-row gap-1">
                             <a class="nav-link" href="/quote#top_quote" title="Cotizar">
-                                <i class="fa fa-user-o only-mobile" aria-hidden="false"></i> Cotizar
+                                 Cotizar
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="d-flex flex-row gap-1">
                             <a class="nav-link" href="/shop" title="Productos">
-                                <i class="fa fa-user-o only-mobile" aria-hidden="false"></i> Productos
+                                 Productos
                             </a>
                         </div>
                     </li>

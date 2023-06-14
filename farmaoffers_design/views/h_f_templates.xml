@@ -345,13 +345,18 @@
         <t t-call="farmaoffers_design.fo_navbar"/>
       </header>
       <div class="homepage-categ-mobile container">
-        <ul class="navbar-nav d-flex flex-row flex-nowrap" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
+        <ul class="navbar-nav d-flex flex-row flex-nowrap align-items-center" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
           <t t-foreach="website.get_homepage_categories()" t-as="category">
-                <li class="nav-item homepage-categ-item-mob">
-                  <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
-                    <small><t t-esc="category.name"/></small>
-                  </a>
-                </li>
+              <li class="nav-item homepage-categ-item-mob">
+                <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
+                  <div class="d-flex flex-row gap-1 align-items-center">
+                          <t t-if="category.image_1920">
+                              <img class="fo-icon-category" t-att-src="image_data_uri(category.image_1920)"/>
+                          </t>
+                        <small><t t-esc="category.name"/></small>
+                  </div>
+                </a>
+              </li>
           </t>
         </ul>
       </div>
