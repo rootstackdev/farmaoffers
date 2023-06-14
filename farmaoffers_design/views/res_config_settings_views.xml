@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.website</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='social_media_settings']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id="social_media_settings">
+                        <div class="o_setting_left_pane">
+                            <field name="has_whatsapp"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Mostrar whatsapp" for="has_whatsapp"/>
+                            <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                            <div class="text-muted">
+                                Agregar whatsapp a tu sitio web
+                            </div>
+                            <div class="content-group" attrs="{'invisible': [('has_whatsapp', '=', False)]}">
+                                <div class="row">
+                                    <label for="whatsapp_number" string="Whatsapp" class="col-md-3 o_light_label"/>
+                                    <field name="whatsapp_number"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

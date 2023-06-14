@@ -1,0 +1,15 @@
+ul.category-nav {
+    display: none;
+}
+
+ul.category-nav.category-nav-mobile {
+    display: block;
+}
+
+/* .category-main-option-menu:hover ul.category-nav {
+    display: block;
+} */
+
+.close-item {
+    cursor: pointer;
+}

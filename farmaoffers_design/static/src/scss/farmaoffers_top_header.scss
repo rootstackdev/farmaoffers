@@ -1,0 +1,28 @@
+$font-mobile-size: 0.65rem !important;
+$font-color-gray: #888888 !important;
+
+@media (max-width: 767.98px) {
+    .shopping-icon i {
+        font-size: $font-mobile-size;
+        margin: 1vw;
+    }
+    .count-float-badge {
+        min-width: 15px;
+        height: 15px;
+        line-height: 15px;
+        padding: 0 0px;
+        top: -5px;
+        left: 18px;
+        z-index: 10;
+    }
+
+    .shopping-mobile-cart-info {
+        color: $font-color-gray;
+        font-size: $font-mobile-size;
+    }
+
+    .price-minicart {
+        color: #000 !important;
+        font-weight: 500;
+    }
+}

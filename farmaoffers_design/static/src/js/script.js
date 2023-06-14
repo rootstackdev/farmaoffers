@@ -9,6 +9,7 @@ odoo.define('farmaoffers_design.script', function (require) {
     var core = require('web.core');
     var _t = core._t;
     var rpc = require('web.rpc');
+    var config = require('web.config');
 
     //theme Modify
     // New
@@ -541,4 +542,94 @@ odoo.define('farmaoffers_design.script', function (require) {
             return this._changeShippingMode('address')
         }
     });
+
+    publicWidget.registry.websiteSaleCategoryMenuHeader = publicWidget.Widget.extend({
+        selector: 'ul.category-nav',
+        events: {
+            'mouseenter li.category-header': 'onMouseEnter',
+            'mouseleave li.category-header': 'onMouseLeave',
+            'click .nav-link-categ': 'onItemClick',
+            'click .close-item': 'iconCloseItem',
+        },
+
+        start: function() {
+            if (config.device.isMobile) {
+                this.$el.css('top', '100%');
+                this.$el.find('ul.nav-child').css('left', '0');
+                this.$el.find('.child-parent-categ').addClass('d-flex align-items-center');
+                //$('.category-nav').css('display', 'block');
+            } else {
+                this.$el.css('top', '100%');
+                this.$el.find('ul.nav-child').css('left', '100%');
+                this.$el.find('.child-parent-categ').removeClass('d-flex align-items-center');
+                //$('.category-nav').css('display', 'none');
+            }
+
+            $('.category-main-option-menu').hover(function() {
+                if (config.device.isMobile) return;
+                $('.category-nav').css('display', 'block');
+            });
+
+            $('.category-main-option-menu').mouseleave(function() {
+                if (config.device.isMobile) return;
+                $('.category-nav').css('display', 'none');
+            });
+
+            $('.category-main-option-menu').click(function() {
+                if (!config.device.isMobile) return;
+                //$('.category-nav').css('display', 'block');
+            });
+
+            this.$el.parent().find('a.nav-link').click(function(ev) {
+                console.log('+++ auakdjfkdf');
+                $('#mobile-categ-menu').show('normal');
+                //$('div#wrapwrap').css('overflow', 'hidden');
+            });
+
+            $('#mobile-categ-menu .mobile-categ-menu-close').click(function() {
+                $('#mobile-categ-menu').hide('normal');
+                //$('div#wrapwrap').css('overflow', 'auto');
+            }); 
+
+            return this._super.apply(this, arguments);
+        },
+
+        onMouseEnter: function(ev) {
+            if (config.device.isMobile) return;
+            this.showItems(ev);
+        },
+
+        onMouseLeave: function(ev) {
+            if (config.device.isMobile) return;
+            this.hideItems(ev);
+        },
+
+        onItemClick: function(ev) {
+            if (!config.device.isMobile) return;
+            if (ev.currentTarget.dataset.haschild === '1') {
+                ev.preventDefault();
+            }
+            this.showItems($(ev.currentTarget).parent());
+        },
+        
+        showItems: function(ev) {
+            var $fa = $(ev.currentTarget || ev);
+            $fa.find('ul:first').show('normal');
+            //$fa.toggleClass('fa-chevron-down fa-chevron-right');
+        },
+
+        hideItems: function(ev) {
+            var $fa = $(ev.currentTarget);
+            $fa.find('ul:first').hide('normal');
+            //$fa.toggleClass('fa-chevron-down fa-chevron-right');
+        },
+
+        iconCloseItem: function(ev) {
+            var $fa = $(ev.currentTarget);
+            $fa.parent().parent().css('display', 'none');
+            ev.stopPropagation();
+        }
+
+    });
+
 });
