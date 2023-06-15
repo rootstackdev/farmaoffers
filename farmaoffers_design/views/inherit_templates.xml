@@ -1392,5 +1392,120 @@
         <template id="remove_cuopon" inherit_id="website_sale.reduction_code">
             <xpath expr="//tr[@t-if='not hide_coupon']" position="replace"/>
         </template>
+
+        <template id="option_collapse_categories_recursive_header" name="Category list menu header">
+            <li class="nav-item category-header my-2" style="min-width:280px;">
+                <t t-set="children" t-value="c.child_id"/>
+                <a t-attf-href="/shop/category/#{c.id}" t-attf-class="nav-link nav-link-categ d-flex justify-content-between align-items-center" t-att-data-haschild="'1' if children else '0'">
+                    <div class="d-flex flex-row gap-1">
+                        <t t-if="c.image_1920">
+                            <img class="fo-icon-category" t-att-src="image_data_uri(c.image_1920)"/>
+                        </t>
+                        <span style="color:black;" t-field="c.name"/>
+                    </div>
+                    <i t-if="children" class="d-md-none text-primary fa fa-chevron-right" role="img"/>
+                </a>
+                <ul t-if="c.child_id" class="nav nav-pills flex-column nav-child" style="background-color:white;display:none;position:absolute;top:0px;left:100%;height:100%;z-index:10000;width:100%;">
+                    <li class="child-parent-categ mb-3 d-none">
+                        <i t-if="children" class="d-md-none text-primary d-inline-block p-3 fa fa-chevron-left close-item" role="img"/>
+                        <a t-attf-href="/shop/category/#{c.id}" t-attf-class="nav-link" style="color:#16a2ff;">
+                            Productos en <i><span t-field="c.name"/></i>
+                        </a>
+                    </li>
+                    <t t-foreach="c.child_id" t-as="c">
+                        <t t-call="farmaoffers_design.option_collapse_categories_recursive_header" />
+                    </t>
+                </ul>
+
+            </li>
+        </template>
+
+        <template id="fo_navbar" name="Navbar">
+            <nav class="navbar navbar-expand-md navbar-light position-relative">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMainMenu">
+                    <ul class="navbar-nav mr-auto">
+                    <li class="category-main-option-menu position-relative">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">category</span>
+                            <a class="nav-link" href="#" title="Categorias">
+                                Categorias
+                            </a>
+                        </div>
+                        <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
+                        <t t-foreach="website.get_main_categories()" t-as="c">
+                            <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
+                        </t>
+                        </ul>
+                    </li>
+                    <li class="nav-item only-mobile">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">assignment</span>
+                            <a class="nav-link" href="/prescription" title="Preescripcion">
+                                Tengo una preescripción
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">percent</span>
+                            <a class="nav-link" href="/all-offers" title="Ofertas">
+                                Ofertas
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                         <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">request_quote</span>
+                            <a class="nav-link" href="/quote#top_quote" title="Cotizar">
+                                 Cotizar
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">shopping_cart</span>
+                            <a class="nav-link" href="/shop" title="Productos">
+                                 Productos
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item only-mobile" t-if="not user_id._is_public()">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">person</span>
+                            <a class="nav-link" href="/my" title="Perfil">
+                                Perfil /
+                            </a>
+                            <a class="nav-link text-dark-fo" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+                <div class="navbar-brand toplinks mr-0 hide-mobile">
+                    <ul class="header links d-flex align-items-center">
+                    <li><i class="fa fa-user m-0" aria-hidden="false"></i></li>
+                    <li class="authorization-link" data-label="or" t-if="user_id._is_public()"><a class="text-white" href="/web/login">Inicio de sesión</a></li>
+                    <li class="only-bar">/</li>
+                    <li t-if="user_id._is_public()"><a class="register-text" href="/web/signup">Registro</a></li>
+                    <li class="dropdown dropdown-profile" t-ignore="true" t-if="not user_id._is_public()">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <b>
+                            <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name" class="d-none d-sm-inline text-white" />
+                            <span class="caret text-white"></span>
+                        </b>
+                        </a>
+                        <ul class="dropdown-menu js_usermenu" role="menu">
+                        <li class="dropdown-item dropdown-item-profile"><a class="text-white" t-attf-href="/my" role="menuitem">Perfil</a></li>
+                        <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                    </ul>
+                </div>
+                <div class="black-rectangle"></div>
+                <div class="black-rectangle-skew"></div>
+            </nav>
+        </template>
     </data>
 </odoo>

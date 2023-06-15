@@ -1634,3 +1634,53 @@ div#product_option_block {
 .text-color-light-gray{
     color: $farmaoffers-light-gray !important;
 }
+
+.only-mobile {
+    display: none;
+
+    @media (max-width: $max-size-mobile) {
+        display: initial;
+    }
+}
+
+.hide-mobile {
+
+    @media (max-width: $max-size-mobile) {
+        display: none;
+    }
+}
+
+.gap-1 {
+    gap: 0.25rem !important
+}
+
+#top-slider-carousel .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+    }
+}
+
+.o_slideshow .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+  }
+}
+
+@media (max-width: 425px) {
+    .top_products .widget-products li .name {
+        font-size: 0.65rem !important;
+    }
+}
+
+.fo-icon-category {
+    object-fit: cover;
+    max-height:20px;
+    max-width:20px;
+}
+
+span.size-20 {
+    font-size: 20px;
+    font-variation-settings: 'OPSZ' 20;
+}
