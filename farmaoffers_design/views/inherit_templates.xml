@@ -7,7 +7,7 @@
                     <div class="container mx-auto my-0 row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                             <div class="text-white text-left font-montserrat font-weight-bold">
-                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                 <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="basic-bg basic-bg-signup row">
                         <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                             <div class="text-white text-left font-montserrat font-weight-bold">
-                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                            LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                 <span class="text-green2">CADA DÍA</span>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                         <div class="basic-bg basic-bg-reset row">
                             <div class="login-message col-12 col-md-6 d-flex justify-content-center align-items-center">
                                 <div class="text-white text-left font-montserrat font-weight-bold">
-                                LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED 
+                                LAS MEJORES OFERTAS LAS TRAEMOS PARA USTED
                                     <span class="text-green2">CADA DÍA</span>
                                 </div>
                             </div>
@@ -1079,7 +1079,7 @@
                 <div t-if="not order.branch_office_id" class="card-body">
                     <t t-set="same_shipping" t-value="bool(order.partner_shipping_id==order.partner_id or only_services)" />
                     <div>
-                        <b>facturación <t t-if="same_shipping and not only_services"> &amp; Envío</t>: 
+                        <b>facturación <t t-if="same_shipping and not only_services"> &amp; Envío</t>:
                         </b>
                         <span t-esc='order.partner_id' t-options="dict(widget='contact', fields=['address'], no_marker=True, separator=', ')" class="address-inline"/>
                     </div>

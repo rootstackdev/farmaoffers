@@ -5,6 +5,7 @@ $font-8-5: 0.85rem !important;
 $farmaoffers-primary: #4CBB17;
 $farmaoffers-gray: #C9D7E2;
 $farmaoffers-light-gray: #C9D7E2;
+$max-size-mobile: 425px;
 
 @mixin filters-border {
     border: 1px solid #e5e5e5;
@@ -49,7 +50,7 @@ main {
 }
 
 .text-dark-fo {
-    color: $text-dark;
+    color: $text-dark !important;
 }
 
 .font-montserrat {
@@ -236,6 +237,17 @@ main {
 
 header nav.navbar {
     border-radius: 5px;
+
+    @media (max-width: 425px) {
+        border-radius: 0px;
+    }
+}
+
+header.container {
+    @media (max-width: 425px) {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
 }
 
 header .navbar-dark .navbar-nav .nav-link,
@@ -1600,6 +1612,47 @@ div#product_option_block {
     .main-image {
         height: 100% !important;
     }
+}
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.2rem !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-right: 0.2rem !important;
+  }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+}
+
+.whatsapp {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:#25d366;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+
+  .whatsapp-icon {
+    margin-top:13px;
+  }
+
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.2rem !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-right: 0.2rem !important;
+  }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
 }
 
 
