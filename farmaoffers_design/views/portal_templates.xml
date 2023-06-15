@@ -4,5 +4,15 @@
         <xpath expr="/t[1]/t[1]/form[1]/div[1]/div[1]/div[1]/div[6]/label[1]" position="replace">
             <label class="col-form-label label-optional" for="vat">Cédula de identidad</label>
         </xpath>
+        <xpath expr="//label[@for='state_id']/.." position="after">
+            <div t-attf-class="form-group col-xl-6">
+                <label class="col-form-label label-optional" for="program_name">Nombre de programa</label>
+                <input type="text" name="program_name" t-attf-class="form-control " t-att-value="program_name or partner.program_name" />
+            </div>
+            <div t-attf-class="form-group col-xl-6">
+                <label class="col-form-label label-optional" for="affiliate_code">Código de afiliado</label>
+                <input type="text" name="affiliate_code" t-attf-class="form-control " t-att-value="affiliate_code or partner.affiliate_code" />
+            </div>
+        </xpath>
     </template>
 </odoo>

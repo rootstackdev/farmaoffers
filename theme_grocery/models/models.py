@@ -10,6 +10,14 @@ class website(models.Model):
     def get_categories(self):
         categories = self.env['product.public.category'].sudo().search([])
         return categories
+    
+    def get_main_categories(self):
+        domain = [
+            ('website_id', 'in', [False, self.id]),
+            ('parent_id', '=', False)
+        ]
+        return self.env['product.public.category'].sudo().search(domain)
+
 
     def get_homepage_categories(self):
         categories = self.env['homepage.categories'].sudo().search([], order='sequence')

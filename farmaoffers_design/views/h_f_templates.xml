@@ -94,11 +94,11 @@
 
       <t t-set="whatsapp" t-value="website.whatsapp_number"/>
       <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
-      
+
       <t t-set="top_sliders" t-value="website.get_top_sliders()" />
 
-      <div class="container" t-if="top_sliders">
-        <section id="top-slider-carousel" class="splide" aria-label="Top Slider">
+      <section id="top-slider-carousel" class="splide" aria-label="Top Slider" t-if="top_sliders">
+          <div class="container">
             <div class="splide__track">
               <ul class="splide__list">
                 <t t-foreach="top_sliders" t-as="top_slider">
@@ -108,8 +108,13 @@
                 </t>
               </ul>
             </div>
-        </section>
-      </div>
+          </div>
+      </section>
+
+      <header class="container only-mobile">
+        <t t-call="farmaoffers_design.fo_navbar"/>
+      </header>
+
       <div class="header-middle d-none d-sm-block">
         <div class="container">
           <div class="custom_row mt-3 mb-3">
@@ -330,77 +335,31 @@
             <span style="cursor:pointer; font-size:0.7em;" class="mobile-categ-menu-close">X</span>
           </h3>
           <ul class="category-nav category-nav-mobile nav nav-pills" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:100vh;">
-            <t t-foreach="categories" t-as="c">
+            <t t-foreach="website.get_main_categories()" t-as="c">
               <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
             </t>
           </ul>
         </div>
       </div>
-      <header class="container">
-        <nav class="navbar navbar-expand-md navbar-light position-relative">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarMainMenu">
-            <ul class="navbar-nav mr-auto">
-              <t t-foreach="website.get_homepage_categories()" t-as="category">
-                <li class="nav-item">
-                  <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
-                    <t t-esc="category.name"/>
-                  </a>
-                </li>
-              </t>
-              <li class="category-main-option-menu position-relative">
-                <a class="nav-link" href="#" title="Categorias">
-                  Categorias
-                </a>
-                <ul class="category-nav nav nav-pills position-absolute" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:auto;">
-                  <t t-foreach="categories" t-as="c">
-                    <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
-                  </t>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/all-offers" title="Ofertas">
-                  Ofertas
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/quote#top_quote" title="Cotizar">
-                  Cotizar
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/shop" title="Productos">
-                  Productos
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="navbar-brand toplinks mr-0">
-            <ul class="header links d-flex align-items-center">
-              <li><i class="fa fa-user m-0" aria-hidden="false"></i></li>
-              <li class="authorization-link" data-label="or" t-if="user_id._is_public()"><a class="text-white" href="/web/login">Inicio de sesión</a></li>
-              <li class="only-bar">/</li>
-              <li t-if="user_id._is_public()"><a class="register-text" href="/web/signup">Registro</a></li>
-              <li class="dropdown dropdown-profile" t-ignore="true" t-if="not user_id._is_public()">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <b>
-                    <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name" class="d-none d-sm-inline text-white" />
-                    <span class="caret text-white"></span>
-                  </b>
-                </a>
-                <ul class="dropdown-menu js_usermenu" role="menu">
-                  <li class="dropdown-item dropdown-item-profile"><a class="text-white" t-attf-href="/my" role="menuitem">Perfil</a></li>
-                  <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="black-rectangle"></div>
-          <div class="black-rectangle-skew"></div>
-        </nav>
+      <header class="container hide-mobile">
+        <t t-call="farmaoffers_design.fo_navbar"/>
       </header>
+      <div class="homepage-categ-mobile container">
+        <ul class="navbar-nav d-flex flex-row flex-nowrap align-items-center" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
+          <t t-foreach="website.get_homepage_categories()" t-as="category">
+              <li class="nav-item homepage-categ-item-mob">
+                <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
+                  <div class="d-flex flex-row gap-1 align-items-center">
+                          <t t-if="category.image_1920">
+                              <img class="fo-icon-category" t-att-src="image_data_uri(category.image_1920)"/>
+                          </t>
+                        <small><t t-esc="category.name"/></small>
+                  </div>
+                </a>
+              </li>
+          </t>
+        </ul>
+      </div>
     </xpath>
   </template>
 
