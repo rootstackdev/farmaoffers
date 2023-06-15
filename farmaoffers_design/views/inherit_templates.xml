@@ -253,6 +253,11 @@
                     <t t-set="bg_title" t-value="'Listado de productos'"/>
                     <t t-set="breadcrumb_definition" t-value="'Productos'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
             </xpath>
             <xpath expr="//div[hasclass('products_pager')]" position="replace">
             </xpath>
@@ -433,6 +438,11 @@
                     <t t-set="bg_title" t-value="'Carrito'"/>
                     <t t-set="breadcrumb_definition" t-value="'Mi carrito'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12">
                     <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
                         <span class="text-secondary">Carrito </span>
@@ -646,6 +656,10 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="col-12 mb-1">
+                    <div class="oe_structure"/>
+                </div>
+
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-xl-8">
@@ -818,6 +832,11 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-xl-8">
@@ -938,6 +957,11 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12 col-xl-8">
                     <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
                         <span class="text-secondary">Checkout </span>
@@ -1428,7 +1452,8 @@
                 <div class="collapse navbar-collapse" id="navbarMainMenu">
                     <ul class="navbar-nav mr-auto">
                     <li class="category-main-option-menu position-relative">
-                        <div class="d-flex flex-row gap-1">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">category</span>
                             <a class="nav-link" href="#" title="Categorias">
                                 Categorias
                             </a>
@@ -1440,37 +1465,42 @@
                         </ul>
                     </li>
                     <li class="nav-item only-mobile">
-                        <div class="d-flex flex-row gap-1">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">assignment</span>
                             <a class="nav-link" href="/prescription" title="Preescripcion">
                                 Tengo una preescripción
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="d-flex flex-row gap-1">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">percent</span>
                             <a class="nav-link" href="/all-offers" title="Ofertas">
                                 Ofertas
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
-                         <div class="d-flex flex-row gap-1">
+                         <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">request_quote</span>
                             <a class="nav-link" href="/quote#top_quote" title="Cotizar">
                                  Cotizar
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="d-flex flex-row gap-1">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">shopping_cart</span>
                             <a class="nav-link" href="/shop" title="Productos">
                                  Productos
                             </a>
                         </div>
                     </li>
                     <li class="nav-item only-mobile" t-if="not user_id._is_public()">
-                        <div class="d-flex flex-row gap-1">
+                        <div class="d-flex flex-row gap-1 align-items-center">
+                            <span class="material-symbols-outlined size-20 only-mobile">person</span>
                             <a class="nav-link" href="/my" title="Perfil">
-                                <i class="fa fa-user-o" aria-hidden="false"></i> Perfil /
+                                Perfil /
                             </a>
                             <a class="nav-link text-dark-fo" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a>
                         </div>
