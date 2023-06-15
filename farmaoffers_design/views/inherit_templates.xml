@@ -253,10 +253,8 @@
                     <t t-set="bg_title" t-value="'Listado de productos'"/>
                     <t t-set="breadcrumb_definition" t-value="'Productos'"/>
                 </t>
-                <div class="container">
-                    <div class="row col-12">
-                        <div class="oe_structure"/>
-                    </div>
+                <div class="col-12">
+                    <div class="oe_structure"/>
                 </div>
             </xpath>
             <xpath expr="//div[hasclass('products_pager')]" position="replace">
