@@ -284,7 +284,7 @@
                 </td>
               </tr>
             </tbody>
-          </table>v
+          </table>
         </div>
       </section>
     </template>
@@ -384,14 +384,15 @@
                     <span t-esc="breadcrumb_definition" />
                   </li>
                 </t>
-                <!-- <li class="breadcrumb-item active"><span t-field="product.name" /></li> -->
               </ol>
             </div>
           </div>
         </div>
-        <div class="shop-banner m-0">
-          <h2 class="m-0 text-uppercase" t-esc="bg_title" />
-        </div>
+        <!-- <div class="container">
+          <div class="row col-12">
+            <div class="oe_structure"/>
+          </div>
+        </div> -->
       </div>
     </template>
 

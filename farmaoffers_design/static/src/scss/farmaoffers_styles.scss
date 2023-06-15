@@ -343,6 +343,8 @@ header.container .navbar {
     }
 }
 
+
+
 .toplinks {
     z-index: 1;
 }
@@ -1714,11 +1716,18 @@ div#product_option_block {
     }
 }
 
+.carousel.slide {
+
+    @media (max-width: $max-size-mobile) {
+        margin: 0 0 !important;
+    }
+}
+
 .o_slideshow .container {
 
     @media (max-width: $max-size-mobile) {
         padding: 0 0;
-  }
+    }
 }
 
 @media (max-width: 425px) {
@@ -1736,4 +1745,44 @@ div#product_option_block {
 span.size-20 {
     font-size: 20px;
     font-variation-settings: 'OPSZ' 20;
+}
+
+.section_banner {
+    .img {
+        position: relative;
+    }
+    .image {
+        height: 10vh;
+        width:100vw;
+    }
+    .image h1 {
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        font-size: 2rem;
+        width: 100%;
+        height: 26px;
+        padding: 0;
+        margin: 0;
+        margin-top: -13px; /* 1/2 height */
+        text-align: center;
+        color: white;
+        font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
+        font-weight: bold;
+    }
+    .image img {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        border-radius: 5px;
+        object-fit: cover;
+        object-position: bottom
+    }
 }

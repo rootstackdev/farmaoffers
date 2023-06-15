@@ -14,6 +14,7 @@
             <t t-snippet="farmaoffers_design.s_reviews" t-thumbnail="/website/static/src/img/snippets_thumbs/s_quotes_carousel.svg"/>
             <t t-snippet="farmaoffers_design.s_top_offers"/>
             <t t-snippet="farmaoffers_design.s_top_offers_banner"/>
+            <t t-snippet="farmaoffers_design.s_section_banner" t-thumbnail="/farmaoffers_design/static/description/icon.png"/>
         </xpath>
     </template>
 
@@ -100,6 +101,17 @@
                             style="object-fit: cover;"/>
                         </a>
                     </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_section_banner" name="Section Banner">
+        <section class="s_breacumb_banner">
+            <div class="section_banner">
+                <div class="image">
+                    <h1 class="text-uppercase">Farma Offers</h1>
+                    <img class="img img-fluid mx-auto" src="/farmaoffers_design/static/src/img/bg-basic.png" alt="myimage" />
                 </div>
             </div>
         </section>

@@ -253,6 +253,11 @@
                     <t t-set="bg_title" t-value="'Listado de productos'"/>
                     <t t-set="breadcrumb_definition" t-value="'Productos'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
             </xpath>
             <xpath expr="//div[hasclass('products_pager')]" position="replace">
             </xpath>
@@ -433,6 +438,11 @@
                     <t t-set="bg_title" t-value="'Carrito'"/>
                     <t t-set="breadcrumb_definition" t-value="'Mi carrito'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12">
                     <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
                         <span class="text-secondary">Carrito </span>
@@ -646,6 +656,10 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="col-12 mb-1">
+                    <div class="oe_structure"/>
+                </div>
+
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-xl-8">
@@ -818,6 +832,11 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-xl-8">
@@ -938,6 +957,11 @@
                     <t t-set="bg_title" t-value="'Checkout'"/>
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
                 <div class="col-12 col-xl-8">
                     <h2 class="h5 text-uppercase font-weight-bold font-montserrat">
                         <span class="text-secondary">Checkout </span>
