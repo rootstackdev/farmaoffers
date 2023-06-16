@@ -423,6 +423,11 @@ main {
         background-position: center;
     }
 
+    .basic-bg-all-offers {
+        background-image: none;
+        background-color: white;
+    }
+
     .basic-bg-login {
         padding: 0;
 
@@ -1095,13 +1100,14 @@ section {
         border-top: 2px solid #c9d7e2;
         border-bottom: 2px solid #c9d7e2;
         border-right: 2px solid #c9d7e2;
-        max-height: 165px;
-        min-height: 165px;
+        border-left: 2px solid #c9d7e2;
+        --max-height: 165px;
+        --min-height: 165px;
 
         img {
-            width: 100%;
-            max-height: inherit;
-            padding: 1rem;
+            --width: 100%;
+            --max-height: inherit;
+            --padding: 1rem;
         }
     }
 
@@ -1359,7 +1365,7 @@ body #wrapwrap.o_portal {
 .card-our-tips {
     border-radius: 5px;
     border: 1px solid #c9d7e2;
-    background-color: #77bac1;
+    background-color: #4cbb17;
     color: #feffff;
     padding: 1rem;
     min-height: 130px;
@@ -1422,11 +1428,19 @@ body #wrapwrap.o_portal {
     width: 260px !important;
 }
 
+section.top_offers .owl-item {
+    width: 170px !important;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
 .our_tips .owl-carousel .owl-item:nth-child(1) {
     width: 300px !important;
 
     .card-our-tips {
-        background-color: #1f969a !important;
+        
+        --background-color: #1f969a !important;
+        background-color: #4cbb17 !important;
     }
 }
 

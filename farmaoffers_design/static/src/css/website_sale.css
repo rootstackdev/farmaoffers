@@ -50,3 +50,7 @@ li.nav-item.category-header:hover {
 .new-patient-program-btn:hover {
     background-color: #c6b7b750;
 }
+
+.basic-bg-all-offers #top_quote{
+    color: #4cbb17;
+}
