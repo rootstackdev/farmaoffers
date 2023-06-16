@@ -843,11 +843,11 @@
     <template id="all_offers">
       <t t-call="website.layout">
         <div id="wrap">
-          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login">
+          <div class="container-fo mx-auto my-0 py-1 basic-bg basic-bg-login basic-bg-all-offers">
             <section class="pt8 pb0 mt-4" data-name="Title">
               <div class="container s_allow_columns font-montserrat text-uppercase">
                 <h1 id="top_quote" class="m-0" style="text-align: center;">
-                  <font class="text-white font-weight-bold font-montserrat" style="font-size: 32px;">todas
+                  <font class="font-weight-bold font-montserrat" style="font-size: 32px;">todas
                     las ofertas</font>
                 </h1>
               </div>
@@ -1050,7 +1050,7 @@
           <hr class="mx-0 mt-1 mb-4" />
           <div class="owl-carousel">
             <t t-foreach="range(0, len(items), 1)" t-as="step">
-              <div class="item">
+              <div class="item" t-attf-style="#{'width:170px;' if top_offers else ''}">
                 <ul class="widget-products">
                   <li t-foreach="items[step:step+1]" t-as="item"
                     class="d-flex flex-column align-items-center">
@@ -1083,9 +1083,9 @@
 
     <template id="card_top_offers" name="Card Top Offers">
       <div class="w-100">
-        <div class="img-offer d-flex align-items-center">
+        <div class="img-offer">
           <img t-attf-src="/website/image/product.offers/{{item.id}}/image" t-att-alt="item.title"
-            style="object-fit: contain;" class="p-1"/>
+            style="width:166px;height:auto;" class=""/>
         </div>
         <div class="title-offer">
           <t t-esc="item.title" />
