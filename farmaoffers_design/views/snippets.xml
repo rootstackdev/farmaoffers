@@ -48,7 +48,9 @@
                 <a class="float-right text-uppercase font-montserrat text-blue font-weight-bold mb-4" href="/all-offers">Ver todas las ofertas</a>
             </section>
         </section>
-        <t t-call="farmaoffers_design.stripe_info"/>
+        <div class="hide-mobile">
+            <t t-call="farmaoffers_design.stripe_info"/>
+        </div>
     </template>
 
     <template id="s_our_tips" name="Our tips">
@@ -63,6 +65,9 @@
             <t t-set="our_tips" t-value="True"/>
             <t t-set="mb_class" t-value="'mb-4'"/>
         </t>
+        <div class="only-mobile">
+            <t t-call="farmaoffers_design.stripe_info"/>
+        </div>
     </template>
 
     <template id="s_top_offers_banner" name="Gallery Top Offers">
