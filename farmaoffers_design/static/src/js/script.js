@@ -8,6 +8,7 @@ odoo.define('farmaoffers_design.script', function (require) {
     var sAnimations = require('website.content.snippets.animation');
     var core = require('web.core');
     var _t = core._t;
+    var qweb = core.qweb;
     var rpc = require('web.rpc');
     var config = require('web.config');
 
@@ -555,12 +556,12 @@ odoo.define('farmaoffers_design.script', function (require) {
         start: function() {
             if (config.device.isMobile) {
                 this.$el.css('top', '100%');
-                this.$el.find('ul.nav-child').css('left', '0');
+                this.$el.find('.nav-child').css('left', '0');
                 this.$el.find('.child-parent-categ').addClass('d-flex align-items-center');
                 //$('.category-nav').css('display', 'block');
             } else {
                 this.$el.css('top', '100%');
-                this.$el.find('ul.nav-child').css('left', '100%');
+                this.$el.find('.nav-child').css('left', '100%');
                 this.$el.find('.child-parent-categ').removeClass('d-flex align-items-center');
                 //$('.category-nav').css('display', 'none');
             }
@@ -581,7 +582,6 @@ odoo.define('farmaoffers_design.script', function (require) {
             });
 
             this.$el.parent().find('a.nav-link').click(function(ev) {
-                console.log('+++ auakdjfkdf');
                 $('#mobile-categ-menu').show('normal');
                 //$('div#wrapwrap').css('overflow', 'hidden');
             });
@@ -630,6 +630,30 @@ odoo.define('farmaoffers_design.script', function (require) {
             ev.stopPropagation();
         }
 
+    });
+
+    publicWidget.registry.portalDetails = publicWidget.registry.portalDetails.extend({
+        events: _.extend({}, publicWidget.registry.portalDetails.prototype.events || {}, {
+            'click .new-patient-program-btn': 'newPatientProgram',
+            'click .delete-patient-program': 'deletePatientProgram',
+        }),
+
+        newPatientProgram: function(ev) {
+            var $refElement = $(ev.target);
+            var count = $('.program-patient-name').length;
+            count++;
+            ajax.loadXML('/farmaoffers_design/static/src/xml/portal.xml', qweb).then(() => new Promise((resolve, reject) => {
+                var $HTML = qweb.render('farmaoffers_design.PatientProgramFields', {newId: count});
+                $refElement.before($HTML);
+            }))
+        },
+
+        deletePatientProgram: function(ev) {
+            var target = ev.target;
+            var patientProgramId = target.dataset.patientProgramId;
+            $('input[name="program_name_' + patientProgramId + '_new"]').parent().remove();
+            $('input[name="affiliate_code_' + patientProgramId + '_new"]').parent().remove();
+        }
     });
 
 

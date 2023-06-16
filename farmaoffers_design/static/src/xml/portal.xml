@@ -1,0 +1,17 @@
+<templates xml:space="preserve">
+    <t t-name="farmaoffers_design.PatientProgramFields">
+         <div t-attf-class="form-group col-xl-6 program-patient-name">
+            <label class="col-form-label label-optional" t-attf-for="program_name_#{newId}_new">Programa de paciente <t t-esc="newId"/></label>
+            <input type="text" t-attf-name="program_name_#{newId}_new" t-attf-class="form-control" />
+        </div>
+        <div t-attf-class="form-group col-xl-6">
+            <label class="col-form-label label-optional" t-attf-for="affiliate_code_#{newId}_new">Código de afiliado</label>
+            <input type="text" t-attf-name="affiliate_code_#{newId}_new" t-attf-class="form-control" />
+            <div class="row">
+                <div class="col-12 d-flex align-items-center justify-content-end mt-2">
+                    <i class="fa fa-trash-o delete-patient-program" t-att-data-patient-program-id="newId" style="font-size:2em;"></i>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
