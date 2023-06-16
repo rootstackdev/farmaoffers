@@ -43,3 +43,10 @@ li.homepage-categ-item-mob a.nav-link {
     border-radius: 10px;
 }
 
+li.nav-item.category-header:hover {
+    background-color: #c6b7b750;
+}
+
+.new-patient-program-btn:hover {
+    background-color: #c6b7b750;
+}

@@ -12,12 +12,12 @@
             <xpath expr="//page[@name='internal_notes']" position="before">
                 <page name="patient_program" string="Programa de pacientes">
                     <group>
-                        <group>
-                            <field name="program_name"/>
-                        </group>
-                        <group>
-                            <field name="affiliate_code"/>
-                        </group>
+                        <field name="patient_program_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="program_name" />
+                                <field name="affiliate_code" />
+                            </tree>
+                        </field>
                     </group>
                 </page>
             </xpath>
