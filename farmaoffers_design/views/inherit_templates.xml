@@ -1425,9 +1425,10 @@
                         </t>
                         <span style="color:black;" t-field="c.name"/>
                     </div>
-                    <i t-if="children" class="d-md-none text-primary fa fa-chevron-right" role="img"/>
+                    <i t-if="children" class="text-primary fa fa-chevron-right" role="img"/>
                 </a>
-                <ul t-if="c.child_id" class="nav nav-pills flex-column nav-child" style="background-color:white;display:none;position:absolute;top:0px;left:100%;height:100%;z-index:10000;width:100%;">
+                <ul t-if="c.child_id" class="border nav nav-pills flex-column flex-nowrap nav-child" style="background-color:white;display:none;position:absolute;top:0px;left:100%;height:100%;z-index:10000;width:100%;">
+                    <div style="height:100%;overflow:hidden auto;width:100%;">
                     <li class="child-parent-categ mb-3 d-none">
                         <i t-if="children" class="d-md-none text-primary d-inline-block p-3 fa fa-chevron-left close-item" role="img"/>
                         <a t-attf-href="/shop/category/#{c.id}" t-attf-class="nav-link" style="color:#16a2ff;">
@@ -1437,6 +1438,7 @@
                     <t t-foreach="c.child_id" t-as="c">
                         <t t-call="farmaoffers_design.option_collapse_categories_recursive_header" />
                     </t>
+                    </div>
                 </ul>
 
             </li>
