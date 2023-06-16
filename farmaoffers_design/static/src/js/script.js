@@ -615,6 +615,7 @@ odoo.define('farmaoffers_design.script', function (require) {
         showItems: function(ev) {
             var $fa = $(ev.currentTarget || ev);
             $fa.find('ul:first').show('normal');
+            $fa.find('ul:first').find('div:first').show('normal');
             //$fa.toggleClass('fa-chevron-down fa-chevron-right');
         },
 
@@ -627,6 +628,7 @@ odoo.define('farmaoffers_design.script', function (require) {
         iconCloseItem: function(ev) {
             var $fa = $(ev.currentTarget);
             $fa.parent().parent().css('display', 'none');
+            $fa.parent().parent().parent().css('display', 'none');
             ev.stopPropagation();
         }
 
