@@ -437,7 +437,7 @@
                     <t t-set="breadcrumb_definition" t-value="'Mi carrito'"/>
                 </t>
                 <div class="container">
-                    <div class="row col-12">
+                    <div class="col-12">
                         <div class="oe_structure"/>
                     </div>
                 </div>
@@ -831,7 +831,7 @@
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
                 <div class="container">
-                    <div class="row col-12">
+                    <div class="col-12">
                         <div class="oe_structure"/>
                     </div>
                 </div>
@@ -956,7 +956,7 @@
                     <t t-set="breadcrumb_definition" t-value="'Checkout'"/>
                 </t>
                 <div class="container">
-                    <div class="row col-12">
+                    <div class="col-12">
                         <div class="oe_structure"/>
                     </div>
                 </div>
