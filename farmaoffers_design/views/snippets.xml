@@ -14,6 +14,7 @@
             <t t-snippet="farmaoffers_design.s_reviews" t-thumbnail="/website/static/src/img/snippets_thumbs/s_quotes_carousel.svg"/>
             <t t-snippet="farmaoffers_design.s_top_offers"/>
             <t t-snippet="farmaoffers_design.s_top_offers_banner"/>
+            <t t-snippet="farmaoffers_design.s_section_banner" t-thumbnail="/farmaoffers_design/static/description/icon.png"/>
         </xpath>
     </template>
 
@@ -44,10 +45,12 @@
         </t>
         <section>
             <section>
-                <a class="float-right text-uppercase font-montserrat text-blue font-weight-bold mb-4" href="/all-offers">Ver todas las ofertas</a>
+                <a class="text-uppercase font-montserrat text-blue font-weight-bold mb-2" href="/all-offers">Ver todas las ofertas</a>
             </section>
         </section>
-        <t t-call="farmaoffers_design.stripe_info"/>
+        <div class="hide-mobile">
+            <t t-call="farmaoffers_design.stripe_info"/>
+        </div>
     </template>
 
     <template id="s_our_tips" name="Our tips">
@@ -62,6 +65,9 @@
             <t t-set="our_tips" t-value="True"/>
             <t t-set="mb_class" t-value="'mb-4'"/>
         </t>
+        <div class="only-mobile">
+            <t t-call="farmaoffers_design.stripe_info"/>
+        </div>
     </template>
 
     <template id="s_top_offers_banner" name="Gallery Top Offers">
@@ -77,7 +83,7 @@
                                 DESTACADAS
                             </span>
                         </h3>
-                        <hr class="mx-0 mt-1 mb-4"/>
+                        <hr class="mx-0 mt-1 mb-3"/>
                     </div>
                 </div>
                 <div class="row">
@@ -100,6 +106,17 @@
                             style="object-fit: cover;"/>
                         </a>
                     </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_section_banner" name="Section Banner">
+        <section class="s_breacumb_banner">
+            <div class="section_banner">
+                <div class="image">
+                    <h1 class="text-uppercase">Farma Offers</h1>
+                    <img class="img img-fluid mx-auto" src="/farmaoffers_design/static/src/img/bg-basic.png" alt="myimage" />
                 </div>
             </div>
         </section>

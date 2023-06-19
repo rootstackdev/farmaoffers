@@ -12,14 +12,21 @@
 
   <template id="farmaoffers_customize_options" inherit_id="web._assets_primary_variables">
     <xpath expr="." position="inside">
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/css/splide/splide.min.css"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_variables.scss"/>
       <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_styles.scss"/>
+      <link rel="stylesheet" type="text/scss" href="/farmaoffers_design/static/src/scss/farmaoffers_top_header.scss"/>
     </xpath>
   </template>
 
   <template id="assets_frontend" inherit_id="website.assets_frontend" name="Website Assets">
+    <xpath expr="//link[last()]" position="after">
+      <link rel="stylesheet" type="text/css" href="/farmaoffers_design/static/src/css/website_sale.css" />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    </xpath>
     <xpath expr="//script[last()]" position="after">
       <script src="/farmaoffers_design/static/src/js/script.js"></script>
+      <script src="/farmaoffers_design/static/src/js/splide/splide.min.js"></script>
     </xpath>
   </template>
 
@@ -84,35 +91,32 @@
           </div>
         </div>
       </div> -->
-      <div class="top-links-header">
-        <div class="container">
-          <div class="container--content">
-            <span>
-              <a class="text-secondary" href="/farmaoffers-contact" title="Contáctanos">
-                Contáctanos
-              </a>
-            </span>
-            <span class="text-primary">/</span>
-            <span class="text-primary">Síguenos en</span>
-            <span t-if="res_company.social_twitter">
-              <a t-att-href="res_company.social_twitter" title="Twitter">
-                <i class="fa fa-twitter-square" aria-hidden="false"></i>
-              </a>
-            </span>
-            <span t-if="res_company.social_instagram">
-              <a t-att-href="res_company.social_instagram" title="Instagram">
-                <i class="fa fa-instagram" aria-hidden="false"></i>
-              </a>
-            </span>
-            <span t-if="res_company.social_facebook">
-              <a t-att-href="res_company.social_facebook" title="Facebook">
-                <i class="fa fa-facebook-square" aria-hidden="false"></i>
-              </a>
-            </span>
+
+
+      <t t-set="whatsapp" t-value="website.whatsapp_number"/>
+      <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
+
+      <t t-set="top_sliders" t-value="website.get_top_sliders()" />
+
+      <section id="top-slider-carousel" class="splide" aria-label="Top Slider" t-if="top_sliders">
+          <div class="container">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <t t-foreach="top_sliders" t-as="top_slider">
+                  <li class="splide__slide">
+                    <img t-att-src="image_data_uri(top_slider.image)" style="object-fit: cover;"/>
+                  </li>
+                </t>
+              </ul>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="header-middle">
+      </section>
+
+      <header class="container only-mobile">
+        <t t-call="farmaoffers_design.fo_navbar"/>
+      </header>
+
+      <div class="header-middle d-none d-sm-block">
         <div class="container">
           <div class="custom_row mt-3 mb-3">
             <div class="col-lg-4 col-12 logo-header">
@@ -129,12 +133,12 @@
             <div class="col-lg-4 col-12 search-header p-0">
               <div class="searchbox-header">
                 <div class="search-wrapper">
-                  <form 
-                  method="get" 
+                  <form
+                  method="get"
                   action="/shop"
                   t-att-data-snippet="'s_products_searchbar_input'"
                   class="o_wsale_products_searchbar_form o_wait_lazy_js s_wsale_products_searchbar_input pagination form-inline justify-content-center">
-                    <div class="input-group justify-content-center w-100"> 
+                    <div class="input-group justify-content-center w-100">
                       <div class="oe_search w-100">
                         <!-- <select class="form-control" name="category">
                           <option value="" t-att-selected="not search">All Products</option>
@@ -146,15 +150,15 @@
                         </select> -->
                         <!-- <t>$0</t> -->
                         <input name="order" type="hidden" class="o_wsale_search_order_by" value=""/>
-                        <input 
-                        type="text" 
+                        <input
+                        type="text"
                         name="search"
                         data-limit="5"
                         data-display-description="true"
                         data-display-price="true"
                         data-display-image="true"
-                        class="search-query form-control oe_search_box w-100" 
-                        placeholder="Encuentre su medicamento..." 
+                        class="search-query form-control oe_search_box w-100"
+                        placeholder="Encuentre su medicamento..."
                         t-att-value="search"/>
                       </div>
                       <span class="input-group-btn">
@@ -225,64 +229,141 @@
           </div>
         </div>
       </div>
-      <header class="container">
-        <nav class="navbar navbar-expand-md navbar-light position-relative">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenu" aria-controls="navbarMainMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarMainMenu">
-            <ul class="navbar-nav mr-auto">
-              <t t-foreach="website.get_homepage_categories()" t-as="category">
-                <li class="nav-item">
-                  <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
-                    <t t-esc="category.name"/>
+      <div class="header-mobile d-block d-sm-none mb-2">
+        <div class="container">
+          <div class="mt-3 mb-3 d-flex flex-row align-items-center">
+            <div class="logo-header mr-3">
+              <div class="logo-wrapper h-100 d-flex align-items-center">
+                <a class="logo" href="/" title="Logo">
+                    <span t-field="res_company.logo" t-options="{'widget': 'image'}" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
                   </a>
-                </li>
-              </t>
-              <li class="nav-item">
-                <a class="nav-link" href="/all-offers" title="Ofertas">
-                  Ofertas
+              </div>
+            </div>
+            <div id="my_wish" class="o_wsale_my_wish position-relative">
+                <t t-set='wishcount' t-value="len(request.env['product.wishlist'].current())"/>
+                <a href="/shop/wishlist" class="shopping-icon">
+                  <i class="fa fa-heart bg-primary"></i>
+                  <sup t-attf-class="my_wish_quantity o_animate_blink label label-primary count-float-badge rounded-circle"><t t-esc='wishcount'/></sup>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/quote#top_quote" title="Cotizar">
-                  Cotizar
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/shop" title="Productos">
-                  Productos
-                </a>
-              </li>
-            </ul>
+            </div>
+            <div class="minicart-header">
+                <div class="minicart-content">
+                  <div class="cart-wrapper">
+                    <div class="minicart-wrapper">
+                      <t t-set="website_sale_order" t-value="website.sale_get_order()" />
+                      <a class="action showcart d-flex" href="/shop/cart">
+                        <div class="shopping-icon mr-2">
+                          <i class="fa fa-shopping-cart bg-primary" aria-hidden="false"></i>
+                        </div>
+
+                        <div class="minicart-header-info">
+                          <span class="counter qty empty d-flex flex-column shopping-mobile-cart-info">
+                            <div class="d-flex flex-row">
+                              <span id="my_cart" class="counter-number my_cart_quantity mr-1">
+                              <t t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
+                              </span>
+                              <span>ítem</span>
+                            </div>
+                            <hr class="hr-price"/>
+                            <span class="price-minicart">
+                              <span class="price">
+                                <t t-if="website_sale_order.amount_total > 0">
+                                  <span t-field="website_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+                                </t>
+                                <t t-else="">
+                                  <t t-esc="website.currency_id.symbol"/> 0.00
+                                </t>
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
           </div>
-          <div class="navbar-brand toplinks mr-0">
-            <ul class="header links d-flex align-items-center">
-              <li><i class="fa fa-user m-0" aria-hidden="false"></i></li>
-              <li class="authorization-link" data-label="or" t-if="user_id._is_public()"><a class="text-white" href="/web/login">Inicio de sesión</a></li>
-              <li class="only-bar">/</li>
-              <li t-if="user_id._is_public()"><a class="register-text" href="/web/signup">Registro</a></li>
-              <li class="dropdown dropdown-profile" t-ignore="true" t-if="not user_id._is_public()">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <b>
-                    <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name" class="d-none d-sm-inline text-white" />
-                    <span class="caret text-white"></span>
-                  </b>
-                </a>
-                <ul class="dropdown-menu js_usermenu" role="menu">
-                  <li class="dropdown-item dropdown-item-profile"><a class="text-white" t-attf-href="/my" role="menuitem">Perfil</a></li>
-                  <li class="dropdown-item dropdown-item-profile" id="o_logout"><a class="text-white" t-attf-href="/web/session/logout?redirect=/" role="menuitem">Cerrar sesión</a></li>
-                </ul>
-              </li>
-            </ul>
+          <div class="col-lg-4 col-12 search-header p-0">
+              <div class="searchbox-header">
+                <div class="search-wrapper">
+                  <form
+                  method="get"
+                  action="/shop"
+                  t-att-data-snippet="'s_products_searchbar_input'"
+                  class="o_wsale_products_searchbar_form o_wait_lazy_js s_wsale_products_searchbar_input pagination form-inline justify-content-center">
+                    <div class="input-group justify-content-center w-100">
+                      <div class="oe_search w-100">
+                        <!-- <select class="form-control" name="category">
+                          <option value="" t-att-selected="not search">All Products</option>
+                          <t t-foreach="website.get_categories()" t-as="category_item">
+                            <option t-att-value="category_item.id" t-att-selected="search and category and category.id == category_item.id">
+                                <t t-esc="category_item.name"/>
+                            </option>
+                          </t>
+                        </select> -->
+                        <!-- <t>$0</t> -->
+                        <input name="order" type="hidden" class="o_wsale_search_order_by" value=""/>
+                        <input
+                        type="text"
+                        name="search"
+                        data-limit="5"
+                        data-display-description="true"
+                        data-display-price="true"
+                        data-display-image="true"
+                        class="search-query form-control oe_search_box w-100"
+                        placeholder="Encuentre su medicamento..."
+                        t-att-value="search"/>
+                      </div>
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default oe_search_button text-white" style="font-size: 1.2rem;">
+                          <i class="fa fa-search" aria-hidden="false"></i>
+                          <!-- <span class="label_text" t-if='not (search and search_count)'>Search</span>
+                          <span t-if='search and search_count' class='label_text'> (<t t-esc="search_count"/> found)</span> -->
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
           </div>
-          <div class="black-rectangle"></div>
-          <div class="black-rectangle-skew"></div>
-        </nav>
+        </div>
+      </div>
+      <div id="mobile-categ-menu" style="overflow-x:hidden;display:none;position:fixed;top:0;left:0;background-color:white;min-height:100vh;width:99vw;z-index:50000;">
+        <div style="height:100vh;" class="position-relative">
+          <h3 class="categ-title d-flex justify-content-between align-items-center px-3 my-3 w-100">
+            <span>Categorias</span>
+            <span style="cursor:pointer; font-size:0.7em;" class="mobile-categ-menu-close">X</span>
+          </h3>
+          <ul class="border category-nav category-nav-mobile nav nav-pills" style="background-color:white;top:100%;z-index:1000;min-width:280px;height:100vh;">
+            <t t-foreach="website.get_main_categories()" t-as="c">
+              <t t-call="farmaoffers_design.option_collapse_categories_recursive_header"/>
+            </t>
+          </ul>
+        </div>
+      </div>
+      <header class="container hide-mobile">
+        <t t-call="farmaoffers_design.fo_navbar"/>
       </header>
+      <div class="homepage-categ-mobile container">
+        <ul class="navbar-nav d-flex flex-row flex-nowrap align-items-center" style="overflow-x:auto;overflow-y:hidden;auto;gap:15px;">
+          <t t-foreach="website.get_homepage_categories()" t-as="category">
+              <li class="nav-item homepage-categ-item-mob">
+                <a class="nav-link" t-att-href="'/shop/category/' + slug(category)" t-att-title="category.name">
+                  <div class="d-flex flex-row gap-1 align-items-center">
+                          <t t-if="category.image_1920">
+                              <img class="fo-icon-category" t-att-src="image_data_uri(category.image_1920)"/>
+                          </t>
+                        <small><t t-esc="category.name"/></small>
+                  </div>
+                </a>
+              </li>
+          </t>
+        </ul>
+      </div>
     </xpath>
   </template>
-  
+
   <template id="farmaoffers_footer" inherit_id="website.layout" name="FarmaOffers - Footer" active="True">
     <xpath expr="//div[@id='footer']" position="replace">
       <div class="container-fluid position-relative border-top-footer">
