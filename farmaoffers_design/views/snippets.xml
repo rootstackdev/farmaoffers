@@ -45,7 +45,7 @@
         </t>
         <section>
             <section>
-                <a class="float-right text-uppercase font-montserrat text-blue font-weight-bold mb-4" href="/all-offers">Ver todas las ofertas</a>
+                <a class="text-uppercase font-montserrat text-blue font-weight-bold mb-2" href="/all-offers">Ver todas las ofertas</a>
             </section>
         </section>
         <div class="hide-mobile">
@@ -83,7 +83,7 @@
                                 DESTACADAS
                             </span>
                         </h3>
-                        <hr class="mx-0 mt-1 mb-4"/>
+                        <hr class="mx-0 mt-1 mb-3"/>
                     </div>
                 </div>
                 <div class="row">
