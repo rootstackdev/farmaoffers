@@ -54,3 +54,7 @@ li.nav-item.category-header:hover {
 .basic-bg-all-offers #top_quote{
     color: #4cbb17;
 }
+
+.alloffers-img {
+    border: 2px solid #c9d7e2;
+}
