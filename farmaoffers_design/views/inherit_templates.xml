@@ -1423,7 +1423,7 @@
                         <t t-if="c.image_1920">
                             <img class="fo-icon-category" t-att-src="image_data_uri(c.image_1920)"/>
                         </t>
-                        <span style="color:black;" t-field="c.name"/>
+                        <span class="fo-category-name" t-field="c.name"/>
                     </div>
                     <i t-if="children" class="text-primary fa fa-chevron-right" role="img"/>
                 </a>
