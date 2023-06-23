@@ -62,7 +62,10 @@ class website(models.Model):
         products = self.env['fo.top.product'].sudo().search(
             [], order='sequence')
         return products.mapped('product_tmpl_id')
-        
+
+    def get_top_sliders(self):
+        sliders = self.env['fo.top.slider'].sudo().search([('active', '=', True)])
+        return sliders
 
 class PriceFilter(models.Model):
     _name = 'price.filter'
@@ -254,3 +257,11 @@ class TopProduct(models.Model):
 
     product_tmpl_id = fields.Many2one('product.template', string='Product')
     sequence = fields.Integer('Sequence', default=10)
+
+class TopSlider(models.Model):
+    _name = "fo.top.slider"
+    _description = "shows sliders on top."
+
+    name = fields.Char(size=60)
+    image = fields.Binary("Image")
+    active = fields.Boolean(default=True)

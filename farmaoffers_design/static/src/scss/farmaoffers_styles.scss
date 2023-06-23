@@ -2,6 +2,10 @@ $text-dark: #333333;
 $font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif !important;
 $font-size-cards: 0.9rem !important;
 $font-8-5: 0.85rem !important;
+$farmaoffers-primary: #4CBB17;
+$farmaoffers-gray: #C9D7E2;
+$farmaoffers-light-gray: #C9D7E2;
+$max-size-mobile: 425px;
 
 @mixin filters-border {
     border: 1px solid #e5e5e5;
@@ -46,7 +50,7 @@ main {
 }
 
 .text-dark-fo {
-    color: $text-dark;
+    color: $text-dark !important;
 }
 
 .font-montserrat {
@@ -233,6 +237,17 @@ main {
 
 header nav.navbar {
     border-radius: 5px;
+
+    @media (max-width: 425px) {
+        border-radius: 0px;
+    }
+}
+
+header.container {
+    @media (max-width: 425px) {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
 }
 
 header .navbar-dark .navbar-nav .nav-link,
@@ -328,6 +343,8 @@ header.container .navbar {
     }
 }
 
+
+
 .toplinks {
     z-index: 1;
 }
@@ -404,6 +421,11 @@ main {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
+    }
+
+    .basic-bg-all-offers {
+        background-image: none;
+        background-color: white;
     }
 
     .basic-bg-login {
@@ -719,7 +741,7 @@ span.span-input-tip {
 }
 
 .border-product-item {
-    border: 1px solid #c9d7e2;
+    border: none;
 }
 
 .o_ribbon_wrapper_fo {
@@ -777,7 +799,7 @@ span.span-input-tip {
 
 .oe_product_cart .o_wsale_product_information {
     .o_wsale_product_btn {
-        top: -75px;
+        top: -7vh;
         opacity: 0.8;
     }
 }
@@ -1018,7 +1040,7 @@ section {
 .top_products .owl-nav {
     position: absolute;
     right: 0;
-    top: -100px;
+    top: -40px;
 
     button:focus {
         outline: none;
@@ -1078,13 +1100,14 @@ section {
         border-top: 2px solid #c9d7e2;
         border-bottom: 2px solid #c9d7e2;
         border-right: 2px solid #c9d7e2;
-        max-height: 165px;
-        min-height: 165px;
+        border-left: 2px solid #c9d7e2;
+        --max-height: 165px;
+        --min-height: 165px;
 
         img {
-            width: 100%;
-            max-height: inherit;
-            padding: 1rem;
+            --width: 100%;
+            --max-height: inherit;
+            --padding: 1rem;
         }
     }
 
@@ -1342,7 +1365,7 @@ body #wrapwrap.o_portal {
 .card-our-tips {
     border-radius: 5px;
     border: 1px solid #c9d7e2;
-    background-color: #77bac1;
+    background-color: #4cbb17;
     color: #feffff;
     padding: 1rem;
     min-height: 130px;
@@ -1405,11 +1428,19 @@ body #wrapwrap.o_portal {
     width: 260px !important;
 }
 
+section.top_offers .owl-item {
+    width: 170px !important;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
 .our_tips .owl-carousel .owl-item:nth-child(1) {
     width: 300px !important;
 
     .card-our-tips {
-        background-color: #1f969a !important;
+        
+        --background-color: #1f969a !important;
+        background-color: #4cbb17 !important;
     }
 }
 
@@ -1581,7 +1612,7 @@ div#product_option_block {
 
 .s_top_offers_banner {
     .small-image {
-        height: auto;            
+        height: auto;
     }
 
     .main-image {
@@ -1596,5 +1627,184 @@ div#product_option_block {
 
     .main-image {
         height: 100% !important;
+    }
+}
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.2rem !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-right: 0.2rem !important;
+  }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+}
+
+.whatsapp {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:#25d366;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    font-size:30px;
+    z-index:100;
+  }
+
+  .whatsapp-icon {
+    margin-top:13px;
+  }
+
+
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.2rem !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding-right: 0.2rem !important;
+  }
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+}
+
+
+.splide__pagination {
+    display: none;
+  }
+
+  .splide__arrow {
+    display: none;
+  }
+
+  .splide__slide img {
+      width: 100%;
+      height: 4vh;
+  }
+
+.o_wsale_product_grid_wrapper_1_1{
+    padding: 10vh;
+}
+
+#products_grid table {
+    background: #DFE4E6;
+}
+
+.farmaoffers-card {
+    border: 1px solid $farmaoffers-gray !important;
+}
+
+.text-color-green {
+    color: $farmaoffers-primary !important;
+}
+.text-color-light-gray{
+    color: $farmaoffers-light-gray !important;
+}
+
+.only-mobile {
+    display: none;
+
+    @media (max-width: $max-size-mobile) {
+        display: initial;
+    }
+}
+
+.hide-mobile {
+
+    @media (max-width: $max-size-mobile) {
+        display: none;
+    }
+}
+
+.gap-1 {
+    gap: 0.25rem !important
+}
+
+#top-slider-carousel .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+    }
+}
+
+.carousel.slide {
+
+    @media (max-width: $max-size-mobile) {
+        margin: 0 0 !important;
+    }
+}
+
+.o_slideshow .container {
+
+    @media (max-width: $max-size-mobile) {
+        padding: 0 0;
+    }
+}
+
+@media (max-width: 425px) {
+    .top_products .widget-products li .name {
+        font-size: 0.65rem !important;
+    }
+}
+
+.fo-icon-category {
+    object-fit: cover;
+    max-height:20px;
+    max-width:20px;
+}
+
+span.size-20 {
+    font-size: 20px;
+    font-variation-settings: 'OPSZ' 20;
+}
+
+.section_banner {
+    .img {
+        position: relative;
+    }
+    .image {
+        height: 10vh;
+        width:100vw;
+    }
+    .image h1 {
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        font-size: 2rem;
+        width: 100%;
+        height: 26px;
+        padding: 0;
+        margin: 0;
+        margin-top: -13px; /* 1/2 height */
+        text-align: center;
+        color: white;
+        font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
+        font-weight: bold;
+    }
+    .image img {
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        border-radius: 5px;
+        object-fit: cover;
+        object-position: bottom
+    }
+}
+
+.fo-category-name {
+    color:black;
+
+    @media (max-width: $max-size-mobile) {
+        font-size: 1rem;
     }
 }

@@ -8,7 +8,9 @@ odoo.define('farmaoffers_design.script', function (require) {
     var sAnimations = require('website.content.snippets.animation');
     var core = require('web.core');
     var _t = core._t;
+    var qweb = core.qweb;
     var rpc = require('web.rpc');
+    var config = require('web.config');
 
     //theme Modify
     // New
@@ -68,6 +70,18 @@ odoo.define('farmaoffers_design.script', function (require) {
         responsive: { 0: { items: 2 }, 480: { items: 2 }, 768: { items: 4 }, 991: { items: 5 }, 1200: { items: 5 } }
     });
     // End new
+
+    let topSliderCarousel = document.getElementById('top-slider-carousel')
+    if (topSliderCarousel != null) {
+        new Splide('#top-slider-carousel', {
+            type: 'slide',
+            height: '4vh',
+            direction: 'ttb',
+            type: 'loop',
+            perPage : 1,
+            autoplay: true,
+        }).mount();
+    }
 
     $(".product-grid-sidebar .fo-side-list ul li a").on("click", function (e) {
         // 1
@@ -529,4 +543,121 @@ odoo.define('farmaoffers_design.script', function (require) {
             return this._changeShippingMode('address')
         }
     });
+
+    publicWidget.registry.websiteSaleCategoryMenuHeader = publicWidget.Widget.extend({
+        selector: 'ul.category-nav',
+        events: {
+            'mouseenter li.category-header': 'onMouseEnter',
+            'mouseleave li.category-header': 'onMouseLeave',
+            'click .nav-link-categ': 'onItemClick',
+            'click .close-item': 'iconCloseItem',
+        },
+
+        start: function() {
+            if (config.device.isMobile) {
+                this.$el.css('top', '100%');
+                this.$el.find('.nav-child').css('left', '0');
+                this.$el.find('.child-parent-categ').addClass('d-flex align-items-center');
+                //$('.category-nav').css('display', 'block');
+            } else {
+                this.$el.css('top', '100%');
+                this.$el.find('.nav-child').css('left', '100%');
+                this.$el.find('.child-parent-categ').removeClass('d-flex align-items-center');
+                //$('.category-nav').css('display', 'none');
+            }
+
+            $('.category-main-option-menu').hover(function() {
+                if (config.device.isMobile) return;
+                $('.category-nav').css('display', 'block');
+            });
+
+            $('.category-main-option-menu').mouseleave(function() {
+                if (config.device.isMobile) return;
+                $('.category-nav').css('display', 'none');
+            });
+
+            $('.category-main-option-menu').click(function() {
+                if (!config.device.isMobile) return;
+                //$('.category-nav').css('display', 'block');
+            });
+
+            this.$el.parent().find('a.nav-link').click(function(ev) {
+                $('#mobile-categ-menu').show('normal');
+                //$('div#wrapwrap').css('overflow', 'hidden');
+            });
+
+            $('#mobile-categ-menu .mobile-categ-menu-close').click(function() {
+                $('#mobile-categ-menu').hide('normal');
+                //$('div#wrapwrap').css('overflow', 'auto');
+            }); 
+
+            return this._super.apply(this, arguments);
+        },
+
+        onMouseEnter: function(ev) {
+            if (config.device.isMobile) return;
+            this.showItems(ev);
+        },
+
+        onMouseLeave: function(ev) {
+            if (config.device.isMobile) return;
+            this.hideItems(ev);
+        },
+
+        onItemClick: function(ev) {
+            if (!config.device.isMobile) return;
+            if (ev.currentTarget.dataset.haschild === '1') {
+                ev.preventDefault();
+            }
+            this.showItems($(ev.currentTarget).parent());
+        },
+        
+        showItems: function(ev) {
+            var $fa = $(ev.currentTarget || ev);
+            $fa.find('ul:first').show('normal');
+            $fa.find('ul:first').find('div:first').show('normal');
+            //$fa.toggleClass('fa-chevron-down fa-chevron-right');
+        },
+
+        hideItems: function(ev) {
+            var $fa = $(ev.currentTarget);
+            $fa.find('ul:first').hide('normal');
+            //$fa.toggleClass('fa-chevron-down fa-chevron-right');
+        },
+
+        iconCloseItem: function(ev) {
+            var $fa = $(ev.currentTarget);
+            $fa.parent().parent().css('display', 'none');
+            $fa.parent().parent().parent().css('display', 'none');
+            ev.stopPropagation();
+        }
+
+    });
+
+    publicWidget.registry.portalDetails = publicWidget.registry.portalDetails.extend({
+        events: _.extend({}, publicWidget.registry.portalDetails.prototype.events || {}, {
+            'click .new-patient-program-btn': 'newPatientProgram',
+            'click .delete-patient-program': 'deletePatientProgram',
+        }),
+
+        newPatientProgram: function(ev) {
+            var $refElement = $(ev.target);
+            var count = $('.program-patient-name').length;
+            count++;
+            ajax.loadXML('/farmaoffers_design/static/src/xml/portal.xml', qweb).then(() => new Promise((resolve, reject) => {
+                var $HTML = qweb.render('farmaoffers_design.PatientProgramFields', {newId: count});
+                $refElement.before($HTML);
+            }))
+        },
+
+        deletePatientProgram: function(ev) {
+            var target = ev.target;
+            var patientProgramId = target.dataset.patientProgramId;
+            $('input[name="program_name_' + patientProgramId + '_new"]').parent().remove();
+            $('input[name="affiliate_code_' + patientProgramId + '_new"]').parent().remove();
+        }
+    });
+
+
+
 });
