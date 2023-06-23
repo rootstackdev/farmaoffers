@@ -1785,6 +1785,11 @@ span.size-20 {
         color: white;
         font-family: "Montserrat", "Odoo Unicode Support Noto", sans-serif;
         font-weight: bold;
+
+        @media (max-width: $max-size-mobile) {
+            height: 100%;
+            margin-top: -34px;
+        }
     }
     .image img {
         z-index: 1;
