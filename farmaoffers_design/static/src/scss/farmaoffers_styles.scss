@@ -1800,3 +1800,11 @@ span.size-20 {
         object-position: bottom
     }
 }
+
+.fo-category-name {
+    color:black;
+
+    @media (max-width: $max-size-mobile) {
+        font-size: 1rem;
+    }
+}
