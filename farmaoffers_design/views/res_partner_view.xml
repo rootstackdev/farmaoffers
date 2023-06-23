@@ -9,6 +9,18 @@
             <field name="vat" position="replace">
                 <field name="vat" string="Cédula de identidad" attrs="{'readonly': [('parent_id','!=',False)]}"/>
             </field>
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page name="patient_program" string="Programa de pacientes">
+                    <group>
+                        <field name="patient_program_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="program_name" />
+                                <field name="affiliate_code" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
 

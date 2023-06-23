@@ -4,5 +4,34 @@
         <xpath expr="/t[1]/t[1]/form[1]/div[1]/div[1]/div[1]/div[6]/label[1]" position="replace">
             <label class="col-form-label label-optional" for="vat">Cédula de identidad</label>
         </xpath>
+        <xpath expr="//label[@for='state_id']/.." position="after">
+                <div class="col-12"></div>
+                <t t-foreach="enumerate(partner.patient_program_ids, start=1)" t-as="program">
+                    <t t-set="i" t-value="program[0]"/>
+                    <t t-set="patient_program" t-value="program[1]"/>
+                    <t t-set="program_name_var" t-attf-value="program_name_#{patient_program.id}" />
+                    <t t-set="affiliate_code_var" t-attf-value="affiliate_code_#{patient_program.id}" />
+                    <div t-attf-class="form-group col-xl-6 program-patient-name">
+                        <label class="col-form-label label-optional" t-attf-for="program_name_#{patient_program.id}">Programa de paciente <t t-esc="i"/></label>
+                        <input type="text" t-attf-name="program_name_#{patient_program.id}" t-attf-class="form-control " t-att-value="program_name_var or patient_program.program_name" />
+                    </div>
+                    <div t-attf-class="form-group col-xl-6">
+                        <label class="col-form-label label-optional" t-attf-for="affiliate_code_#{patient_program.id}">Código de afiliado</label>
+                        <input type="text" t-attf-name="affiliate_code_#{patient_program.id}" t-attf-class="form-control " t-att-value="affiliate_code_var or patient_program.affiliate_code" />
+                    </div>
+                </t>
+                <t t-if="len(partner.patient_program_ids) &lt; 3" t-foreach="range(len(partner.patient_program_ids) + 1, 4)" t-as="newId">
+                    <div t-attf-class="form-group col-xl-6 program-patient-name">
+                        <label class="col-form-label label-optional" t-attf-for="program_name_#{newId}_new">Programa de paciente <t t-esc="newId"/></label>
+                        <input type="text" t-attf-name="program_name_#{newId}_new" t-attf-class="form-control" />
+                    </div>
+                    <div t-attf-class="form-group col-xl-6">
+                        <label class="col-form-label label-optional" t-attf-for="affiliate_code_#{newId}_new">Código de afiliado</label>
+                        <input type="text" t-attf-name="affiliate_code_#{newId}_new" t-attf-class="form-control" />
+                    </div>
+                </t>
+
+                <a class="btn btn-link new-patient-program-btn">AGREGAR PROGRAMA</a>
+        </xpath>
     </template>
 </odoo>
