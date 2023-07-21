@@ -347,6 +347,10 @@ header.container .navbar {
 
 .toplinks {
     z-index: 1;
+    width: 100%;
+    max-width: 93%;
+    text-align: center;
+    display: flex;
 }
 
 .toplinks>.header.links {
@@ -354,6 +358,8 @@ header.container .navbar {
     list-style: none;
     margin: 0;
     padding: 0;
+    justify-content: center;
+    flex: 1;
 
     li {
         margin: 0 0.5rem;
@@ -1438,7 +1444,7 @@ section.top_offers .owl-item {
     width: 300px !important;
 
     .card-our-tips {
-        
+
         --background-color: #1f969a !important;
         background-color: #4cbb17 !important;
     }
@@ -1812,4 +1818,8 @@ span.size-20 {
     @media (max-width: $max-size-mobile) {
         font-size: 1rem;
     }
+}
+
+.top-slider-mobile {
+
 }
