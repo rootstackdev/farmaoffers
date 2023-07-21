@@ -333,6 +333,10 @@ header.container .navbar {
 
 .toplinks {
     z-index: 1;
+    width: 100%;
+    max-width: 93%;
+    text-align: center;
+    display: flex;
 }
 
 .toplinks>.header.links {
@@ -340,6 +344,8 @@ header.container .navbar {
     list-style: none;
     margin: 0;
     padding: 0;
+    justify-content: center;
+    flex: 1;
 
     li {
         margin: 0 0.5rem;
