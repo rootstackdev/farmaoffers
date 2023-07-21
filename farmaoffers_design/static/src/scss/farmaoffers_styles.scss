@@ -1819,3 +1819,13 @@ span.size-20 {
         font-size: 1rem;
     }
 }
+
+.owl-carousel .owl-stage{
+    @media (max-width: 400px) and (min-width: 300px) {
+        width: 960px !important ;
+    }
+
+    @media (max-width: 399px) and (min-width: 200px) {
+        width: 1500px !important ;
+    }
+}
