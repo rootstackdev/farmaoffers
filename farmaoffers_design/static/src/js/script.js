@@ -582,8 +582,9 @@ odoo.define('farmaoffers_design.script', function (require) {
             });
 
             this.$el.parent().find('a.nav-link').click(function(ev) {
-                $('#mobile-categ-menu').show('normal');
-                //$('div#wrapwrap').css('overflow', 'hidden');
+                if($( window ).width() <= 450) {
+                    $('#mobile-categ-menu').show('normal');
+                }
             });
 
             $('#mobile-categ-menu .mobile-categ-menu-close').click(function() {
