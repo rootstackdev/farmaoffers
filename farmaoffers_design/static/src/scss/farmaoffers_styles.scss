@@ -1837,3 +1837,24 @@ span.size-20 {
         display: none !important;
     }
 }
+
+#navbarMainMenu{
+    @media  (min-width: 760px) {
+        position: absolute;
+        z-index: 10;
+    }
+}
+
+.navbar.navbar-expand-md.navbar-light.position-relative {
+    @media  (min-width: 760px) {
+        padding: 6px 1rem;
+    }
+}
+
+.font-montserrat.h5.font-weight-bold.oe_price.text-primary{
+    font-size:  1.25rem;
+}
+
+.h6.font-montserrat.oe_default_price{
+    font-size: 1rem;
+}
