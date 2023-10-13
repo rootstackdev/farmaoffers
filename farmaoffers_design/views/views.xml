@@ -662,18 +662,13 @@
 
         <record id="default_frequent_tips_1" model="fo.frequent.tips">
 			<field name="title">Comprar medicinas online es seguro?</field>
-            <field name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
+            <field name="description">Es seguro comprar medicamentos online, siempre y cuando se haga en páginas autorizadas. En Farmaoffers cumplimos todos los requisitos indispensables para que sea fácil y seguro comprar todos los medicamentos.
             </field>
 		</record>
 
         <record id="default_frequent_tips_2" model="fo.frequent.tips">
-			<field name="title">Comprar medicinas online es seguro?</field>
-            <field name="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnange aliqua. Ut enimutci ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure do lor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa qvaiilon uae ab illo invdsdsentore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enime ipsam voluptatem quia voluptas sit asperdsdnatur aut odit aut fugit, sed quia consequuntur magni dmolores eos quidme ratione voluptatem sequi nesciunt. Neque porro quisqdsuam est, qui dolorem ipsdsdsum quia dolor sit amet, consectetur, adipiscace velit, sed quia non numquam eius modi tempora inc. Mekedunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam.
-            </field>
+			<field name="title">Se puede pedir medicamentos que tengan prescripción?</field>
+            <field name="description">Para poder pedir tus medicamentos con prescripción, haz clic en el apartado de "tengo una prescripción" y llena el formulario.</field>
 		</record>
         
         <!-- Inheriting from the theme -->
