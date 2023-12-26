@@ -94,7 +94,7 @@
 
 
       <t t-set="whatsapp" t-value="website.whatsapp_number"/>
-      <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
+      <a t-att-href="'https://wa.me/' + whatsapp" class="whatsapp" target="_blank" t-if="whatsapp"><i class="fa fa-whatsapp whatsapp-icon"></i></a>
 
       <t t-set="top_sliders" t-value="website.get_top_sliders()" />
 
