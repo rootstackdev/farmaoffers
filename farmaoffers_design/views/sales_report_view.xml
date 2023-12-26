@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sales_report_view" model="ir.ui.view">
+            <field name="name">sale.report.pivot.inherit</field>                              
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale_enterprise.sale_report_view_pivot"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_total']" position="before">
+                    <field name="total_cost" type="measure"/>
+                </xpath>
+                <xpath expr="//field[@name='price_total']" position="after">
+                    <field name="total_margin" type="measure"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
