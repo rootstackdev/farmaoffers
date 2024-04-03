@@ -90,5 +90,5 @@ class SaleReport(models.Model):
 
     def _group_by_pos(self):
         res = super()._group_by_pos()
-        res += """,prop.value_float """ # ,l.qty
+        res += """,prop.value_float """ #,l.qty
         return res
