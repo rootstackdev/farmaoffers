@@ -13,3 +13,8 @@ class MultiBranchExtension(models.Model):
         required=True,  
         help='Código de la sucursal emisora utilizado para la facturación electrónica.'
     )
+    journal_id = fields.Many2one(
+        'account.journal', 
+        string='Diario Contable',
+        help='Selecciona el diario contable para esta sucursal.'
+    )

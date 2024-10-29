@@ -9,11 +9,12 @@
                 <group string="Información de la Sucursal">
                     <field name="ei_branch_type" placeholder="Tipo de Sucursal"/>
                     <field name="ei_branch_code" placeholder="Código de Sucursal Emisor"/>
+                    <field name="journal_id" placeholder="Seleccionar Diario Contable"/>
                 </group>
             </xpath>
         </field>
     </record>
-    
+
     <record id="multi_branch_tree_view_extension" model="ir.ui.view">
         <field name="name">multi.branch.tree.view.extension</field>
         <field name="model">multi.branch</field>
@@ -22,6 +23,7 @@
             <xpath expr="//tree" position="inside">
                 <field name="ei_branch_type"/>
                 <field name="ei_branch_code"/>
+                <field name="journal_id"/>
             </xpath>
         </field>
     </record>
