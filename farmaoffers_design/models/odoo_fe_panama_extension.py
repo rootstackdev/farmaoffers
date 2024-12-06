@@ -36,8 +36,8 @@ class AccountMoveFEExtension(models.Model):
             payment = self.format_payment_data()
             totals.listaFormaPago = [payment]
             edocument.totalesSubTotales = totals
-            edocument.tipoSucursal = self.branch_id.ei_branch_type 
-            edocument.codigoSucursalEmisor = self.branch_id.ei_branch_code
+            edocument.tipoSucursal = self.journal_id.branch_id.ei_branch_type 
+            edocument.codigoSucursalEmisor = self.journal_id.branch_id.ei_branch_code
 
         try:
             # Crea un diccionario manualmente para visualizar los datos

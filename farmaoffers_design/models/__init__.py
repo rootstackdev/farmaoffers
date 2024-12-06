@@ -10,3 +10,4 @@ from . import odoo_fe_panama_extension
 from . import multi_branch_extension
 from . import account_move_extension
 from . import account_journal_extension
+from . import pos_config
