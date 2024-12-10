@@ -11,3 +11,4 @@ from . import multi_branch_extension
 from . import account_move_extension
 from . import account_journal_extension
 from . import pos_config
+from . import pos_order
