@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="multi_branch_form_view_extension" model="ir.ui.view">
+        <field name="name">multi.branch.form.view.extension</field>
+        <field name="model">multi.branch</field>
+        <field name="inherit_id" ref="multi_branch.multi_branch_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='branch_detail']/group[2]" position="after">
+                <group string="Información de la Sucursal">
+                    <field name="ei_branch_type" placeholder="Tipo de Sucursal"/>
+                    <field name="ei_branch_code" placeholder="Código de Sucursal Emisor"/>
+                    <field name="journal_id" placeholder="Seleccionar Diario Contable"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="multi_branch_tree_view_extension" model="ir.ui.view">
+        <field name="name">multi.branch.tree.view.extension</field>
+        <field name="model">multi.branch</field>
+        <field name="inherit_id" ref="multi_branch.multi_branch_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="ei_branch_type"/>
+                <field name="ei_branch_code"/>
+                <field name="journal_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

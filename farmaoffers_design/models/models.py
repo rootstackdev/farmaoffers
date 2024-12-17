@@ -158,7 +158,8 @@ class SaleOrder(models.Model):
         ('branch', 'Retirar en tienda'),
         ('address', 'Enviar a domicilio')
     ], string="Modo de entrega")
-    branch_office_id = fields.Many2one("branch.office", string="Branch Office")
+    branch_id = fields.Many2one("multi.branch", string="Branch")
+    
     website_order_saving = fields.Float(
         compute='_compute_website_order_saving',
         string='Order Saving displayed on Website',
@@ -265,3 +266,13 @@ class TopSlider(models.Model):
     name = fields.Char(size=60)
     image = fields.Binary("Image")
     active = fields.Boolean(default=True)
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    shipping_mode = fields.Selection([
+        ('branch', 'Retirar en tienda'),
+        ('address', 'Enviar a domicilio')
+    ], string="Modo de entrega")
+
+    branch_id = fields.Many2one("multi.branch", string="Branch")

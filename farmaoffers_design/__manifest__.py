@@ -41,8 +41,12 @@
         'data/res_country_data.xml',
         'views/res_partner_view.xml',
         'views/portal_templates.xml',
+        'views/multi_branch_extension_view.xml',
         'views/website_top_slider_views.xml',
-        'views/sales_report_view.xml'
+        'views/sales_report_view.xml',
+        'views/pos_config_view.xml',
+        'views/point_of_sale_view.xml'
+
     ],
     # only loaded in demonstration mode
     'demo': [
