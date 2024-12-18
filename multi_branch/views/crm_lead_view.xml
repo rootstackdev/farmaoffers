@@ -1,0 +1,82 @@
+<odoo>
+    <!-- Inherited CRM Lead form view -->
+    <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field
+                    name="branch_id"
+                    required="1"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </field>
+        </field>
+    </record>
+    <!-- Inherited CRM Lead tree view -->
+    <record id="crm_case_tree_view_leads_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.tree.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field
+                    name="branch_id"
+                    required="1"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherited Opportunity tree view -->
+    <record id="crm_case_tree_view_oppor_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.tree.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field
+                    name="branch_id"
+                    required="1"
+                    options="{'no_create_edit': True}"
+                    context="{'branch_filter': True, 'filter_company_id': company_id}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!--Added branch filter in crm lead-->
+    <record id="crm_lead_branch_filter_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.branch.filter.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="branch_id"/>
+            </field>
+            <xpath expr="//filter[@name='stage']" position="before">
+                <filter name="branches" string="Branch" context="{'group_by':'branch_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Added branch filter in crm lead-->
+    <record id="crm_lead_opp_branch_filter_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.opp.branch.filter.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_opportunity_report_view_search" />
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="branch_id"/>
+            </field>
+            <xpath expr="//filter[@name='stage']" position="before">
+                <filter name="branches" string="Branch" context="{'group_by':'branch_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -20,7 +20,7 @@
     'version': '14.0.11',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale'],
+    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'multi_branch'],
 
     # always loaded
     'data': [
