@@ -515,3 +515,7 @@ $RECYCLE.BIN/
 
 # Enterprise
 enterprise/
+enterprise18/
+
+*.dump
+*.sql
