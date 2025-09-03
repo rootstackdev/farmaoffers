@@ -1,4 +1,0 @@
-[submodule "odoo-fe-panama"]
-	path = odoo-fe-panama
-	url = git@github.com:rootstackdev/odoo-fe-panama.git
-	branch = 14.0

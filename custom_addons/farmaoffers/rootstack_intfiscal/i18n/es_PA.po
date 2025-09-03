@@ -1,0 +1,918 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rootstack_intfiscal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-07 12:49+0000\n"
+"PO-Revision-Date: 2022-03-07 07:53-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__allow_fiscal_print
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__allow_fiscal_print
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__allow_fiscal_print
+msgid "Allow Fiscal Print"
+msgstr "Permitir impresión fiscal"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.wizard_ei_cancel_reason_view_form
+msgid "Anular"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__status_fe__03
+msgid "Authorized"
+msgstr "Autorizado"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_emission_type__03
+msgid "Autorización de Uso Posterior, operación normal"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_emission_type__02
+msgid "Autorización de Uso Previa, operación en contingencia"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_emission_type__01
+msgid "Autorización de Uso Previa, operación normal"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_emission_type__04
+msgid "Autorización de Uso posterior, operación en contingencia"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__ei_branch_code
+msgid "Branch Code"
+msgstr "Código de sucursal"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__ei_branch_type
+msgid "Branch Type"
+msgstr "Tipo de sucursal"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__business_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__business_name
+msgid "Business Name"
+msgstr "Razón Social"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_delivery_cafe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_delivery_cafe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_delivery_cafe
+msgid "CAFE Delivery"
+msgstr "Entrega CAFE"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_format_cafe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_format_cafe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_format_cafe
+msgid "CAFE Format"
+msgstr "Formato CAFE"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_delivery_cafe__2
+msgid "CAFE entregado para el receptor en papel"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_delivery_cafe__3
+msgid "CAFE enviado para el receptor en formato electrónico"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move_line__cpbs_code
+msgid "CPBS Code"
+msgstr "Código CPBS"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__cufe_electronic_invoice
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__cufe_electronic_invoice
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__cufe_electronic_invoice
+msgid "CUFE"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#. openerp-web
+#: code:addons/Intfiscal/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: code:addons/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.wizard_ei_cancel_reason_view_form
+#, python-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Cancel Document"
+msgstr "Cancelar documento"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__status_fe__04
+msgid "Canceled"
+msgstr "Cancelado"
+
+#. module: rootstack_intfiscal
+#. openerp-web
+#: code:addons/Intfiscal/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: code:addons/rootstack_intfiscal/static/src/xml/templates.xml:0
+#, python-format
+msgid "Cargando impresoras ..."
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_partner_form_inherit
+msgid "Check RUC"
+msgstr "Verificar RUC"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Check Status"
+msgstr "Verificar Estado"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_format_cafe__2
+msgid "Cinta de papel"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_client_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_client_type
+msgid "Client Type"
+msgstr "Tipo de Cliente"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__code
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__code
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_mixin__code
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__code
+msgid "Code"
+msgstr "Codigo"
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__20
+msgid "Compra"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__12
+msgid "Consignación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_client_type__02
+msgid "Consumidor final"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_container_shipping
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_container_shipping
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_container_shipping
+msgid "Container Shipping"
+msgstr "Enviar Contenedor"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_client_type__01
+msgid "Contribuyente"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_location_corregimiento_id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_location_corregimiento_id
+msgid "Corregimiento"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__create_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__create_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__create_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__create_uid
+msgid "Created by"
+msgstr "Creado Por"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__create_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__create_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__create_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__create_date
+msgid "Created on"
+msgstr "Creado En"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_company_form_inherit
+msgid "Customer Config"
+msgstr "Configuración del cliente"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.res_config_settings_view_form
+msgid "Default printer"
+msgstr "Impresora predeterminada"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_operation_destination
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_operation_destination
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_operation_destination
+msgid "Destination of Operation"
+msgstr "Destino de la Operación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__11
+msgid "Devolución"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_mixin__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__display_name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_location_district_id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_location_district_id
+msgid "District"
+msgstr "Distrito"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__ei_document_type
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Download PDF"
+msgstr "Descargar PDF"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Download XML"
+msgstr "Descargar XML"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_container_shipping__2
+msgid "El receptor exceptúa al emisor de la obligatoriedad de envío del contenedor"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_company__invoicing_mode__02
+msgid "Electronic Invoice"
+msgstr "Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.account_journal_form_view_inherit
+msgid "Electronic Invoice Config"
+msgstr "Configuración Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_company_form_inherit
+msgid "Electronic Invoice Credentials"
+msgstr "Credenciales de Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Electronic Invoice Fields"
+msgstr "Campos de Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_partner_form_inherit
+msgid "Electronic Invoicing Config"
+msgstr "Configuración Facturación Electrónica"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_emission_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_emission_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_emission_type
+msgid "Emission Type"
+msgstr "Tipo de emisión"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_operation_type__2
+msgid "Entrada o compra"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__14
+msgid "Entrega gratuita"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Enviar Correo"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__02
+msgid "Exportación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_operation_destination__2
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_client_type__04
+msgid "Extranjero"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__08
+msgid "Factura de Zona Franca"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__03
+msgid "Factura de exportación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__02
+msgid "Factura de importación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__01
+msgid "Factura de operación interna"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Field Business name in partner is required"
+msgstr "El campo Razón Social en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Field Client Type in partner is required"
+msgstr "El campo tipo de cliente en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Field Identification code in partner is required"
+msgstr "El campo Código de Identificación en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Field NIF in partner is required"
+msgstr "El campo NIF en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/res_company.py:0
+#: code:addons/rootstack_intfiscal/models/res_company.py:0
+#, python-format
+msgid "Field Password on company settings is required"
+msgstr "El campo Contraseña en la configuración de la compañía es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/res_company.py:0
+#: code:addons/rootstack_intfiscal/models/res_company.py:0
+#, python-format
+msgid "Field Server WSDL on company settings is required"
+msgstr "El campo Servidor WSDL en la configuración de la compañía es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Field Taxpayer Type in partner is required"
+msgstr "El campo Tipo de Contribuyente en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/res_company.py:0
+#: code:addons/rootstack_intfiscal/models/res_company.py:0
+#, python-format
+msgid "Field Token on company settings is required"
+msgstr "El campo Token en la configuración de la compañía es obligatorio"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/res_partner.py:0
+#: code:addons/rootstack_intfiscal/models/res_partner.py:0
+#, python-format
+msgid "Field taxpayer type in required"
+msgstr "El campo Tipo de Contribuyente en el socio es obligatorio"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_company__invoicing_mode__01
+msgid "Fiscal Printing"
+msgstr "Impresión Fiscal"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_company__invoicing_mode__03
+msgid "Fiscal Printing + Electronic Invoice"
+msgstr "Impresión Fiscal + Facturación Electrónica"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_client_type__03
+msgid "Gobierno"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move_line__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_mixin__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_identification_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_identification_type
+msgid "Identification Type"
+msgstr "Tipo de identificación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__l10n_pa_dv
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__l10n_pa_dv
+msgid "Identification code"
+msgstr "Codigo de Identificación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__21
+msgid "Importación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Impresion fiscal"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#. openerp-web
+#: code:addons/Intfiscal/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: code:addons/rootstack_intfiscal/static/src/xml/templates.xml:0
+#, python-format
+msgid "Impresora predeterminada"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#. openerp-web
+#: code:addons/Intfiscal/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: code:addons/rootstack_intfiscal/static/src/xml/templates.xml:0
+#, python-format
+msgid "Impresoras disponibles"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#. openerp-web
+#: code:addons/Intfiscal/rootstack_intfiscal/static/src/xml/templates.xml:0
+#: code:addons/rootstack_intfiscal/static/src/xml/templates.xml:0
+#, python-format
+msgid "Imprimir"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings__intfiscal_default_printer
+msgid "Intfiscal Default Printer"
+msgstr "Impresora predeterminada intfiscal"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings__intfiscal_token
+msgid "Intfiscal Token"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings__intfiscal_url
+msgid "Intfiscal Url"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_company_form_inherit
+msgid "Invoicing Config"
+msgstr "Configuración de Facturación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__invoicing_mode
+msgid "Invoicing Mode"
+msgstr "Modo de Facturación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__is_electronic_invoice
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__is_electronic_invoice
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__is_electronic_invoice
+msgid "Is Electronic Invoice"
+msgstr "Es Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "It is not possible to declare the \"%s\" tax with electronic invoicing"
+msgstr "No es posible declarar el impuesto “%s” con facturación electrónica"
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_taxpayer_type__2
+msgid "Jurídico"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_mixin____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner____last_update
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__write_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__write_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__write_uid
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__write_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__write_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__write_date
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_branch_type__1
+msgid "Mayor cantidad de Operaciones venta al detal (retail)"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_branch_type__2
+msgid "Mayor cantidad de Operaciones venta al por mayor"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_ebi_location_mixin
+msgid "Mixin model to store the codes of locations"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Motivo"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_wizard_ei_cancel_reason__reason
+msgid "Motivo de Anulación"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_corregimiento__name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_district__name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_mixin__name
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_ebi_location_province__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_taxpayer_type__1
+msgid "Natural"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_nature_operation
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_nature_operation
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_nature_operation
+msgid "Nature of the Operation"
+msgstr "Naturaleza de la Operación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_container_shipping__1
+msgid "Normal"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__status_fe__01
+msgid "Not Sent"
+msgstr "No enviado"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__06
+msgid "Nota de Crédito genérica"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__04
+msgid "Nota de Crédito referente a una FE"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__07
+msgid "Nota de Débito genérica"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__05
+msgid "Nota de Débito referente a una FE"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_identification_type__02
+msgid "Numero Tributario"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_identification_type__99
+msgid "Otro"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_operation_destination__1
+msgid "Panamá"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_format_cafe__3
+msgid "Papel formato carta"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Partner email is required"
+msgstr "Se requiere correo electrónico del socio"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__res_partner__ei_identification_type__01
+msgid "Pasaporte"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__einvoice_ws_password
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_sale_type__4
+msgid "Prestación de Servicio"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_location_province_id
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_location_province_id
+msgid "Province"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_journal__ei_document_type__09
+msgid "Reembolso"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__13
+msgid "Remesa"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_operation_type__1
+msgid "Salida o venta"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.view_move_form_inherit
+msgid "Send Electronic Invoice"
+msgstr "Enviar Factura Electrónica"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Send email"
+msgstr "Enviar email"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__status_fe__02
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_journal__sequence_id
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__einvoice_ws_host
+msgid "Server WSDL"
+msgstr "Servidor WSDL"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_delivery_cafe__1
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_format_cafe__1
+msgid "Sin generación de CAFE"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__status_fe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__status_fe
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__status_fe
+msgid "Status Fe"
+msgstr "Estado FE"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "Tax \"%s\" was not found in the catalog"
+msgstr "No se encontró el impuesto “%s” en el catálogo"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_partner__ei_taxpayer_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_users__ei_taxpayer_type
+msgid "Taxpayer Type"
+msgstr "Tipo de contribuyente"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "The \"%s\" tax cannot be declared with the rate of %s"
+msgstr "El impuesto “%s” no se puede declarar con la tasa de %s"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__einvoice_ws_token
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.res_config_settings_view_form
+msgid "Token"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__10
+msgid "Transferencia"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_operation_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_operation_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_operation_type
+msgid "Type of Operation"
+msgstr "Tipo de operación"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_bank_statement_line__ei_sale_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move__ei_sale_type
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_payment__ei_sale_type
+msgid "Type of Sale"
+msgstr "Tipo de Venta"
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.res_config_settings_view_form
+msgid "URL"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_account_move_line__cpbs_uom
+msgid "Unit of Mesure CPBS"
+msgstr "Unidad de medida CPBS"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_nature_operation__01
+msgid "Venta"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_sale_type__2
+msgid "Venta Activo Fijo"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_sale_type__3
+msgid "Venta de Bienes Raíces"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields.selection,name:rootstack_intfiscal.selection__account_move__ei_sale_type__1
+msgid "Venta de Giro del negocio"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__dv
+msgid "dv"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_ebi_location_corregimiento
+msgid "ebi.location.corregimiento"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_ebi_location_district
+msgid "ebi.location.district"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_ebi_location_province
+msgid "ebi.location.province"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.res_config_settings_view_form
+msgid "intfiscal configuration"
+msgstr "configuración Infiscal"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__ruc
+msgid "ruc"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "the invoice number is not in the correct format"
+msgstr "el número de factura no está en el formato correcto"
+
+#. module: rootstack_intfiscal
+#: model:ir.model.fields,field_description:rootstack_intfiscal.field_res_company__tipo_contribuyente
+msgid "tipo_contribuyente"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model:ir.model,name:rootstack_intfiscal.model_wizard_ei_cancel_reason
+msgid "wizard.ei.cancel.reason"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: model_terms:ir.ui.view,arch_db:rootstack_intfiscal.wizard_ei_cancel_reason_view_form
+msgid "wizard_ei_cancel_reason_form"
+msgstr ""
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "you need to set the dv field in the company configuration"
+msgstr "Debe establecer el campo DV en la configuración de la empresa"
+
+#. module: rootstack_intfiscal
+#: code:addons/Intfiscal/rootstack_intfiscal/models/account_move.py:0
+#: code:addons/rootstack_intfiscal/models/account_move.py:0
+#, python-format
+msgid "you need to set the ruc field in the company configuration"
+msgstr ""

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='client-details-box clearfix']" position="inside">
+            <div class="client-details-left">
+                <div class="client-detail">
+                    <span class="label">Tipo de cliente</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_client_type">
+                        <option value="">None</option>
+                        <option value="01"
+                            t-att-selected="props.partner.ei_client_type ? (('01' === props.partner.ei_client_type) ? true : undefined) : undefined">
+                            Contribuyente
+                        </option>
+                        <option value="02"
+                            t-att-selected="props.partner.ei_client_type ? (('02' === props.partner.ei_client_type) ? true : undefined) : undefined">
+                            Consumidor final
+                        </option>
+                        <option value="03"
+                            t-att-selected="props.partner.ei_client_type ? (('03' === props.partner.ei_client_type) ? true : undefined) : undefined">
+                            Gobierno
+                        </option>
+                        <option value="04"
+                            t-att-selected="props.partner.ei_client_type ? (('04' === props.partner.ei_client_type) ? true : undefined) : undefined">
+                            Extranjero
+                        </option>
+                    </select>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Razon social</span>
+                    <input class="detail" name="business_name"
+                            t-on-change="captureChange" t-att-value="props.partner.business_name || ''"/>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Tipo de contribuyente</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_taxpayer_type">
+                        <option value="">None</option>
+                        <option value="1"
+                            t-att-selected="props.partner.ei_taxpayer_type ? (('1' === props.partner.ei_taxpayer_type) ? true : undefined) : undefined">
+                            Natural
+                        </option>
+                        <option value="2"
+                            t-att-selected="props.partner.ei_taxpayer_type ? (('2' === props.partner.ei_taxpayer_type) ? true : undefined) : undefined">
+                            Jurídico
+                        </option>
+                    </select>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Tipo de identificación</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_identification_type">
+                        <option value="">None</option>
+                        <option value="01"
+                            t-att-selected="props.partner.ei_identification_type ? (('01' === props.partner.ei_identification_type) ? true : undefined) : undefined">
+                            Pasaporte
+                        </option>
+                        <option value="02"
+                            t-att-selected="props.partner.ei_identification_type ? (('02' === props.partner.ei_identification_type) ? true : undefined) : undefined">
+                            Numero Tributario
+                        </option>
+                        <option value="99"
+                            t-att-selected="props.partner.ei_identification_type ? (('99' === props.partner.ei_identification_type) ? true : undefined) : undefined">
+                            Otro
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="client-details-right">
+                <div class="client-detail">
+                    <span class="label">Codigo de Identificación</span>
+                    <input class="detail" name="l10n_pa_dv"
+                            t-on-change="captureChange" t-att-value="props.partner.l10n_pa_dv || ''"/>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Provincia</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_location_province_id">
+                        <option value="">None</option>
+                        <t t-foreach="env.pos.ebiLocationProvince" t-as="province" t-key="province.id">
+                            <option t-att-value="province.id"
+                                t-att-selected="props.partner.ei_location_district_id ? ((province.id === props.partner.ei_location_province_id[0]) ? true : undefined) : undefined">
+                                <t t-esc="province.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Distrito</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_location_district_id">
+                        <option value="">None</option>
+                        <t t-foreach="env.pos.ebiLocationDistrict" t-as="district" t-key="district.id">
+                            <option t-att-value="district.id"
+                                t-att-selected="props.partner.ei_location_district_id ? ((district.id === props.partner.ei_location_district_id[0]) ? true : undefined) : undefined">
+                                <t t-esc="district.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+                <div class="client-detail">
+                    <span class="label">Corregimiento</span>
+                    <select class="detail needsclick" t-on-change="captureChange" name="ei_location_corregimiento_id">
+                        <option value="">None</option>
+                        <t t-foreach="env.pos.ebiLocationCorregimiento" t-as="corregimiento" t-key="corregimiento.id">
+                            <option t-att-value="corregimiento.id"
+                                t-att-selected="props.partner.ei_location_corregimiento_id ? ((corregimiento.id === props.partner.ei_location_corregimiento_id[0]) ? true : undefined) : undefined">
+                                <t t-esc="corregimiento.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="l10n_pa_dv"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Electronic Invoicing Config">
+                        <group>
+                            <group>
+                                <field name="business_name"/>
+                                <label for="ei_client_type"/>
+                                <div class="oe_row">
+                                    <field name="ei_client_type" class="oe_inline pr-5"/>
+                                    <button name="action_check_document_ruc" type="object" string="Check RUC"
+                                            attrs="{'invisible': [('ei_client_type','not in',('01','03'))]}"/>
+                                </div>
+                                <field name="ei_taxpayer_type"/>
+                                <field name="ei_identification_type"/>
+                            </group>
+                            <group>
+                                <field name="ei_location_province_id"/>
+                                <field name="ei_location_district_id"/>
+                                <field name="ei_location_corregimiento_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

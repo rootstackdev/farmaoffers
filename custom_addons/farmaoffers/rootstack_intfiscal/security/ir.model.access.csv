@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_ebi_locations_province,ebi.location.province,model_ebi_location_province,account.group_account_invoice,1,1,1,1
+access_account_ebi_locations_district,ebi.location.district,model_ebi_location_district,account.group_account_invoice,1,1,1,1
+access_account_ebi_locations_corregimiento,ebi.location.corregimiento,model_ebi_location_corregimiento,account.group_account_invoice,1,1,1,1
+access_wizard_ei_cancel_reason,access.wizard.ei.cancel.reason,model_wizard_ei_cancel_reason,account.group_account_invoice,1,1,1,1

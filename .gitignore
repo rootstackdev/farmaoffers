@@ -426,6 +426,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.env
 
 # Spyder project settings
 .spyderproject
@@ -511,3 +512,6 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,pycharm,windows,macos,linux,python,node
 .vscode/settings.json
+
+# Enterprise
+enterprise/

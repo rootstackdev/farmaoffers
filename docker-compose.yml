@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:13
+    platform: linux/amd64
+    container_name: odoo14-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${ODOO_DB_PORT}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  odoo:
+    build: .
+    platform: linux/amd64
+    container_name: odoo14-app
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    ports:
+      - "${HOST_ODOO_PORT}:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./config/odoo.conf:/etc/odoo/odoo.conf:ro
+      - ./custom_addons/farmaoffers:/mnt/extra-addons
+      - ./enterprise/odoo/addons:/mnt/enterprise
+    command: ["odoo", "-c", "/etc/odoo/odoo.conf"]
+
+volumes:
+  pgdata:
+  odoo-data:

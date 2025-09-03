@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Create the sequence for the electronic invoice journal -->
+        <record id="electronic_invoice" model="ir.sequence">
+            <field name="name">Electronic invoice</field>
+            <field name="prefix">015</field>
+            <field name="padding">10</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="partner_journal_account" model="account.journal">
+            <field name="name">Factura cliente fiscal</field>
+            <field name="code">0001</field>
+            <field name="type">sale</field>
+            <field name="ei_document_type">01</field>
+            <field name="ei_branch_type">1</field>
+            <field name="ei_branch_code">0001</field>
+            <field name="sequence_id" ref="rootstack_intfiscal.electronic_invoice"/>
+        </record>
+
+        <!-- Sequences and journal for credit notes with an invoice -->
+        <record id="credit_notes_invoices_sequence" model="ir.sequence">
+            <field name="name">Notas de credito con factura</field>
+            <field name="prefix">015</field>
+            <field name="padding">10</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="credit_notes_invoices" model="account.journal">
+            <field name="name">Notas de credito con factura</field>
+            <field name="code">0002</field>
+            <field name="type">sale</field>
+            <field name="ei_document_type">04</field>
+            <field name="ei_branch_type">1</field>
+            <field name="ei_branch_code">0001</field>
+            <field name="sequence_id" ref="rootstack_intfiscal.credit_notes_invoices_sequence"/>
+        </record>
+
+        <!-- Sequences and journal for credit notes without an invoice -->
+        <record id="credit_notes_no_invoices_sequence" model="ir.sequence">
+            <field name="name">Notas de credito sin factura</field>
+            <field name="prefix">015</field>
+            <field name="padding">10</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="credit_notes_no_invoices" model="account.journal">
+            <field name="name">Notas de credito sin factura</field>
+            <field name="code">0003</field>
+            <field name="type">sale</field>
+            <field name="ei_document_type">06</field>
+            <field name="ei_branch_type">1</field>
+            <field name="ei_branch_code">0001</field>
+            <field name="sequence_id" ref="rootstack_intfiscal.credit_notes_no_invoices_sequence"/>
+        </record>
+
+        <!-- Sequences and journal for DEBIT notes with an invoice -->
+        <record id="debit_notes_invoices_sequence" model="ir.sequence">
+            <field name="name">Notas de debito con factura</field>
+            <field name="prefix">015</field>
+            <field name="padding">10</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="debit_notes_invoices" model="account.journal">
+            <field name="name">Notas de debito con factura</field>
+            <field name="code">0004</field>
+            <field name="type">sale</field>
+            <field name="ei_document_type">05</field>
+            <field name="ei_branch_type">1</field>
+            <field name="ei_branch_code">0001</field>
+            <field name="sequence_id" ref="rootstack_intfiscal.debit_notes_invoices_sequence"/>
+        </record>
+        <!-- Debit note sequence and journal without an invoice-->
+        <record id="debit_notes_no_invoices_sequence" model="ir.sequence">
+            <field name="name">Notas de debito sin factura</field>
+            <field name="prefix">015</field>
+            <field name="padding">10</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+        <record id="debit_notes_no_invoices" model="account.journal">
+            <field name="name">Notas de debito sin factura</field>
+            <field name="code">0005</field>
+            <field name="type">sale</field>
+            <field name="ei_document_type">07</field>
+            <field name="ei_branch_type">1</field>
+            <field name="ei_branch_code">0001</field>
+            <field name="sequence_id" ref="rootstack_intfiscal.debit_notes_no_invoices_sequence"/>
+        </record>
+    </data>
+</odoo>

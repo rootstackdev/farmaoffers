@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='preview_invoice']" position="after">
+                    <field name="is_electronic_invoice" invisible="1"/>
+                    <field name="allow_fiscal_print" invisible="1"/>
+                    <button name="intfiscal_print"
+                            type="object"
+                            string="Impresion fiscal"
+                            attrs="{'invisible': ['|',('allow_fiscal_print', '=', False),('state','!=','posted')]}"
+                    />
+                    <button name="action_send_electronic_invoice" type="object" string="Send Electronic Invoice"
+                            attrs="{'invisible': ['|',('status_fe','!=','01'),('is_electronic_invoice','=',False)]}"/>
+                    <button name="action_cancel_document" type="object" string="Cancel Document"
+                            attrs="{'invisible': ['|',('status_fe','!=','03'),('is_electronic_invoice','=',False)]}"/>
+                    <button name="action_download_xml" type="object" string="Download XML"
+                            attrs="{'invisible': ['|',('status_fe','!=','03'),('is_electronic_invoice','=',False)]}"/>
+                    <button name="action_download_pdf" type="object" string="Download PDF"
+                            attrs="{'invisible': ['|',('status_fe','!=','03'),('is_electronic_invoice','=',False)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_sent']" position="replace">
+                    <button name="action_send_email" type="object" string="Enviar Correo"
+                            attrs="{'invisible': ['!',('status_fe','!=','03'),('is_electronic_invoice','=',False)]}"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Electronic Invoice Fields"
+                          attrs="{'invisible': [('is_electronic_invoice','=',False)]}">
+                        <group col="4">
+                            <label for="status_fe"/>
+                            <div class="oe_row">
+                                <field name="status_fe" class="oe_inline pr-5" readonly="1"/>
+                                <button name="action_check_status" type="object" string="Check Status"/>
+                            </div>
+                            <field name="cufe_electronic_invoice"/>
+                            <field name="ei_document_serie" readonly="1"/>
+                            <field name="ei_emission_type"/>
+                            <field name="ei_document_number" readonly="1"/>
+                            <field name="ei_nature_operation"/>
+                            <field name="ei_sale_type"/>
+                            <field name="ei_operation_type"/>
+                            <field name="ei_format_cafe"/>
+                            <field name="ei_delivery_cafe"/>
+                            <field name="ei_container_shipping"/>
+                            <field name="ei_operation_destination"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                    <field name="cpbs_code" optional="hide"/>
+                    <field name="cpbs_uom" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree" position="inside">
+                    <field name="cpbs_code" invisible="1"/>
+                    <field name="cpbs_uom" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_out_invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">view.out.invoice.tree.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="ei_document_serie"/>
+                    <field name="ei_document_number"/>
+                </field>
+                <field name="state" position="before">
+                    <field name="status_fe"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
