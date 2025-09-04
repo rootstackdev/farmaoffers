@@ -10,7 +10,7 @@ class website(models.Model):
     def get_categories(self):
         categories = self.env['product.public.category'].sudo().search([])
         return categories
-    
+
     def get_main_categories(self):
         domain = [
             ('website_id', 'in', [False, self.id]),
@@ -190,5 +190,5 @@ class IrModuleModule(models.Model):
             env = api.Environment(self.env.cr, SUPERUSER_ID, {})
             default_website = env.ref('website.default_website', raise_if_not_found=False)
             default_homepage = env.ref('website.homepage_page', raise_if_not_found=False)
-            default_website.homepage_id = default_homepage.id
+            # default_website.homepage_id = default_homepage.id
         return super(IrModuleModule, self)._theme_remove(website)

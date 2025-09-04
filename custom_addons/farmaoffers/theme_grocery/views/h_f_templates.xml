@@ -313,7 +313,7 @@
       </xpath>
     </template>
 
-    <template id="wishlist_link" inherit_id="theme_grocery.website_glossary_header_style_1" name="Header Shop Wishlist Link">
+    <!-- <template id="wishlist_link" inherit_id="theme_grocery.website_glossary_header_style_1" name="Header Shop Wishlist Link">
       <xpath expr="//div[hasclass('track-order')]" position="before">
         <t t-set='wishcount' t-value="len(request.env['product.wishlist'].current())"/>
         <div id="my_wish" class="o_wsale_my_wish">
@@ -337,7 +337,7 @@
           </span>
         </a>
       </xpath>
-    </template>
+    </template> -->
 
   </data>
 </odoo>

@@ -1,4 +1,4 @@
-FROM odoo:14.0
+FROM odoo:18.0
 
 USER root
 
@@ -11,13 +11,7 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends python3-pip python3-setuptools build-essential libssl-dev libffi-dev python3-dev; \
     rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and setuptools to avoid build issues
-RUN pip3 install --no-cache-dir --upgrade pip setuptools
-
-# Paquetes Python que te faltan
-RUN pip3 install --no-cache-dir suds-community cryptography
-
 COPY ./libs/intfiscal-python-library-main.zip /tmp/intfiscal-python-library-main.zip
-RUN pip3 install --no-cache-dir /tmp/intfiscal-python-library-main.zip
+RUN pip3 install --no-cache-dir --break-system-packages /tmp/intfiscal-python-library-main.zip
 
 USER odoo

@@ -183,8 +183,8 @@
         </t>
       </div>
     </xpath>
-    <xpath expr="//div[hasclass('products_pager')][1]" position="replace">
-    </xpath>
+    <!-- <xpath expr="//div[hasclass('products_pager')][1]" position="replace">
+    </xpath> -->
     <xpath expr="//div[@id='products_grid']//table" position="before">
       <div class="">
         <div class="pull-left">
@@ -453,8 +453,8 @@
         <div class="col-md-12">
           <div class="product_price pb-1" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
               <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
-              <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-              <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+              <!-- <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/> -->
+              <!-- <span itemprop="price" style="display:none;" t-esc="combination_info['price']" /> -->
               <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
           </div>
         </div>
@@ -484,10 +484,9 @@
                         <a role="button" t-if="not product.website_published" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">Unpublished</a>
                     </h6>
                     <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
-                        <span class="h6 text-primary" t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                        <small t-attf-class="text-body ml-1 oe_default_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;"
-                        t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                        <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                        <!-- <span class="h6 text-primary" t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/> -->
+                        <!-- <small t-attf-class="text-body ml-1 oe_default_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="text-decoration: line-through; white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/> -->
+                        <!-- <span itemprop="price" style="display:none;" t-esc="combination_info['price']" /> -->
                         <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
                     </div>
                 </div>
@@ -507,8 +506,8 @@
             <!-- Odoo ribbon -->
             <t t-set="bg_color" t-value="td_product['ribbon']['bg_color'] or ''"/>
             <t t-set="text_color" t-value="td_product['ribbon']['text_color']"/>
-            <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/>
-            <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-raw="td_product['ribbon']['html'] or ''"/>
+            <!-- <t t-set="bg_class" t-value="td_product['ribbon']['html_class']"/> -->
+            <!-- <span t-attf-class="o_ribbon #{bg_class}" t-attf-style="#{text_color and ('color: %s; ' % text_color)}#{bg_color and 'background-color:' + bg_color}" t-raw="td_product['ribbon']['html'] or ''"/> -->
         </form>
     </xpath>
   </template>

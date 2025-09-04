@@ -134,8 +134,8 @@
                                       </a>
                                       <t t-set="combination_info" t-value="product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
                                       <div class="price product_price" style="white-space: nowrap;">
-                                        <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/>
-                                        <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                                        <!-- <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/> -->
+                                        <!-- <span itemprop="price" style="display:none;" t-esc="combination_info['price']" /> -->
                                         <span itemprop="priceCurrency" style="display:none;" t-esc="request.env['website'].currency_id.name" />
                                       </div>
 
@@ -389,8 +389,8 @@
             <div class="product_price">
               <b>
                 <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}" />
-                <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/>
-                <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                <!-- <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/> -->
+                <!-- <span itemprop="price" style="display:none;" t-esc="combination_info['price']" /> -->
                 <span itemprop="priceCurrency" style="display:none;" t-esc="request.env['website'].currency_id.name" />
               </b>
             </div>

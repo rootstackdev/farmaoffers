@@ -5,14 +5,13 @@ from odoo.exceptions import UserError
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.payment.controllers.portal import PaymentProcessing
+from odoo.addons.payment.controllers.post_processing import PaymentPostProcessing as PaymentProcessing
 from werkzeug.exceptions import Forbidden, NotFound
-from odoo.addons.http_routing.models.ir_http import slug
+from .helpers.slug import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.addons.website_sale.controllers.main import Website
 from odoo.osv import expression
-from odoo.addons.http_routing.models.ir_http import slug
+
 import base64
 import logging
 import re
@@ -26,7 +25,7 @@ regexEmail = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 _logger = logging.getLogger(__name__)
 
 
-class Website(Website):
+class Website(WebsiteSale):
 
     @http.route()
     def index(self, **kw):
