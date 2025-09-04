@@ -94,7 +94,7 @@
     </xpath>
   </template>
 
-  <template id="product_page_variant" inherit_id="sale.variants" name="Grocery Product Variants">
+  <template id="product_page_variant" inherit_id="website_sale.variants" name="Grocery Product Variants">
     <xpath expr="//li[hasclass('js_attribute_value')]" position="replace">
       <li class="form-group js_attribute_value radio" style="margin: 0;">
           <label class="col-form-label">

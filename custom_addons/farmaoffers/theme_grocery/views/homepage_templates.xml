@@ -6,8 +6,8 @@
       <field name="type">qweb</field>
       <field name="key">theme_grocery.grocery_homepage</field>
       <field name="arch" type="xml">
-        <t name="Home" t-name="request.env['website'].grocery_homepage">
-          <t t-call="request.env['website'].layout">
+        <t name="Home" t-name="theme_grocery.grocery_homepage">
+            <t t-call="website.layout">
             <t t-set="pageName" t-value="'homepage'"/>
             <div id="wrap" class="oe_structure">
               <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', lang)]).direction"/>
@@ -24,7 +24,7 @@
                           </div>
                           <div class="navbar-collapse sidebar-navbar-collapse collapse show">
                             <ul class="nav navbar-nav">
-                              <t t-foreach="request.env['website'].get_homepage_categories()" t-as="category">
+                              <t t-foreach="(request.env['website'].get_homepage_categories() if getattr(request.env['website'], 'get_homepage_categories', None) else request.env['homepage.categories'].sudo().search([], order='sequence'))" t-as="category">
                                 <li>
                                   <a t-att-href="'/shop/category/' + slug(category)">
                                     <t t-esc="category.name"/>
@@ -39,7 +39,7 @@
                     <div class="col-md-9">
                       <div class="home-slider">
                         <div class="owl-carousel">
-                          <t t-foreach="request.env['website'].get_homepage_sliders()" t-as="slider">
+                          <t t-foreach="(request.env['website'].get_homepage_sliders() if getattr(request.env['website'], 'get_homepage_sliders', None) else request.env['homepage.slider'].sudo().search([], order='sequence'))" t-as="slider">
                             <div class="item">
                               <a t-att-href="slider.link" t-att-title="slider.name">
                                 <img t-attf-src="/website/image/homepage.slider/{{slider.id}}/image" t-att-alt="slider.name" t-if="direction == 'ltr'"/>
@@ -57,7 +57,7 @@
               <section class="mt16 mb32">
                 <div class="container">
                   <div class="row">
-                    <t t-foreach="request.env['website'].get_homepage_horizontal_banner()" t-as="banner">
+                    <t t-foreach="(request.env['website'].get_homepage_horizontal_banner() if getattr(request.env['website'], 'get_homepage_horizontal_banner', None) else request.env['homepage.horizontal.banner'].sudo().search([], order='sequence'))" t-as="banner">
                       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="horizontal-banner">
                           <div class="bg-image">
@@ -99,7 +99,7 @@
                           <div class="container">
                             <div class="row">
                               <div class="col-md-12">
-                                <t t-foreach="request.env['website'].get_homepage_vertical_banner()" t-as="banner">
+                                <t t-foreach="(request.env['website'].get_homepage_vertical_banner() if getattr(request.env['website'], 'get_homepage_vertical_banner', None) else request.env['homepage.vertical.banner'].sudo().search([], limit=1))" t-as="banner">
                                   <a t-att-href="banner.link">
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -275,7 +275,7 @@
                         <div>
                           <div class="row">
                             <div class="col-md-12 homepage_banner_2">
-                              <t t-foreach="request.env['website'].get_homepage_horizontal_full_banner()" t-as="banner">
+                              <t t-foreach="(request.env['website'].get_homepage_horizontal_full_banner() if getattr(request.env['website'], 'get_homepage_horizontal_full_banner', None) else request.env['homepage.horizontal.full.banner'].sudo().search([], limit=1))" t-as="banner">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -292,7 +292,7 @@
                       <section class="s_text_image homepage_banner_2 mb16">
                         <div>
                           <div class="row">
-                            <t t-foreach="request.env['website'].get_homepage_horizontal_half_banner()" t-as="banner">
+                            <t t-foreach="(request.env['website'].get_homepage_horizontal_half_banner() if getattr(request.env['website'], 'get_homepage_horizontal_half_banner', None) else request.env['homepage.horizontal.half.banner'].sudo().search([], limit=2))" t-as="banner">
                               <div class="col-md-6">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.half.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
@@ -349,14 +349,11 @@
         </t>
       </field>
     </record>
-    <record id="grocery_homepage" model="request.env['website'].page">
+    <record id="grocery_homepage" model="website.page">
       <field name="url">/grocery_homepage</field>
       <field name="is_homepage" eval="True"></field>
       <field name="website_published">True</field>
       <field name="view_id" ref="grocery_homepage_view"/>
-    </record>
-    <record id="request.env['website'].default_website" model="website">
-      <field name="homepage_id" ref="grocery_homepage"/>
     </record>
 
     <template id="homepage_products_item" name="Homepage Products item">
