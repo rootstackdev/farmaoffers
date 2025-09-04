@@ -6,12 +6,12 @@
         <record id="homepage_categories_tree_view" model="ir.ui.view">
             <field name="name">homepage.categories.tree</field>
             <field name="model">homepage.categories</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Categories" editable="bottom">
+                <list string="Homepage Categories" editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="category_id"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_categories_action" model="ir.actions.act_window">
@@ -34,7 +34,7 @@
         <record id="homepage_slider_form_view" model="ir.ui.view">
             <field name="name">homepage.slider.form</field>
             <field name="model">homepage.slider</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Homepage Slider">
                     <sheet>
@@ -55,13 +55,13 @@
         <record id="homepage_slider_tree_view" model="ir.ui.view">
             <field name="name">homepage.slider.tree</field>
             <field name="model">homepage.slider</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Slider">
+                <list string="Homepage Slider">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="link"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_slider_action" model="ir.actions.act_window">
@@ -84,7 +84,7 @@
         <record id="homepage_horizontal_banner_form_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.banner.form</field>
             <field name="model">homepage.horizontal.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Homepage Horizontal Banner">
                     <sheet>
@@ -106,14 +106,14 @@
         <record id="homepage_horizontal_banner_tree_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.banner.tree</field>
             <field name="model">homepage.horizontal.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Horizontal Banner">
+                <list string="Homepage Horizontal Banner">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="sub_heading"/>
                     <field name="link"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_horizontal_banner_action" model="ir.actions.act_window">
@@ -136,12 +136,12 @@
         <record id="featured_product_tree_view" model="ir.ui.view">
             <field name="name">featured.product.tree</field>
             <field name="model">featured.product</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Featured Product" editable="bottom">
+                <list string="Featured Product" editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="product_tmpl_id"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_featured_product_action" model="ir.actions.act_window">
@@ -164,12 +164,12 @@
         <record id="bestseller_product_tree_view" model="ir.ui.view">
             <field name="name">bestseller.product.tree</field>
             <field name="model">bestseller.product</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Bestseller Product" editable="bottom">
+                <list string="Bestseller Product" editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="product_tmpl_id"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_bestseller_product_action" model="ir.actions.act_window">
@@ -191,12 +191,12 @@
         <record id="latest_product_tree_view" model="ir.ui.view">
             <field name="name">latest.product.tree</field>
             <field name="model">latest.product</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Latest Product" editable="bottom">
+                <list string="Latest Product" editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="product_tmpl_id"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_latest_product_action" model="ir.actions.act_window">
@@ -218,7 +218,7 @@
         <record id="homepage_horizontal_full_banner_form_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.full.banner.form</field>
             <field name="model">homepage.horizontal.full.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Homepage Banner">
                     <sheet>
@@ -239,12 +239,12 @@
         <record id="homepage_horizontal_full_banner_tree_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.full.banner.tree</field>
             <field name="model">homepage.horizontal.full.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Banner">
+                <list string="Homepage Banner">
                     <field name="name"/>
                     <field name="link"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_horizontal_full_banner_action" model="ir.actions.act_window">
@@ -267,7 +267,7 @@
         <record id="homepage_horizontal_half_banner_form_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.half.banner.form</field>
             <field name="model">homepage.horizontal.half.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Homepage Banner">
                     <sheet>
@@ -288,12 +288,12 @@
         <record id="homepage_horizontal_half_banner_tree_view" model="ir.ui.view">
             <field name="name">homepage.horizontal.half.banner.tree</field>
             <field name="model">homepage.horizontal.half.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Banner">
+                <list string="Homepage Banner">
                     <field name="name"/>
                     <field name="link"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_horizontal_half_banner_action" model="ir.actions.act_window">
@@ -316,7 +316,7 @@
         <record id="homepage_homepage_vertical_banner_form_view" model="ir.ui.view">
             <field name="name">homepage.vertical.banner.form</field>
             <field name="model">homepage.vertical.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Homepage Banner">
                     <sheet>
@@ -337,12 +337,12 @@
         <record id="homepage_homepage_vertical_banner_tree_view" model="ir.ui.view">
             <field name="name">homepage.vertical.banner.tree</field>
             <field name="model">homepage.vertical.banner</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Homepage Banner">
+                <list string="Homepage Banner">
                     <field name="name"/>
                     <field name="link"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_homepage_homepage_vertical_banner_action" model="ir.actions.act_window">
@@ -365,7 +365,7 @@
         <record id="customer_testimonial_form_view" model="ir.ui.view">
             <field name="name">customer.testimonial.form</field>
             <field name="model">customer.testimonial</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
                 <form string="Customer Testimonials">
                     <sheet>
@@ -383,13 +383,13 @@
         <record id="customer_testimonial_tree_view" model="ir.ui.view">
             <field name="name">customer.testimonial.tree</field>
             <field name="model">customer.testimonial</field>
-            <field name="field_parent" eval="False"/>
+            <!-- <field name="field_parent" eval="False"/> -->
             <field name="arch" type="xml">
-                <tree string="Customer Testimonials">
+                <list string="Customer Testimonials">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="review"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="menu_customer_testimonial_action" model="ir.actions.act_window">
