@@ -5,7 +5,7 @@
     'category': 'Accounting/Payment Acquirers',
     'sequence': 365,
     'summary': 'Yappy Acquirer: Paypal Implementation',
-    'version': '1.0',
+    'version': '18.0.0.1',
     'description': """Yappy Payment Acquirer""",
     'depends': ['payment'],
     'data': [

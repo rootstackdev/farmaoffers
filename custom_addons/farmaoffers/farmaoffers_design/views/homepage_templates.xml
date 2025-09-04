@@ -4,10 +4,10 @@
     <record id="farmaoffers_homepage_view" model="ir.ui.view">
       <field name="name">Farmaoffers Home</field>
       <field name="type">qweb</field>
-      <field name="key">website.farmaoffers_homepage</field>
+      <field name="key">request.env['website'].farmaoffers_homepage</field>
       <field name="arch" type="xml">
-        <t name="Home" t-name="website.farmaoffers_homepage">
-          <t t-call="website.layout">
+        <t name="Home" t-name="request.env['website'].farmaoffers_homepage">
+          <t t-call="request.env['website'].layout">
             <div id="wrap" class="oe_structure">
               <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', lang)]).direction"/>
               <section class="mt32">
@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                       <div class="home-slider">
                         <div class="owl-carousel">
-                          <t t-foreach="website.get_homepage_sliders()" t-as="slider">
+                          <t t-foreach="request.env['website'].get_homepage_sliders()" t-as="slider">
                             <div class="item">
                               <a t-att-href="slider.link" t-att-title="slider.name">
                                 <img t-attf-src="/website/image/homepage.slider/{{slider.id}}/image" t-att-alt="slider.name" t-if="direction == 'ltr'"/>
@@ -60,7 +60,7 @@
 
               <div class="clearfix"/>
               <div class="oe_structure"/>
-              
+
               <section class="mt16 mb16">
                 <div class="container">
                   <t t-call="farmaoffers_design.s_reviews"/>
@@ -88,14 +88,14 @@
       </field>
     </record>
 
-    <record id="farmaoffers_homepage" model="website.page">
+    <record id="farmaoffers_homepage" model="request.env['website'].page">
       <field name="name">Farmaoffers Home</field>
       <field name="website_published">True</field>
       <field name="url">/farmaoffers_homepage</field>
       <field name="view_id" ref="farmaoffers_homepage_view"/>
     </record>
 
-    <record id="website.default_website" model="website">
+    <record id="request.env['website'].default_website" model="website">
       <field name="homepage_id" ref="farmaoffers_homepage"/>
     </record>
 
@@ -131,10 +131,10 @@
             </h5>
             <div class="product_price">
               <b>
-                <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
-                <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}" />
+                <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/>
                 <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
-                <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                <span itemprop="priceCurrency" style="display:none;" t-esc="request.env['website'].currency_id.name" />
               </b>
             </div>
           </section>

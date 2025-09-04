@@ -4,10 +4,10 @@
   <record id="grocery_homepage_view" model="ir.ui.view">
     <field name="name">Grocery Home</field>
     <field name="type">qweb</field>
-    <field name="key">website.grocery_homepage</field>
+    <field name="key">request.env['website'].grocery_homepage</field>
     <field name="arch" type="xml">
-        <t name="Home" t-name="website.grocery_homepage">
-          <t t-call="website.layout">
+        <t name="Home" t-name="request.env['website'].grocery_homepage">
+          <t t-call="request.env['website'].layout">
             <t t-set="pageName" t-value="'homepage'"/>
             <div id="wrap" class="oe_structure">
               <t t-set="direction" t-value="request.env['res.lang'].search([('code', '=', lang)]).direction"/>
@@ -24,7 +24,7 @@
                           </div>
                           <div class="navbar-collapse sidebar-navbar-collapse collapse show">
                             <ul class="nav navbar-nav">
-                              <t t-foreach="website.get_homepage_categories()" t-as="category">
+                              <t t-foreach="request.env['website'].get_homepage_categories()" t-as="category">
                                 <li><a t-att-href="'/shop/category/' + slug(category)"><t t-esc="category.name"/></a></li>
                               </t>
                             </ul>
@@ -35,7 +35,7 @@
                     <div class="col-md-9">
                       <div class="home-slider">
                         <div class="owl-carousel">
-                          <t t-foreach="website.get_homepage_sliders()" t-as="slider">
+                          <t t-foreach="request.env['website'].get_homepage_sliders()" t-as="slider">
                             <div class="item">
                               <a t-att-href="slider.link" t-att-title="slider.name">
                                 <img t-attf-src="/website/image/homepage.slider/{{slider.id}}/image" t-att-alt="slider.name" t-if="direction == 'ltr'"/>
@@ -53,7 +53,7 @@
               <section class="mt16 mb32">
                 <div class="container">
                   <div class="row">
-                    <t t-foreach="website.get_homepage_horizontal_banner()" t-as="banner">
+                    <t t-foreach="request.env['website'].get_homepage_horizontal_banner()" t-as="banner">
                       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                         <div class="horizontal-banner">
                           <div class="bg-image">
@@ -89,7 +89,7 @@
                           <div class="container">
                             <div class="row">
                               <div class="col-md-12">
-                                <t t-foreach="website.get_homepage_vertical_banner()" t-as="banner">
+                                <t t-foreach="request.env['website'].get_homepage_vertical_banner()" t-as="banner">
                                   <a t-att-href="banner.link">
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                     <img class="img img-responsive" t-attf-src="/website/image/homepage.vertical.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -105,7 +105,7 @@
 
                         <section class="list-slider best-seller mb32">
                           <div class="block-title"><span>Best Sellers</span></div>
-                          <t t-set="products" t-value="website.get_bestseller_products()"/>
+                          <t t-set="products" t-value="request.env['website'].get_bestseller_products()"/>
                           <div class="owl-carousel">
                             <t t-foreach="range(0, len(products), 5)" t-as="step">
                               <div class="item">
@@ -120,9 +120,9 @@
                                       </a>
                                       <t t-set="combination_info" t-value="product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
                                       <div class="price product_price" style="white-space: nowrap;">
-                                        <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                        <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/>
                                         <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
-                                        <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                                        <span itemprop="priceCurrency" style="display:none;" t-esc="request.env['website'].currency_id.name" />
                                       </div>
 
                                       <t t-if="len(product.product_variant_ids) == 1">
@@ -147,7 +147,7 @@
                         <section class="list-slider review-slider mb32">
                           <div class="block-title"><span>Testimonials</span></div>
                           <div class="owl-carousel">
-                            <t t-foreach="website.get_testimonials()" t-as="testimonial">
+                            <t t-foreach="request.env['website'].get_testimonials()" t-as="testimonial">
                               <div class="item">
                                 <div class="reviewer-image">
                                   <img t-attf-src="/website/image/customer.testimonial/{{testimonial.id}}/image" alt="testimonial.id"/>
@@ -191,7 +191,7 @@
                         <div class="tab-content">
                           <div role="tabpanel" class="tab-pane" id="featured">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_featured_products()"/>
+                              <t t-set="products" t-value="request.env['website'].get_featured_products()"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -209,7 +209,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane" id="latest">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_latest_products()"/>
+                              <t t-set="products" t-value="request.env['website'].get_latest_products()"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -227,7 +227,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane show active" id="bestseller">
                             <div class="owl-carousel mt16">
-                              <t t-set="products" t-value="website.get_bestseller_products()"/>
+                              <t t-set="products" t-value="request.env['website'].get_bestseller_products()"/>
                               <t t-foreach="range(0, len(products), 2)" t-as="step">
                                 <div class="item col-md-12">
                                   <div class="row">
@@ -253,7 +253,7 @@
                         <div>
                           <div class="row">
                             <div class="col-md-12 homepage_banner_2">
-                              <t t-foreach="website.get_homepage_horizontal_full_banner()" t-as="banner">
+                              <t t-foreach="request.env['website'].get_homepage_horizontal_full_banner()" t-as="banner">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.full.banner/{{banner.id}}/rtl_image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'rtl'"/>
@@ -270,7 +270,7 @@
                       <section class="s_text_image homepage_banner_2 mb16">
                         <div>
                           <div class="row">
-                            <t t-foreach="website.get_homepage_horizontal_half_banner()" t-as="banner">
+                            <t t-foreach="request.env['website'].get_homepage_horizontal_half_banner()" t-as="banner">
                               <div class="col-md-6">
                                 <a t-att-href="banner.link">
                                   <img class="img img-responsive" t-attf-src="/website/image/homepage.horizontal.half.banner/{{banner.id}}/image" t-att-alt="banner.name" t-att-title="banner.name" t-if="direction == 'ltr'"/>
@@ -288,13 +288,13 @@
                       <div class="homepage-blogs mb32">
                         <div class="title">Latest Blog</div>
                         <div class="owl-carousel mt16">
-                          <t t-foreach="website.get_latest_blog_posts()" t-as="blog_post">
+                          <t t-foreach="request.env['website'].get_latest_blog_posts()" t-as="blog_post">
                             <div class="item col-md-12">
                               <div class="row">
                                 <div class="latest-posts-body">
                                   <div class="latest-posts-image">
                                     <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
-                                      <t t-set="img_path" t-value='website.get_cover_image(blog_post)'/>
+                                      <t t-set="img_path" t-value='request.env['website'].get_cover_image(blog_post)'/>
                                       <img t-att-src="img_path and len(img_path)> 2 and img_path[1:-1]" t-att-title="blog_post.name" t-att-alt="blog_post.name" class="img img-responsive"/>
                                     </a>
                                   </div>
@@ -325,13 +325,13 @@
         </t>
     </field>
   </record>
-  <record id="grocery_homepage" model="website.page">
+  <record id="grocery_homepage" model="request.env['website'].page">
     <field name="url">/grocery_homepage</field>
     <field name="is_homepage" eval="True"></field>
     <field name="website_published">True</field>
     <field name="view_id" ref="grocery_homepage_view"/>
   </record>
-  <record id="website.default_website" model="website">
+  <record id="request.env['website'].default_website" model="website">
     <field name="homepage_id" ref="grocery_homepage"/>
   </record>
 
@@ -365,10 +365,10 @@
           <h5><a itemprop="name" t-att-href="'/shop/product/%s' % slug(product)" t-att-content="product.name" t-field="product.name" /></h5>
           <div class="product_price">
             <b>
-              <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
-              <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+              <del t-attf-class="text-danger mr-2 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}" />
+              <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': request.env['website'].currency_id}"/>
               <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
-              <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+              <span itemprop="priceCurrency" style="display:none;" t-esc="request.env['website'].currency_id.name" />
             </b>
           </div>
         </section>

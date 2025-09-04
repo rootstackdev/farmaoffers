@@ -3,7 +3,7 @@
 {
     # Module information
     "name": "Multi Branch",
-    "version": "14.0.1.0.0",
+    "version": "18.0.0.1",
     "license": "LGPL-3",
     "category": "Extra Tools",
     "sequence": "1",

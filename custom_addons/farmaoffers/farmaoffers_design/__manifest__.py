@@ -11,16 +11,16 @@
     """,
 
     'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'website': "",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '14.0.12',
+    'category': 'Website',
+    'version': '18.0.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_sale', 'website_sale_delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'multi_branch', 'account'],
+    'depends': ['base', 'website', 'website_sale', 'delivery', 'theme_grocery', 'point_of_sale', 'pos_sale', 'sale', 'account'],
 
     # always loaded
     'data': [

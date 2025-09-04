@@ -277,7 +277,7 @@
                 <div class="d-flex">
                     <h3 class="text-uppercase">Categorías</h3>
                 </div>
-                
+
             </xpath>
             <xpath expr="//div[@id='wsale_products_categories_collapse']//ul//li//a[1]" position="replace">
                 <a t-att-href="keep('/shop', category=0)" t-attf-class="nav-link #{'' if category else 'active'} o_not_editable">Todos los productos</a>
@@ -785,7 +785,7 @@
             </xpath>
         </template>
 
-        <template id="cart_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale_delivery.cart_delivery">
+        <template id="cart_delivery_fo" name="Delivery Costs FO" inherit_id="delivery.cart_delivery">
             <xpath expr="//tr[@id='order_delivery']" position="replace">
             </xpath>
 
@@ -818,7 +818,7 @@
 
         </template>
 
-        <template id="payment_delivery_fo" name="Delivery Costs FO" inherit_id="website_sale_delivery.payment_delivery">
+        <template id="payment_delivery_fo" name="Delivery Costs FO" inherit_id="delivery.payment_delivery">
             <xpath expr="//div[@id='delivery_carrier']" position="replace">
             </xpath>
         </template>

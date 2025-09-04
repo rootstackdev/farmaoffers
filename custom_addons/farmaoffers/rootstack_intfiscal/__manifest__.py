@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Panamá - Facturación electrónica y fiscal',
-    'version': '14.0.3',
+    'version': '18.0.0.1',
     'summary': 'Rootstack Intfiscal Software integration',
     'author': 'Rootstack',
     'website': 'www.rootstack.com',
