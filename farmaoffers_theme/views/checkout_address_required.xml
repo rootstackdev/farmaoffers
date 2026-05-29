@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="checkout_address_state_required" inherit_id="website_sale.address" name="Require state on checkout address">
+    <xpath expr="//select[@name='state_id']" position="attributes">
+      <attribute name="t-att-required">'required' if country_states else None</attribute>
+    </xpath>
+  </template>
+</odoo>
