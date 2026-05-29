@@ -1,4 +1,5 @@
 import json
+import unicodedata
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -9,6 +10,11 @@ class FarmaoffersThemeCheckout(http.Controller):
     @http.route('/fo/branches', type='http', auth='public', website=True, csrf=False)
     def fo_branches(self, **kw):
         branches = request.env['multi.branch'].sudo().search([], order='name')
+        branches = branches.filtered(
+            lambda branch: 'chitr' not in unicodedata.normalize(
+                'NFKD', branch.name or ''
+            ).encode('ascii', 'ignore').decode('ascii').lower()
+        )
         payload = [{'id': b.id, 'name': b.name} for b in branches]
         return request.make_response(
             json.dumps(payload),
@@ -17,6 +23,12 @@ class FarmaoffersThemeCheckout(http.Controller):
 
 
 class FarmaoffersWebsiteSale(WebsiteSale):
+
+    def _get_mandatory_address_fields(self, country_sudo):
+        field_names = super()._get_mandatory_address_fields(country_sudo)
+        if country_sudo.state_ids:
+            field_names.add('state_id')
+        return field_names
 
     def _check_shipping_method(self, order_sudo):
         """En modo branch no se requiere método de envío."""
