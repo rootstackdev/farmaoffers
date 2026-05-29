@@ -73,7 +73,7 @@
             "farmaoffers_theme/static/src/scss/styles.scss",
             "farmaoffers_theme/static/src/snippets/t_owl_carousel/style.scss",
             "farmaoffers_theme/static/src/snippets/t_owl_carousel/000.js",
-            "farmaoffers_theme/static/src/js/checkout_address_state_required.js",
+            # "farmaoffers_theme/static/src/js/checkout_address_state_required.js",
             "farmaoffers_theme/static/src/js/checkout_pickup_toggle.js",
             "farmaoffers_theme/static/src/js/mobile_menu.js",
             "farmaoffers_theme/static/src/js/cart_total_sync.js",
