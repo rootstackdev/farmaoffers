@@ -10,8 +10,7 @@
 #################################################################################
 
 import logging
-from odoo import api, models, _
-from odoo.addons.payment import utils as payment_utils
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -34,11 +33,16 @@ class TxCybersource(models.Model):
         if provider_code != 'cybersource':
             return tx
 
-        reference = notification_data['processingValues']['reference']
-        tx = self.search([('reference', '=', reference), ('provider_code', '=', 'cybersource')])
+        reference = notification_data.get('reference')
+        if not reference:
+            reference = notification_data.get('processingValues', {}).get('reference')
+        tx = self.search(
+            [('reference', '=', reference), ('provider_code', '=', 'cybersource')],
+            limit=1,
+        )
         if not tx:
             raise ValidationError(
-                "Wire Transfer: " + _("No transaction found matching reference %s.", reference)
+                _("No se encontró una transacción de CyberSource con referencia %s.", reference)
             )
         return tx
 
@@ -55,15 +59,17 @@ class TxCybersource(models.Model):
         if self.provider_code != "cybersource":
             return
 
-        self._set_done()
-        if self.tokenize:
-            token = self.env['payment.token'].create({
-                'provider_id': self.provider_id.id,
-                'payment_details': payment_utils.build_token_name(payment_details_short=notification_data['cc_cvc']),
-                'partner_id': self.partner_id.id,
-                'provider_ref': 'fake provider reference',
-                'verified': True,
-            })
-            self.token_id = token.id
+        reason_code = notification_data.get('reason_code')
+        request_id = notification_data.get('request_id')
+        state_message = notification_data.get('reason')
+        if request_id:
+            self.provider_reference = request_id
+
+        if reason_code == 100:
+            self._set_done(state_message=state_message)
+        elif reason_code == 480:
+            self._set_pending(state_message=state_message)
+        else:
+            self._set_error(state_message or _("CyberSource rechazó la transacción."))
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -11,15 +11,17 @@
 
 import json
 import logging
-from odoo import http
+from odoo import _, http
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.exceptions import ValidationError
 from odoo.http import request
-from requests import get
 from suds.client import Client
 from suds.sudsobject import asdict
 from suds.wsse import Security, UsernameToken
 
 _logger = logging.getLogger(__name__)
+
+PANAMA_COUNTRY_CODE = 'PA'
 
 reason_code = {
     100: 'Successful transaction',
@@ -54,6 +56,8 @@ reason_code = {
     246: 'The capture or credit is not voidable because the capture or credit information has already been submitted to your processor. Or, you requested a void for type a of transaction that cannot be voided. This reason code applies only if you are processing a void through the API',
     247: 'You requested a credit for a capture that was previously voided. This reason code applies only if you are processing a void through the API',
     250: 'Error: The request was received, but there was a timeout at the payment processor',
+    480: 'The order is marked for review by Decision Manager',
+    481: 'The order was rejected by Decision Manager',
     520: 'The authorization request was approved by the issuing bank but declined by CyberSource based on your Smart Authorization settings',
     400: 'Soft Decline - Fraud score exceeds threshold.'
 }
@@ -99,41 +103,82 @@ class CyberSourceController(http.Controller):
         :param kwargs: all card and order details
         :return: Dict after successfully payment
         """
-        post = kwargs['processingValues']
+        post = kwargs.get('processingValues', {})
         if post.get('cc_number') and post.get('cc_holder_name') and post.get('cc_expiry') and post.get('cc_cvc'):
             payment_provider = request.env['payment.provider'].sudo().search(
-                [('id', '=', kwargs['processingValues'].get('provider_id'))])
-            payment_method_id = payment_provider.payment_method_ids
+                [('id', '=', post.get('provider_id')), ('code', '=', 'cybersource')],
+                limit=1,
+            )
             tx = request.env['payment.transaction'].sudo().search(
-                [('reference', '=', kwargs['processingValues'].get('reference')), ('provider_code', '=', 'cybersource')])
-            responseData = self.request_payment_status(kwargs['processingValues'])
-            data = json.loads(json.dumps(self.recursive_dict(responseData)))
-            reason = reason_code.get(data.get('reasonCode'), 'Invalid Data')
+                [
+                    ('reference', '=', post.get('reference')),
+                    ('provider_id', '=', payment_provider.id),
+                    ('provider_code', '=', 'cybersource'),
+                ],
+                limit=1,
+            )
+            if not payment_provider or not tx:
+                raise ValidationError(_("No se encontró una transacción válida de CyberSource."))
+
+            self._validate_transaction_country(tx)
+            response_data = self.request_payment_status(post, tx, payment_provider)
+            if not response_data:
+                raise ValidationError(
+                    _("CyberSource no devolvió una respuesta para la transacción.")
+                )
+
+            data = json.loads(json.dumps(self.recursive_dict(response_data)))
+            code = data.get('reasonCode')
+            try:
+                code = int(code)
+            except (TypeError, ValueError):
+                pass
+            reason = reason_code.get(code, 'Error de pago (código: {})'.format(code))
             data.update({'amount': tx.amount, 'id': tx.reference, 'reason': reason})
             request.session['reason'] = reason
-            if responseData:
-                if data.get('reasonCode') == 100 or data.get('reasonCode') == 480:
-                    token_id = request.env['payment.token'].sudo().create(
-                        {'partner_id': tx.partner_id.id, 'provider_id': payment_provider.id,
-                         'provider_ref': tx.reference, 'active': True,
-                         'payment_method_id': payment_method_id.id,
-                         'payment_details': 'XXXXXXXXXXXX%s - %s' % (kwargs['processingValues'].get('cc_number')[-4:],kwargs['processingValues'].get('cc_holder_name'))})
-                    request.session['requestID'] = data.get('requestID')
-                    transaction = request.env['payment.transaction'].sudo()._handle_notification_data('cybersource', kwargs)
-                    return {
-                        'result': True,
-                        '3d_secure': False,
-                        'id': token_id.id,
-                        'short_name': token_id.provider_ref,
-                        'verified': True,
-                    }
-                else:
-                    code = data.get('reasonCode')
-                    msg = reason_code.get(code) or 'Error de pago (código: {})'.format(code)
-                    raise Warning(msg)
+            request_id = data.get('requestID')
+            request.session['requestID'] = request_id
+            transaction = request.env['payment.transaction'].sudo()._handle_notification_data(
+                'cybersource',
+                {
+                    'reference': tx.reference,
+                    'reason_code': code,
+                    'request_id': request_id,
+                    'reason': reason,
+                },
+            )
+
+            token = request.env['payment.token']
+            if (
+                code == 100
+                and tx.tokenize
+                and payment_provider.allow_tokenization
+            ):
+                token = request.env['payment.token'].sudo().create({
+                    'partner_id': tx.partner_id.id,
+                    'provider_id': payment_provider.id,
+                    'provider_ref': request_id or tx.reference,
+                    'active': True,
+                    'payment_method_id': tx.payment_method_id.id,
+                    'payment_details': 'XXXXXXXXXXXX%s - %s' % (
+                        post.get('cc_number')[-4:],
+                        post.get('cc_holder_name'),
+                    ),
+                })
+                transaction.token_id = token.id
+
+            return {
+                'result': code == 100,
+                '3d_secure': False,
+                'id': token.id if token else False,
+                'short_name': token.provider_ref if token else False,
+                'verified': code == 100,
+                'state': transaction.state,
+                'reason': reason,
+            }
 
         else:
-            raise Warning('Please Enter valid card details')
+            raise ValidationError(_("Ingrese datos de tarjeta válidos."))
 
     @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
@@ -150,15 +195,20 @@ class CyberSourceController(http.Controller):
         else:
             return request.redirect('/shop')
 
-    def request_payment_status(self, post):
+    def _validate_transaction_country(self, tx):
+        order = tx.sale_order_ids[:1]
+        shipping_partner = order.partner_shipping_id if order else tx.partner_id
+        if shipping_partner.country_id.code != PANAMA_COUNTRY_CODE:
+            raise ValidationError(
+                _("CyberSource solo está disponible para pedidos con entrega en Panamá.")
+            )
+
+    def request_payment_status(self, post, tx, payment_provider):
         '''
         Method checks card details and create response from cybersource
         :param post: Dict of order and card details
         :return: response from the cybersource
         '''
-        tx = request.env['payment.transaction'].sudo().search(
-            [('reference', '=', post.get('reference')), ('provider_code', '=', 'cybersource')])
-        payment_provider = request.env['payment.provider'].sudo().search([('id', '=', post.get('provider_id'))])
         if payment_provider.state == 'enabled':
             # Production link for India
             # https://ics2wsa.in.ic3.com/commerce/1.x/transactionProcessor/CyberSourceTransaction_1.191.wsdl
@@ -175,31 +225,38 @@ class CyberSourceController(http.Controller):
         self.client.set_options(wsse=security)
         data = {}
         data['merchantID'] = self.merchant_id
-        data['merchantReferenceCode'] = self.merchant_id
+        data['merchantReferenceCode'] = tx.reference
         data['purchaseTotals'] = self.client.factory.create('ns0:PurchaseTotals')
         data['purchaseTotals'].currency = tx.currency_id.name
         data['purchaseTotals'].grandTotalAmount = tx.amount
         data['pos'] = self.client.factory.create('ns0:pos')
+
+        order = tx.sale_order_ids[:1]
+        billing_partner = order.partner_invoice_id if order else tx.partner_id
+        shipping_partner = order.partner_shipping_id if order else tx.partner_id
+
         data['billTo'] = self.client.factory.create('ns0:BillTo')
-        data['billTo'].email = tx.partner_id.email
-        data['billTo'].firstName = tx.partner_id.name
-        data['billTo'].lastName = tx.partner_id.name
-        data['billTo'].street1 = tx.partner_id.street
-        data['billTo'].street2 = tx.partner_id.street2 or None
-        data['billTo'].city = tx.partner_id.city
-        data['billTo'].state = tx.partner_id.state_id.code
-        data['billTo'].postalCode = tx.partner_id.zip
-        data['billTo'].country = tx.partner_id.country_id.code
-        data['billTo'].ipAddress = get('https://api.ipify.org').text
+        data['billTo'].email = billing_partner.email
+        data['billTo'].firstName = billing_partner.name
+        data['billTo'].lastName = billing_partner.name
+        data['billTo'].street1 = billing_partner.street
+        data['billTo'].street2 = billing_partner.street2 or None
+        data['billTo'].city = billing_partner.city
+        data['billTo'].state = billing_partner.state_id.code or None
+        data['billTo'].postalCode = billing_partner.zip
+        data['billTo'].country = billing_partner.country_id.code
+        if request.httprequest.remote_addr:
+            data['billTo'].ipAddress = request.httprequest.remote_addr
+
         data['shipTo'] = self.client.factory.create('ns0:shipTo')
-        data['shipTo'].firstName = tx.partner_id.name
-        data['shipTo'].lastName = tx.partner_id.name
-        data['shipTo'].street1 = tx.partner_id.street
-        data['shipTo'].street2 = tx.partner_id.street2 or None
-        data['shipTo'].city = tx.partner_id.city
-        data['shipTo'].state = tx.partner_id.state_id.code
-        data['shipTo'].country = tx.partner_id.country_id.code
-        data['shipTo'].postalCode = tx.partner_id.zip
+        data['shipTo'].firstName = shipping_partner.name
+        data['shipTo'].lastName = shipping_partner.name
+        data['shipTo'].street1 = shipping_partner.street
+        data['shipTo'].street2 = shipping_partner.street2 or None
+        data['shipTo'].city = shipping_partner.city
+        data['shipTo'].state = shipping_partner.state_id.code or None
+        data['shipTo'].country = shipping_partner.country_id.code
+        data['shipTo'].postalCode = shipping_partner.zip
         data['apPaymentType'] = 'EPS'
         data['card'] = self.client.factory.create('ns0:Card')
         data['card'].accountNumber = int(post.get('cc_number'))
@@ -212,7 +269,11 @@ class CyberSourceController(http.Controller):
         data['ccCaptureService']._run = 'true'
         try:
             resp = self.client.service.runTransaction(**data)
-        except Exception as e:
+        except Exception:
+            _logger.exception(
+                "CyberSource request failed for transaction %s",
+                tx.reference,
+            )
             resp = None
         return resp
 
