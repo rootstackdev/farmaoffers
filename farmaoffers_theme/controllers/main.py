@@ -1,8 +1,69 @@
 import json
+import re
 import unicodedata
-from odoo import http
+from odoo import _, http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+
+
+# Corregimientos of the Distrito de Panamá (Ciudad de Panamá), plus common aliases
+# used by customers when filling in the "city" field of their delivery address.
+PANAMA_CITY_LOCALITIES = frozenset({
+    'panama', 'panama city', 'ciudad de panama', 'distrito de panama',
+    '24 de diciembre', 'alcalde diaz', 'ancon', 'bella vista', 'betania',
+    'bethania', 'caimitillo', 'calidonia', 'la exposicion', 'chilibre',
+    'curundu', 'don bosco', 'el chorrillo', 'ernesto cordoba campos',
+    'juan diaz', 'las cumbres', 'las garzas', 'las mananitas', 'pacora',
+    'parque lefevre', 'pedregal', 'pueblo nuevo', 'rio abajo', 'san felipe',
+    'san francisco', 'san martin', 'santa ana', 'tocumen',
+})
+PANAMA_PROVINCE_NAMES = frozenset({'panama', 'provincia de panama'})
+
+
+def _normalize_text(value):
+    if not value:
+        return ''
+    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+    return value.strip().lower()
+
+
+def _locality_candidates(city):
+    """Yield the normalized city plus each of its comma/slash/dash-separated segments.
+
+    Lets "Panama, Panama" or "Panama City, Panama" match on a segment (e.g. "panama")
+    without falling back to raw substring search, which could false-match an unrelated
+    locality that merely contains one of our allowed words (e.g. "Panamania").
+    """
+    normalized = _normalize_text(city)
+    if not normalized:
+        return
+    yield normalized
+    for segment in re.split(r'[,/-]+', normalized):
+        segment = segment.strip()
+        if segment:
+            yield segment
+
+
+def is_panama_city_address(country, state, city):
+    """Whether the given country/state/city correspond to Ciudad de Panamá."""
+    if not country or country.code != 'PA':
+        return False
+    if state and _normalize_text(state.name) not in PANAMA_PROVINCE_NAMES:
+        return False
+    return any(candidate in PANAMA_CITY_LOCALITIES for candidate in _locality_candidates(city))
+
+
+def _panama_geo_restriction_applies(order_sudo, address_type, use_delivery_as_billing):
+    """Whether the Ciudad de Panamá restriction applies to this address submission.
+
+    It applies to delivery addresses (or billing addresses used as delivery), except
+    when the order is in "Retirar en sucursal" (pickup) mode.
+    """
+    is_pickup_order = bool(order_sudo and order_sudo.shipping_mode == 'branch')
+    applies_to_delivery = (
+        address_type == 'delivery' or (address_type == 'billing' and use_delivery_as_billing)
+    )
+    return applies_to_delivery and not is_pickup_order
 
 
 class FarmaoffersThemeCheckout(http.Controller):
@@ -35,6 +96,71 @@ class FarmaoffersWebsiteSale(WebsiteSale):
         if order_sudo and order_sudo.shipping_mode == 'branch':
             return None  # sin redirección, dejar pasar
         return super()._check_shipping_method(order_sudo)
+
+    def _check_delivery_address(self, partner_sudo):
+        """Bloquear direcciones de entrega fuera de Ciudad de Panamá.
+
+        No aplica cuando el pedido está en modo "Retirar en sucursal", ya que en
+        ese caso no se realiza ningún envío a la dirección del cliente.
+        """
+        if not super()._check_delivery_address(partner_sudo):
+            return False
+
+        order_sudo = request.website.sale_get_order()
+        if order_sudo and order_sudo.shipping_mode == 'branch':
+            return True
+
+        return is_panama_city_address(
+            partner_sudo.country_id, partner_sudo.state_id, partner_sudo.city
+        )
+
+    def _validate_address_values(
+        self, address_values, partner_sudo, address_type, use_delivery_as_billing,
+        required_fields, is_main_address, **kwargs
+    ):
+        invalid_fields, missing_fields, error_messages = super()._validate_address_values(
+            address_values, partner_sudo, address_type, use_delivery_as_billing,
+            required_fields, is_main_address, **kwargs
+        )
+
+        order_sudo = request.website.sale_get_order()
+
+        if _panama_geo_restriction_applies(order_sudo, address_type, use_delivery_as_billing):
+            country_id = address_values.get('country_id', partner_sudo.country_id.id)
+            state_id = address_values.get('state_id', partner_sudo.state_id.id)
+            city = address_values.get('city', partner_sudo.city)
+
+            country = request.env['res.country'].browse(country_id) if country_id else None
+            state = request.env['res.country.state'].browse(state_id) if state_id else None
+
+            if not is_panama_city_address(country, state, city):
+                invalid_fields.add('city')
+                error_messages.append(_(
+                    "Por el momento solo realizamos entregas a domicilio dentro de Ciudad de"
+                    " Panamá. Verifica el país, la provincia y la ciudad de tu dirección, o"
+                    " continúa y elige \"Retirar en sucursal\" en el siguiente paso."
+                ))
+
+        return invalid_fields, missing_fields, error_messages
+
+    def _prepare_address_form_values(
+        self, order_sudo, partner_sudo, address_type, use_delivery_as_billing, callback='', **kwargs
+    ):
+        values = super()._prepare_address_form_values(
+            order_sudo, partner_sudo, address_type, use_delivery_as_billing, callback=callback,
+            **kwargs
+        )
+
+        if _panama_geo_restriction_applies(order_sudo, address_type, use_delivery_as_billing):
+            panama = request.env['res.country'].search([('code', '=', 'PA')], limit=1)
+            if panama:
+                values['countries'] = panama
+                if values.get('country') != panama:
+                    values['country'] = panama
+                    values['country_states'] = panama.state_ids
+                    values['state_id'] = False
+
+        return values
 
     @http.route()
     def shop_checkout(self, try_skip_step=None, **query_params):
@@ -114,7 +240,7 @@ class FarmaoffersAllOffers(http.Controller):
     @http.route('/all-offers', auth='public', type='http', methods=['GET'], website=True, sitemap=False)
     def allOffers(self, **kw):
         return http.request.render('farmaoffers_theme.all-offers')
-    
+
 class FarmaoffersCartHeaderController(http.Controller):
 
     @http.route('/shop/cart/header_info', type='json', auth='public', website=True)

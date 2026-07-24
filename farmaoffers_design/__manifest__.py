@@ -17,6 +17,7 @@
         "auth_signup",
         "point_of_sale",
         "theme_grocery",
+        "multi_branch",
     ],
     "data": [
         "security/ir.model.access.csv",
